@@ -11,17 +11,27 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:networkSecurityConfig="@xml/network_security_config"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:networkSecurityConfig="@xml/network_security_config"
         android:theme="@style/Theme.AddressProject">
-        <activity android:name=".MainActivity">
+        <activity android:name=".AddressUpdateActivity"></activity>
+        <activity android:name=".AddressInsertActivity" />
+        <activity android:name=".AddressDetailActivity" />
+        <activity android:name=".GroupDetailActivity" />
+        <activity android:name=".GroupManageActivity" />
+        <activity android:name=".FindID_PWActivity" />
+        <activity android:name=".SignupActivity" />
+        <activity android:name=".MainActivity" />
+
+        <activity android:name=".LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
     </application>
 
 </manifest>
