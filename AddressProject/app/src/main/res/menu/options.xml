@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+
+    <item
+        android:title="설정"
+        android:id="@+id/Osettings"
+        />
+    <item
+        android:title="그룹"
+        android:id="@+id/Ogroup"
+        />
+    <item
+        android:title="로그아웃"
+        android:id="@+id/Ologout"
+        />
+</menu>

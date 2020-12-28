@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".Activity.FindActivity">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="2"
+        android:layout_weight="1.5"
+        android:gravity="center|bottom"
+        >
+        <Button
+            android:id="@+id/btn_Fid"
+            android:layout_weight="1"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="아이디 찾기"
+            />
+
+        <Button
+            android:id="@+id/btn_Fpw"
+            android:layout_weight="1"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="30dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="비밀번호 찾기"
+            />
+    </LinearLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0px"
+        android:layout_weight="5"
+        android:layout_margin="20dp"
+        >
+
+        <LinearLayout
+            android:id="@+id/view_Fid"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_gravity="center"
+            android:visibility="visible"
+            android:gravity="center"
+            >
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="이름"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:layout_marginTop="10dp"
+                />
+            <EditText
+                android:id="@+id/etFI_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="이름"
+                />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="연락처"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:layout_marginTop="10dp"
+                />
+            <EditText
+                android:id="@+id/etFI_phone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="연락처 ('-'제외)"
+                />
+
+            <Button
+                android:layout_marginTop="20dp"
+                android:id="@+id/btn_FindId"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="아이디 찾기"
+                android:background="@drawable/button_round"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/view_Fpw"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:visibility="invisible"
+            >
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="아이디"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:layout_marginTop="10dp"
+                />
+            <EditText
+                android:id="@+id/etFP_id"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="아이디"
+                />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="이름"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:layout_marginTop="10dp"
+                />
+            <EditText
+                android:id="@+id/etFP_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="이름"
+                />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="이메일"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:layout_marginTop="10dp"
+                />
+            <EditText
+                android:id="@+id/etFP_email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="이메일"
+                />
+
+            <Button
+                android:layout_marginTop="20dp"
+                android:id="@+id/btn_FindPw"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="비밀번호 찾기"
+                android:background="@drawable/button_round"
+                />
+
+
+        </LinearLayout>
+
+
+    </FrameLayout>
+
+
+
+</LinearLayout>

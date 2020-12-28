@@ -25,14 +25,75 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f182a391-3080-4806-a8d4-a488d87e3aa8" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/android/addressproject/Activity/FindActivity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/android/addressproject/Activity/GroupActivity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/android/addressproject/Activity/InsertActivity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/android/addressproject/Activity/LoginActivity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/android/addressproject/Activity/MainActivity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/android/addressproject/Activity/SelectActivity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/android/addressproject/Activity/SettingsActivity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/android/addressproject/Activity/SignupActivity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/android/addressproject/Activity/SplashActivity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/android/addressproject/Activity/UpdateActivity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/android/addressproject/Adapter/UserAdapter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/android/addressproject/Bean/User.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/background.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/button_round.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ic_address_background.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ic_baseline_settings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_find.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_group.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_select.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_splash.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/custom_toast.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/settings_activity.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/menu/menu.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/menu/options.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/values-night/ic_address_background.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/values/arrays.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/values/styles.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/xml/root_preferences.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_activity_activity_1_0_0_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_arch_core_core_runtime_2_0_0_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_fragment_fragment_1_1_0_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_lifecycle_lifecycle_common_2_1_0.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_lifecycle_lifecycle_livedata_core_2_0_0_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_lifecycle_lifecycle_runtime_2_1_0_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_lifecycle_lifecycle_viewmodel_2_1_0_aar.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/app/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/android/addressproject/AddressDetailActivity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/android/addressproject/AddressInsertActivity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/android/addressproject/AddressUpdateActivity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/android/addressproject/CUDNetworkTask.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/android/addressproject/FindID_PWActivity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/android/addressproject/GroupDetailActivity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/android/addressproject/GroupManageActivity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/android/addressproject/LoginActivity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/android/addressproject/MainActivity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/android/addressproject/NetworkTask.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/android/addressproject/NetworkTask/NetworkTask.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/android/addressproject/SignupActivity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_address_detail.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_address_insert.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_address_update.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_find_i_d__p_w.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_insert.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_group_detail.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_update.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_group_manage.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_login.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_login.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_signup.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_signup.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/colors.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/colors.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[Pixel_2_API_30]" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[R3CM80C1RVT]" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
@@ -51,15 +112,27 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/app/src/main/res/layout" />
+    <property name="project.structure.last.edited" value="Dependencies" />
+    <property name="project.structure.proportion" value="0.17" />
+    <property name="project.structure.side.proportion" value="0.2" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.android.addressproject.Activity" />
+    </key>
+    <key name="android.template.1131727420">
+      <recent name="com.android.addressproject.Activity" />
+    </key>
     <key name="android.template.1769453226">
       <recent name="com.android.addressproject" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/app/src/main/java/com/android/addressproject" />
-      <recent name="$PROJECT_DIR$/app/src/main/res/xml" />
+      <recent name="$PROJECT_DIR$/app/src/main/res/layout" />
+      <recent name="$PROJECT_DIR$/app/src/main/res/values" />
+      <recent name="$PROJECT_DIR$/app/src/main/res/drawable" />
+      <recent name="$PROJECT_DIR$/app/src/main/res" />
+      <recent name="$PROJECT_DIR$/app/src/main/res/values-night" />
     </key>
   </component>
   <component name="RunManager">
@@ -70,7 +143,7 @@
         <option name="Android.Gradle.BeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="app" type="AndroidRunConfigurationType" factoryName="Android App">
+    <configuration name="app" type="AndroidRunConfigurationType" factoryName="Android App" activateToolWindowBeforeRun="false">
       <module name="AddressProject.app" />
       <option name="DEPLOY" value="true" />
       <option name="DEPLOY_APK_FROM_BUNDLE" value="false" />
@@ -151,5 +224,59 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="490" y="171" key="#PSD" timestamp="1609133139405">
+      <screen x="0" y="23" width="1440" height="819" />
+    </state>
+    <state x="490" y="171" key="#PSD/0.23.1440.819@0.23.1440.819" timestamp="1609133139405" />
+    <state x="770" y="186" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1609134992145">
+      <screen x="0" y="23" width="1440" height="819" />
+    </state>
+    <state x="770" y="186" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.23.1440.819@0.23.1440.819" timestamp="1609134992145" />
+    <state width="1145" height="211" key="GridCell.Tab.0.bottom" timestamp="1609134950332">
+      <screen x="0" y="23" width="1440" height="819" />
+    </state>
+    <state width="1145" height="211" key="GridCell.Tab.0.bottom/0.23.1440.819@0.23.1440.819" timestamp="1609134950332" />
+    <state width="1145" height="211" key="GridCell.Tab.0.center" timestamp="1609134950331">
+      <screen x="0" y="23" width="1440" height="819" />
+    </state>
+    <state width="1145" height="211" key="GridCell.Tab.0.center/0.23.1440.819@0.23.1440.819" timestamp="1609134950331" />
+    <state width="1145" height="211" key="GridCell.Tab.0.left" timestamp="1609134950330">
+      <screen x="0" y="23" width="1440" height="819" />
+    </state>
+    <state width="1145" height="211" key="GridCell.Tab.0.left/0.23.1440.819@0.23.1440.819" timestamp="1609134950330" />
+    <state width="1145" height="211" key="GridCell.Tab.0.right" timestamp="1609134950331">
+      <screen x="0" y="23" width="1440" height="819" />
+    </state>
+    <state width="1145" height="211" key="GridCell.Tab.0.right/0.23.1440.819@0.23.1440.819" timestamp="1609134950331" />
+    <state width="1145" height="211" key="GridCell.Tab.1.bottom" timestamp="1609134239458">
+      <screen x="0" y="23" width="1440" height="819" />
+    </state>
+    <state width="1145" height="211" key="GridCell.Tab.1.bottom/0.23.1440.819@0.23.1440.819" timestamp="1609134239458" />
+    <state width="1145" height="211" key="GridCell.Tab.1.center" timestamp="1609134239458">
+      <screen x="0" y="23" width="1440" height="819" />
+    </state>
+    <state width="1145" height="211" key="GridCell.Tab.1.center/0.23.1440.819@0.23.1440.819" timestamp="1609134239458" />
+    <state width="1145" height="211" key="GridCell.Tab.1.left" timestamp="1609134239458">
+      <screen x="0" y="23" width="1440" height="819" />
+    </state>
+    <state width="1145" height="211" key="GridCell.Tab.1.left/0.23.1440.819@0.23.1440.819" timestamp="1609134239458" />
+    <state width="1145" height="211" key="GridCell.Tab.1.right" timestamp="1609134239458">
+      <screen x="0" y="23" width="1440" height="819" />
+    </state>
+    <state width="1145" height="211" key="GridCell.Tab.1.right/0.23.1440.819@0.23.1440.819" timestamp="1609134239458" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
+          <url>file://$PROJECT_DIR$/app/src/main/java/com/android/addressproject/Activity/SettingsActivity.java</url>
+          <line>45</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
