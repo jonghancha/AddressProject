@@ -1,5 +1,6 @@
 package com.android.addressproject.Activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -7,6 +8,7 @@ import android.preference.PreferenceManager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -17,6 +19,11 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class MainActivity extends AppCompatActivity {
 
+
+    // 20.12.29 세미 추가 --------------------------------------
+    TextView main_id, main_pw;
+    Context mContext;
+    // -------------------------------------------------------
 
 
     // 마지막으로 뒤로가기 버튼을 눌렀던 시간 저장
@@ -32,6 +39,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+
+
         setThemeOfApp();
 
         setContentView(R.layout.activity_main);
@@ -42,6 +51,24 @@ public class MainActivity extends AppCompatActivity {
         floatingActionButton.setOnClickListener(new FABClickListener());
 
 
+        // 20.12.29 세미 로그인 결과 테스트 --------------------------------------
+
+        mContext = this;
+
+//        main_id = findViewById(R.id.main_id);
+//        main_pw = findViewById(R.id.main_pw);
+//
+//        Intent intent = getIntent();
+//        String userid = intent.getStringExtra("id");
+//        String userpw = intent.getStringExtra("pw");
+//        String pfid = com.android.addressproject.Activity.PreferenceManager.getString(mContext,"id");
+//        String pfpw = com.android.addressproject.Activity.PreferenceManager.getString(mContext, "pw");
+//
+//        main_id.setText("userid : " + userid + " / pfID :  " + pfid);
+//        main_pw.setText("userpw : " + userpw + " / pfPW :  " + pfpw);
+
+
+        //--------------------------------------------------------------------------------
 
     }
 
