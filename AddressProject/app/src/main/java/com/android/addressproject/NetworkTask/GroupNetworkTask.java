@@ -6,7 +6,7 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 
-import com.android.addressproject.Bean.User;
+import com.android.addressproject.Bean.Address;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -19,19 +19,19 @@ import java.net.URL;
 import java.util.ArrayList;
 
 //
-public class NetworkTask extends AsyncTask<Integer, String, Object> {
+public class GroupNetworkTask extends AsyncTask<Integer, String, Object> {
 
-    final static String TAG = "NetworkTask";
+    final static String TAG = "GroupNetworkTask";
     Context context = null;
     String mAddr = null;
     ProgressDialog progressDialog = null;
-    ArrayList<User> members; // 불러와야 해서
+    ArrayList<Address> addresses; // 불러와야 해서
 
     //Constructor
-    public NetworkTask(Context context, String mAddr) {
+    public GroupNetworkTask(Context context, String mAddr) {
         this.context = context;
         this.mAddr = mAddr;
-        this.members = new ArrayList<User>();    //직접 침 : 이유는 꼭 쓸 필요성은 없지만 arraylist를 사용하기 위해 생성해줌
+        this.addresses = new ArrayList<Address>();    //직접 침 : 이유는 꼭 쓸 필요성은 없지만 arraylist를 사용하기 위해 생성해줌
         Log.v(TAG, "Start : "+ mAddr);
     }
 
@@ -89,7 +89,7 @@ public class NetworkTask extends AsyncTask<Integer, String, Object> {
                 e.printStackTrace();
             }
         }
-        return members;
+        return addresses;
     }
 
     @Override
@@ -116,24 +116,35 @@ public class NetworkTask extends AsyncTask<Integer, String, Object> {
         try {
             // 배열이기 때문에 [] 이렇게 시작
             JSONObject jsonObject = new JSONObject(s);
-            JSONArray jsonArray = new JSONArray(jsonObject.getString("user_info"));
+            JSONArray jsonArray = new JSONArray(jsonObject.getString("group_info"));
             // object 가 읽어줌
             //students_info는 테이블 명이라고 생각할 것
 
-            members.clear();    // 하는 이유는
+            addresses.clear();    // 하는 이유는
+
+
 
             // object 별로 불러오는 것 {이 안의 묶음}
             for (int i=0; i<jsonArray.length(); i++){
                 JSONObject jsonObject1 = (JSONObject) jsonArray.get(i);
-                String userNo = jsonObject1.getString("userNo");
-                String userId = jsonObject1.getString("userId");
-                String userPw = jsonObject1.getString("userPw");
-                String userPhone = jsonObject1.getString("userPhone");
-                String userEmail = jsonObject1.getString("userEmail");
+//                int addressNo = jsonObject1.getInt("addressNo");
+//                String user_userId = jsonObject1.getString("user_userId");
+//                String addressName = jsonObject1.getString("addressName");
+//                String addressPhone = jsonObject1.getString("addressPhone");
+                String addressGroup = jsonObject1.getString("addressGroup");
+//                String addressEmail = jsonObject1.getString("addressEmail");
+//                String addressText = jsonObject1.getString("addressText");
+//                String addressBirth = jsonObject1.getString("addressBirth");
+//                String addressImage = jsonObject1.getString("addressImage");
+//                String addressStar = jsonObject1.getString("addressStar");
 
-                // 빈에 넣는 과정 (User.java) 와 비교 해볼것
-                User user = new User(userNo, userId, userPw, userPhone, userEmail);
-                members.add(user);
+
+                Address address = new Address(addressGroup);
+
+                // 빈에 넣는 과정 (Address.java) 와 비교 해볼것
+//                Address address = new Address(addressNo, user_userId, addressName, addressPhone, addressGroup,
+//                        addressEmail, addressText, addressBirth, addressImage, addressStar);
+                addresses.add(address);
             }
 
 
