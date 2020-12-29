@@ -47,7 +47,6 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:weightSum="2"
         android:orientation="horizontal"
         android:layout_marginTop="5dp"
         >
@@ -62,15 +61,15 @@
             android:text="  아이디/비밀번호 찾기"
             />
 
-        <TextView
+        <CheckBox
+            android:id="@+id/cb_atlogin"
             android:gravity="right"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_weight="1"
             android:textStyle="bold"
             android:textColor="@color/black"
             android:textSize="16dp"
-            android:text="자동 로그인"
+            android:text="자동로그인"
             />
 
     </LinearLayout>

@@ -1,10 +1,13 @@
 package com.android.addressproject.Activity;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -21,9 +24,16 @@ import com.google.android.material.tabs.TabLayout;
 
 public class MainActivity extends AppCompatActivity {
 
+    // 20.12.29 지은 추가 --------------------------------------
     private TabLayout tabLayout;
     private ViewPager viewPager;
     private ViewPageAdapter viewPageAdapter;
+    // -------------------------------------------------------
+
+    // 20.12.29 세미 추가 --------------------------------------
+    TextView main_id, main_pw;
+    Context mContext;
+    // -------------------------------------------------------
 
     // 마지막으로 뒤로가기 버튼을 눌렀던 시간 저장
     private long backKeyPressedTime = 0;
@@ -38,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
         setThemeOfApp();
         setContentView(R.layout.activity_main);
 
-
+        // 20.12.29 지은 viewPager + tablayout 추가 --------------------------------------
         tabLayout = (TabLayout) findViewById(R.id.tabLayout_id);
         viewPager = (ViewPager) findViewById(R.id.pageViewId);
 
@@ -51,7 +61,28 @@ public class MainActivity extends AppCompatActivity {
 
         viewPager.setAdapter(viewPageAdapter);
         tabLayout.setupWithViewPager(viewPager);
+        // -------------------------------------------------------
 
+        // 20.12.29 세미 로그인 결과 테스트 --------------------------------------
+
+        mContext = this;
+
+//        main_id = findViewById(R.id.main_id);
+//        main_pw = findViewById(R.id.main_pw);
+//
+//        Intent intent = getIntent();
+//        String userid = intent.getStringExtra("id");
+//        String userpw = intent.getStringExtra("pw");
+//        String pfid = com.android.addressproject.Activity.PreferenceManager.getString(mContext,"id");
+//        String pfpw = com.android.addressproject.Activity.PreferenceManager.getString(mContext, "pw");
+//
+//        main_id.setText("userid : " + userid + " / pfID :  " + pfid);
+//        main_pw.setText("userpw : " + userpw + " / pfPW :  " + pfpw);
+
+
+        //--------------------------------------------------------------------------------
+
+        // 20.12.29 지은 tablayout 추가 --------------------------------------
         tabLayout.getTabAt(0).setIcon(R.drawable.ic_call_black_24dp);
         tabLayout.getTabAt(1).setIcon(R.drawable.ic_group_black_24dp);
         tabLayout.getTabAt(2).setIcon(R.drawable.ic_favorite_black_24dp);
@@ -60,6 +91,7 @@ public class MainActivity extends AppCompatActivity {
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.setElevation(0);
+        //--------------------------------------------------------------------------------
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -70,15 +102,32 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (item.getItemId() == R.id.Osettings)
-        {
-            Intent intentS = new Intent(this, SettingsActivity.class);
-            startActivityForResult(intentS, SETTINGS_CODE);
-        }
-        if (item.getItemId() == R.id.Ogroup)
-        {
-            Intent intentG = new Intent(this, GroupMainActivity.class);
-            startActivityForResult(intentG, SETTINGS_CODE);
+        switch (item.getItemId()){
+            case R.id.Osettings:
+                Intent intentS = new Intent(this, SettingsActivity.class);
+                startActivityForResult(intentS, SETTINGS_CODE);
+                break;
+            case R.id.Ogroup:
+                Intent intentG = new Intent(this, GroupMainActivity.class);
+                startActivity(intentG);
+                break;
+            case R.id.Ologout:
+
+
+                // 20.12.29 세미 로그아웃 추가 ---------------------------------------------------------
+
+                // 로그아웃 버튼을 누르면 SharedPreferences에 저장된 값들을 로그아웃 버튼을 누르면 삭제하기 위해
+                Intent intent = new Intent(this, LoginActivity.class);
+                startActivity(intent);
+                SharedPreferences auto = getSharedPreferences("auto", Activity.MODE_PRIVATE);
+                SharedPreferences.Editor editor = auto.edit();
+                // editor.clear()는 auto에 들어있는 모든 정보를 기기에서 지웁니다.
+                editor.clear();
+                editor.commit();
+                Toast.makeText(this, "로그아웃", Toast.LENGTH_SHORT).show();
+                break;
+
+                // 끝 ------------------------------------------------------------------------------
         }
         return super.onOptionsItemSelected(item);
     }
