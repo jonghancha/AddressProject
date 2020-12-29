@@ -15,7 +15,7 @@ import com.android.addressproject.R;
 
 import java.util.ArrayList;
 
-
+// 20.12.29 지은 추가
 public class GroupAdapter extends RecyclerView.Adapter<GroupAdapter.MyViewHolder> {
 
     Context mContext = null;

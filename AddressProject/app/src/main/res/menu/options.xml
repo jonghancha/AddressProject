@@ -9,10 +9,6 @@
         android:id="@+id/Osettings"
         />
     <item
-        android:title="그룹"
-        android:id="@+id/Ogroup"
-        />
-    <item
         android:title="로그아웃"
         android:id="@+id/Ologout"
         />

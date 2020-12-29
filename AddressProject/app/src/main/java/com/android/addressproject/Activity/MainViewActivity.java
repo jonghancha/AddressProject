@@ -20,6 +20,7 @@ public class MainViewActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mainview);
+        setTitle("상세보기 화면");
 
         // intent 를 받아온다.
         Intent intent = getIntent();

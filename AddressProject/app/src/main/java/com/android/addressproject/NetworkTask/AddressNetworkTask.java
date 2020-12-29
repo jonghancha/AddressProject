@@ -18,7 +18,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 
-//
+// 20.12.29 지은 추가
 public class AddressNetworkTask extends AsyncTask<Integer, String, Object> {
 
     final static String TAG = "NetworkTask";

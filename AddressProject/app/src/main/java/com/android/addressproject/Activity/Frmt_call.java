@@ -22,10 +22,11 @@ import com.android.addressproject.R;
 
 import java.util.ArrayList;
 
+// 20.12.29 지은 추가
 public class Frmt_call extends Fragment {
 
     View v;
-    final static String TAG = "FrmtContact";
+    final static String TAG = "Frmt_call";
     String urlAddr = null;
     ArrayList<Address> addresses;
     AddressAdapter adapter;

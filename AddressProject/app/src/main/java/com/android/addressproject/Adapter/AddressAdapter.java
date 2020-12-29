@@ -18,7 +18,7 @@ import com.android.addressproject.R;
 
 import java.util.ArrayList;
 
-
+// 20.12.29 지은 추가
 public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.MyViewHolder> {
 
     Context mContext = null;

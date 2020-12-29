@@ -1,5 +1,6 @@
 package com.android.addressproject.Bean;
 
+// 20.12.29 지은 추가
 public class Address {
     //Field (필드) = Bean 에선 이렇게 한줄 씩 쓰는 것이 좋다.
     int addressNo;

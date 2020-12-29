@@ -19,10 +19,8 @@
         <activity android:name=".Activity.MainActivity" />
         <activity android:name=".Activity.FindActivity" />
         <activity android:name=".Activity.LoginActivity" />
-        <activity android:name=".Activity.SelectActivity" />
         <activity android:name=".Activity.UpdateActivity" />
         <activity android:name=".Activity.InsertActivity" />
-        <activity android:name=".Activity.GroupMainActivity"/>
         <activity android:name=".Activity.MainViewActivity"/>
         <activity
             android:name=".Activity.SettingsActivity"

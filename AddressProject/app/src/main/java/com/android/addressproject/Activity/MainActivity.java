@@ -107,10 +107,6 @@ public class MainActivity extends AppCompatActivity {
                 Intent intentS = new Intent(this, SettingsActivity.class);
                 startActivityForResult(intentS, SETTINGS_CODE);
                 break;
-            case R.id.Ogroup:
-                Intent intentG = new Intent(this, GroupMainActivity.class);
-                startActivity(intentG);
-                break;
             case R.id.Ologout:
 
 

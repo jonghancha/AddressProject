@@ -8,7 +8,7 @@ import androidx.fragment.app.FragmentPagerAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
-
+// 20.12.29 지은 추가
 public class ViewPageAdapter extends FragmentPagerAdapter {
 
 

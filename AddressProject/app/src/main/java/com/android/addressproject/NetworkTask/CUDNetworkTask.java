@@ -8,7 +8,7 @@ import android.util.Log;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-// 리턴 값이 필요없어서 void 그전에ㅐ는 오브젝트를 리턴해와서 Object
+// 리턴 값이 필요없어서 void 그전에는 오브젝트를 리턴해와서 Object
 public class CUDNetworkTask extends AsyncTask<Integer, String, Void> {
 
     final static String TAG = "CUDNetworkTask";
