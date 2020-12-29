@@ -1,5 +1,6 @@
 package com.android.addressproject.Activity;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -91,9 +92,22 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intentG);
                 break;
             case R.id.Ologout:
-                Intent intentL = new Intent(this, LoginActivity.class);
-                startActivity(intentL);
+
+
+                // 20.12.29 세미 로그아웃 추가 ---------------------------------------------------------
+
+                // 로그아웃 버튼을 누르면 SharedPreferences에 저장된 값들을 로그아웃 버튼을 누르면 삭제하기 위해
+                Intent intent = new Intent(this, LoginActivity.class);
+                startActivity(intent);
+                SharedPreferences auto = getSharedPreferences("auto", Activity.MODE_PRIVATE);
+                SharedPreferences.Editor editor = auto.edit();
+                // editor.clear()는 auto에 들어있는 모든 정보를 기기에서 지웁니다.
+                editor.clear();
+                editor.commit();
+                Toast.makeText(this, "로그아웃", Toast.LENGTH_SHORT).show();
                 break;
+
+                // 끝 ------------------------------------------------------------------------------
         }
 
         return super.onOptionsItemSelected(item);
