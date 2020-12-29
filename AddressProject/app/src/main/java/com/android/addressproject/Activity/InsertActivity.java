@@ -10,6 +10,8 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -18,6 +20,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.android.addressproject.R;
 
 public class InsertActivity extends AppCompatActivity {
+
+    // 20.12.29 세미 추가 ------------------------------
+
+    ArrayAdapter<CharSequence> adapter = null;
+    Spinner spinner = null;
+
+    // 끝 --------------------------------------------
 
 
     private static final int SETTINGS_CODE = 234;
@@ -36,6 +45,17 @@ public class InsertActivity extends AppCompatActivity {
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
+
+
+        // 20.12.29 세미 추가 ------------------------------
+
+        adapter = ArrayAdapter.createFromResource(this, R.array.groupname, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        spinner = findViewById(R.id.insert_groupname);
+        spinner.setAdapter(adapter);
+
+        // 끝 --------------------------------------------
 
 
     }//--onCreate 끝
