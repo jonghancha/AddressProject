@@ -75,7 +75,6 @@
         android:text="연락처"
         android:textStyle="bold"
         android:textColor="@color/black"
-        android:layout_marginTop="10dp"
         />
     <EditText
         android:id="@+id/etS_phone"
