@@ -70,6 +70,7 @@ public class Frmt_call extends Fragment {
 
         urlAddr = "http://192.168.200.178:8080/test/addressSelectWithCondition.jsp?user_userId=" + checkId +"&search_text=";
 
+
         //----------
         search_EdT = v.findViewById(R.id.search_ET);
         search_EdT.addTextChangedListener(textChangedListener);
