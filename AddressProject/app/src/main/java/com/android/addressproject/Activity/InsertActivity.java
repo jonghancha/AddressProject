@@ -316,7 +316,7 @@ public class InsertActivity extends AppCompatActivity {
     private void DoActualRequest(File file) {
         OkHttpClient client = new OkHttpClient();
         Log.v(TAG,"Called actual request");
-        String url = "http://192.168.0.54:8080/test/insertMultipart.jsp"; // 본인 아이피 주소 써야합니다. localhost or 127.0.0.1 은 안먹음
+        String url = "http://192.168.43.220:8080/test/insertMultipart.jsp"; // 본인 아이피 주소 써야합니다. localhost or 127.0.0.1 은 안먹음
 
         RequestBody body = new MultipartBody.Builder()
                 .setType(MultipartBody.FORM)

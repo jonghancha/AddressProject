@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.android.addressproject.Adapter.AddressAdapter;
 import com.android.addressproject.Bean.Address;
 import com.android.addressproject.NetworkTask.AddressNetworkTask;
+import com.android.addressproject.NetworkTask.FavNetworkTask;
 import com.android.addressproject.R;
 
 import java.util.ArrayList;
@@ -74,7 +75,7 @@ public class Frmt_fav extends Fragment {
     //메소드
     private void connectGetData(){
         try {
-            AddressNetworkTask networkTask = new AddressNetworkTask(getActivity(), urlAddr); //onCreate 에 urlAddr 이 선언된것이 들어옴
+            FavNetworkTask networkTask = new FavNetworkTask(getActivity(), urlAddr); //onCreate 에 urlAddr 이 선언된것이 들어옴
 
             // object 에서 선언은 되었지만 실질적으로 리턴한것은 arraylist
             Object object = networkTask.execute().get();
