@@ -49,10 +49,13 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.MyViewHo
         holder.name.setText(data.get(position).getAddressName());
         holder.phone_num.setText(data.get(position).getAddressPhone());
 
+
+
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), MainViewActivity.class);
+                intent.putExtra("userid", data.get(position).getUser_userId());
                 intent.putExtra("code", data.get(position).getAddressNo());
                 intent.putExtra("name", data.get(position).getAddressName());
                 intent.putExtra("phone", data.get(position).getAddressPhone());
@@ -82,6 +85,7 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.MyViewHo
 
         public MyViewHolder(View itemView) {
             super(itemView);
+
 
             img = itemView.findViewById(R.id.img_view);
             name = itemView.findViewById(R.id.name_contact);

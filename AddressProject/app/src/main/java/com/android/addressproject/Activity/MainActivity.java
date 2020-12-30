@@ -14,6 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.preference.PreferenceManager;
 import androidx.viewpager.widget.ViewPager;
 
@@ -23,6 +24,7 @@ import com.android.addressproject.R;
 import com.google.android.material.tabs.TabLayout;
 
 public class MainActivity extends AppCompatActivity {
+
 
     // 20.12.29 지은 추가 --------------------------------------
     private TabLayout tabLayout;
@@ -47,6 +49,26 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setThemeOfApp();
         setContentView(R.layout.activity_main);
+
+        //20.12.30 지은 실험
+        Intent intent = getIntent();
+        String id = intent.getExtras().getString("id");
+        TextView mainid = findViewById(R.id.mainid);
+        mainid.setText(id);
+
+//        //fragment 생성
+        Fragment frmt_call = new Frmt_call();
+//
+//        //번들객체 생성, text값 저장
+        Bundle bundle = new Bundle();
+        bundle.putString("id",id.toString());
+//
+//        //fragment1로 번들 전달
+        frmt_call.setArguments(bundle);
+//
+
+
+        //-----------------
 
         // 20.12.29 지은 viewPager + tablayout 추가 --------------------------------------
         tabLayout = (TabLayout) findViewById(R.id.tabLayout_id);
@@ -73,8 +95,8 @@ public class MainActivity extends AppCompatActivity {
 //        Intent intent = getIntent();
 //        String userid = intent.getStringExtra("id");
 //        String userpw = intent.getStringExtra("pw");
-//        String pfid = com.android.addressproject.Activity.PreferenceManager.getString(mContext,"id");
-//        String pfpw = com.android.addressproject.Activity.PreferenceManager.getString(mContext, "pw");
+//        String pfid = PreferenceManager.getString(mContext,"id");
+//        String pfpw = PreferenceManager.getString(mContext, "pw");
 //
 //        main_id.setText("userid : " + userid + " / pfID :  " + pfid);
 //        main_pw.setText("userpw : " + userpw + " / pfPW :  " + pfpw);
