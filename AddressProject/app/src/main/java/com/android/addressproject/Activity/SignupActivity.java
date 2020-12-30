@@ -2,6 +2,8 @@ package com.android.addressproject.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputFilter;
@@ -70,9 +72,24 @@ public class SignupActivity extends AppCompatActivity { //이강후
                     int count = connectIdCheckData();
 
                     if(count==1){
-                        Toast.makeText(SignupActivity.this, "중복된 아이디입니다.", Toast.LENGTH_SHORT).show();
+
+                        new AlertDialog.Builder(SignupActivity.this)
+                                .setTitle("[이미 사용중인 ID입니다!!]")
+                                .setMessage("사용할 수 없으니 다른 아이디를 입력해주세요.")
+                                .setPositiveButton("확인", null)
+                                .show();
+
+                      //  Toast.makeText(SignupActivity.this, "중복된 아이디입니다.", Toast.LENGTH_SHORT).show();
+
                     }else if(count==0){
-                        Toast.makeText(SignupActivity.this, "사용가능한 아이디입니다.", Toast.LENGTH_SHORT).show();
+
+                        new AlertDialog.Builder(SignupActivity.this)
+                                .setTitle("[사용가능한 ID입니다!!]")
+                                .setMessage("계속 진행해주세요.")
+                                .setPositiveButton("확인", null)
+                                .show();
+
+                     //   Toast.makeText(SignupActivity.this, "사용가능한 아이디입니다.", Toast.LENGTH_SHORT).show();
                     }
                     break;
 
@@ -97,16 +114,41 @@ public class SignupActivity extends AppCompatActivity { //이강후
                     String count2 = connectInsertData();
                     Log.v(TAG,"count2 = " + count2);
 
+
                     if(count2.equals("1")){
-                        Toast.makeText(SignupActivity.this, "회원가입을 하였습니다!!", Toast.LENGTH_SHORT).show();
+
+                        new AlertDialog.Builder(SignupActivity.this)
+                                .setTitle("[회원가입을 축하드립니다!!!]")
+                                .setMessage("로그인 페이지에서 로그인해주세요.")
+                                .setPositiveButton("이동", mClick)
+                                .show();
+
                     }else{
-                        Toast.makeText(SignupActivity.this, "중복된 아이디입니. 다른 아이디를 사용하세요!!", Toast.LENGTH_SHORT).show();
+
+                        new AlertDialog.Builder(SignupActivity.this)
+                                .setTitle("[이미 사용중인 ID입니다!!]")
+                                .setMessage("사용할 수 없으니 다른 아이디를 입력해주세요.")
+                                .setPositiveButton("확인", null)
+                                .show();
+
+                      //  Toast.makeText(SignupActivity.this, "중복된 아이디입니. 다른 아이디를 사용하세요!!", Toast.LENGTH_SHORT).show();
+
                     }
                     ///////////////////////////////////////////////////////////////////////////////////////
                     break;
             }
         }
     };
+    DialogInterface.OnClickListener mClick = new DialogInterface.OnClickListener() {
+        @Override
+        public void onClick(DialogInterface dialog, int which) {
+
+            Intent intentIP = new Intent(SignupActivity.this, LoginActivity.class);
+            startActivity(intentIP);
+
+        }
+    };
+
 
     private int connectIdCheckData(){
         int result = 0;

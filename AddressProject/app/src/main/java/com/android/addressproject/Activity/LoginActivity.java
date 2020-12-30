@@ -124,8 +124,8 @@ public class LoginActivity extends AppCompatActivity {
                         case 0: //아이디와 패스워드 일치하는 정보 없음.
 
                             new AlertDialog.Builder(LoginActivity.this)
-                                    .setTitle("[아이디와 패스워드가 일치하지 않습니다.]")
-                                    .setMessage("- 아이디와 패스워드가 맞는 다시 확인하세요. -")
+                                    .setTitle("[ID와 Password 불일치!!]")
+                                    .setMessage("- ID와 Password가 맞는지 다시 확인해주세요. -")
                                     .setPositiveButton("확인", null)
                                     .show();
                             break;
@@ -138,10 +138,11 @@ public class LoginActivity extends AppCompatActivity {
                             PreferenceManager.setString(mContext,"id", edId.getText().toString()); //id라는 키값으로 저장
                             PreferenceManager.setString(mContext, "pw", edPw.getText().toString()); // pw라는 키값으로 저장
 
-                            Intent intent2 = new Intent(LoginActivity.this, MainActivity.class);
+                            Intent intentLogIn = new Intent(LoginActivity.this, MainActivity.class);
                             // 저장한 키 값으로 저장된 아이디와 암호를 불러와 String 값에 저장
                             String checkId = PreferenceManager.getString(mContext,"id");
                             String checkPw = PreferenceManager.getString(mContext,"pw");
+                            startActivity(intentLogIn);
 
                             break;
 
