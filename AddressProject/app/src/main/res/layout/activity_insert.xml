@@ -87,6 +87,23 @@
             android:layout_weight="1"
             android:hint="이메일"
             />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="메모"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:layout_marginTop="10dp"
+            />
+
+        <EditText
+            android:id="@+id/insert_text"
+            android:layout_width="match_parent"
+            android:layout_height="0px"
+            android:textSize="20dp"
+            android:layout_weight="1"
+            android:hint="메모"
+            />
 
 
         <LinearLayout
@@ -136,6 +153,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="25px"
                 android:gravity="center"
+                android:hint="터치해주세요"
                 />
 
             <!--            <EditText-->
