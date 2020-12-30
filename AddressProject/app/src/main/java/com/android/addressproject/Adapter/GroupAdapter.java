@@ -2,14 +2,18 @@ package com.android.addressproject.Adapter;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
 
 
+import com.android.addressproject.Activity.GroupViewActivity;
+import com.android.addressproject.Activity.MainViewActivity;
 import com.android.addressproject.Bean.Address;
 import com.android.addressproject.R;
 
@@ -45,6 +49,31 @@ public class GroupAdapter extends RecyclerView.Adapter<GroupAdapter.MyViewHolder
         //
         holder.group.setText(data.get(position).getAddressGroup());
 
+        holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                return false;
+            }
+        });
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), GroupViewActivity.class);
+                intent.putExtra("name", data.get(position).getAddressName());
+                intent.putExtra("phone", data.get(position).getAddressPhone());
+                intent.putExtra("group", data.get(position).getAddressGroup());
+                intent.putExtra("email", data.get(position).getAddressEmail());
+                intent.putExtra("text", data.get(position).getAddressText());
+                intent.putExtra("birth", data.get(position).getAddressBirth());
+                intent.putExtra("img", data.get(position).getAddressImage());
+                intent.putExtra("star", data.get(position).getAddressStar());
+
+                v.getContext().startActivity(intent);
+                Toast.makeText(v.getContext(), "그룹 페이지 이동", Toast.LENGTH_SHORT).show();
+
+            }
+        });
 
     }
 
