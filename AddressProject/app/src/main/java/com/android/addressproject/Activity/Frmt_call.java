@@ -1,5 +1,6 @@
 package com.android.addressproject.Activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -19,6 +20,7 @@ import com.android.addressproject.Adapter.AddressAdapter;
 import com.android.addressproject.Bean.Address;
 import com.android.addressproject.NetworkTask.AddressNetworkTask;
 import com.android.addressproject.R;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 
@@ -52,9 +54,14 @@ public class Frmt_call extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setAdapter(viewAdapter);
 
+
+        FloatingActionButton floatingActionButton = v.findViewById(R.id.floatingActionButton);
+        floatingActionButton.setOnClickListener(floatCliclListener);
+
+
         //조건 검색 .jsp 를 따로 만들어서 연결시켜줌.
         //search_text가 검색되는 단어(번호도 가능)
-        urlAddr = "http://192.168.43.220:8080/test/addressSelectWithCondition.jsp?search_text=";
+        urlAddr = "http://192.168.0.125:8080/test/addressSelectWithCondition.jsp?search_text=";
         search_EdT = v.findViewById(R.id.search_ET);
         search_EdT.addTextChangedListener(textChangedListener);
         return v;
@@ -102,7 +109,7 @@ public class Frmt_call extends Fragment {
 
 
             // 텍스트가 변할때마다 urlAddr에 덮어씌워져서 그때마다 그냥 초기화시켜줌
-            urlAddr = "http://192.168.43.220:8080/test/addressSelectWithCondition.jsp?search_text=";
+            urlAddr = "http://192.168.0.125:8080/test/addressSelectWithCondition.jsp?search_text=";
 
             String searchText = search_EdT.getText().toString().trim();
             urlAddr = urlAddr + searchText;
@@ -124,5 +131,13 @@ public class Frmt_call extends Fragment {
         connectGetData();
         Log.v(TAG, "onResume()");
     }
+
+    View.OnClickListener floatCliclListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Intent intent = new Intent(getActivity(), InsertActivity.class);
+            startActivity(intent);
+        }
+    };
 
 }
