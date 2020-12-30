@@ -102,7 +102,7 @@ public class FindActivity extends AppCompatActivity {
             String tempFIname = etFI_name.getText().toString();
             String tempFIphone = etFI_phone.getText().toString();
 
-        urlAddr = "http://192.168.0.125:8080/test/findidUser.jsp?find_name=" + tempFIname + "&find_phone=" + tempFIphone;
+        urlAddr = "http://192.168.200.178:8080/test/findidUser.jsp?find_name=" + tempFIname + "&find_phone=" + tempFIphone;
         }
     };
 

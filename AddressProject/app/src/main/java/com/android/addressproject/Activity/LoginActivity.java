@@ -1,10 +1,13 @@
 package com.android.addressproject.Activity;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Rect;
 import android.os.Bundle;
+import android.text.InputFilter;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -15,10 +18,25 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.android.addressproject.NetworkTask.NetworkTask_LogIn;
 import com.android.addressproject.R;
 
 public class LoginActivity extends AppCompatActivity {
 
+    //로그인 field - 이강후.
+
+    final static String TAG = "LoginActivity";
+    String urlAddr3 = null;
+    String urlAddr4 = null;
+
+    String sid, spw, sname, sphone, semail;
+    EditText edName, edPhone, edEmail;
+
+    String macIP = "192.168.219.104";
+    //----------------------------------------------------------------------------------
+
+    //세미
     Button btnLogin, btnSignup;
     EditText edId, edPw;
     TextView findIP;
@@ -28,10 +46,10 @@ public class LoginActivity extends AppCompatActivity {
     Context mContext;
     // ---------------------------------------------------------------------------------
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_login);
 
         findIP = findViewById(R.id.tv_findIP);
@@ -51,6 +69,10 @@ public class LoginActivity extends AppCompatActivity {
         edId = findViewById(R.id.edit_Lid);
         edPw = findViewById(R.id.edit_Lpw);
         cb_atlogin = findViewById(R.id.cb_atlogin);
+
+        //입력시 자릿수 제한.
+        edId.setFilters(new InputFilter[]{ new InputFilter.LengthFilter(15)});
+        edPw.setFilters(new InputFilter[]{ new InputFilter.LengthFilter(15)});
 
         // 체크박스 클릭시
         cb_atlogin.setOnClickListener(cbClickListener);
@@ -73,6 +95,7 @@ public class LoginActivity extends AppCompatActivity {
     View.OnClickListener LonClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
+
             switch (v.getId()){
                     // id, pw 찾기 클릭 시
                 case R.id.tv_findIP:
@@ -83,17 +106,50 @@ public class LoginActivity extends AppCompatActivity {
                     // 로그인 버튼 클릭 시
                 case R.id.btn_Login:
 
+                    //로그인 메인기능- 이강후-------------------------------------------------------------
+                    sid = edId.getText().toString();
+                    spw = edPw.getText().toString();
 
-                    // 20.12.29 세미 자동로그인 추가 ----------------------------------------------------
+                    Intent intent = getIntent();
+                    urlAddr3 = "http://" + macIP + ":8080/test/loginCheck.jsp?";
+                    urlAddr3 = urlAddr3 + "id=" + sid + "&pw=" + spw;
+/*                    urlAddr4 = "http://" + macIP + ":8080/test/loginGetData.jsp?";
+                    urlAddr4 = urlAddr4 + "id=" + sid + "&pw=" + spw;*/
+                    //이 방식 대신 PreferenceManager.setString방식을 쓰기로 함.
 
-                    // id, pw 입력창에서 텍스트를 가져와  PrefrerenceManager에 저장함
-                    PreferenceManager.setString(mContext,"id", edId.getText().toString()); //id라는 키값으로 저장
-                    PreferenceManager.setString(mContext, "pw", edPw.getText().toString()); // pw라는 키값으로 저장
+                    int count = connectLoginCheckData();
+                    Log.v(TAG,"count =" +count);
 
-                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                    // 저장한 키 값으로 저장된 아이디와 암호를 불러와 String 값에 저장
-                    String checkId = PreferenceManager.getString(mContext,"id");
-                    String checkPw = PreferenceManager.getString(mContext,"pw");
+                    switch (count){
+                        case 0: //아이디와 패스워드 일치하는 정보 없음.
+
+                            new AlertDialog.Builder(LoginActivity.this)
+                                    .setTitle("[아이디와 패스워드가 일치하지 않습니다.]")
+                                    .setMessage("- 아이디와 패스워드가 맞는 다시 확인하세요. -")
+                                    .setPositiveButton("확인", null)
+                                    .show();
+                            break;
+
+                        case 1: //아이디와 패스워드 일치.
+
+                            // 20.12.29 세미 자동로그인 추가 ----------------------------------------------------
+
+                            // id, pw 입력창에서 텍스트를 가져와  PrefrerenceManager에 저장함
+                            PreferenceManager.setString(mContext,"id", edId.getText().toString()); //id라는 키값으로 저장
+                            PreferenceManager.setString(mContext, "pw", edPw.getText().toString()); // pw라는 키값으로 저장
+
+                            Intent intent2 = new Intent(LoginActivity.this, MainActivity.class);
+                            // 저장한 키 값으로 저장된 아이디와 암호를 불러와 String 값에 저장
+                            String checkId = PreferenceManager.getString(mContext,"id");
+                            String checkPw = PreferenceManager.getString(mContext,"pw");
+
+                            break;
+
+                    }
+                    //---------------------------------------------------------------------------------------
+
+                    String checkId = null;
+                    String checkPw = null;
 
                     // 아이디와 패스워가 비어있는 경우 체크, TextUtils는 안드로이드에서 제공하는 null체크 함수
                     if(TextUtils.isEmpty(checkId) || TextUtils.isEmpty(checkPw)){
@@ -135,6 +191,39 @@ public class LoginActivity extends AppCompatActivity {
         }
     };
 
+    private int connectLoginCheckData(){   //이강후---------------------------------------------------
+        int result = 0;
+
+        try{
+
+            /////////////////////////////////////////////////////////////////////////////////////
+            // Description:
+            //  - NetworkTask를 한곳에서 관리하기 위해 기존 CUDNetworkTask 삭제
+            //  - NetworkTask의 생성자 추가 : where
+            //
+            ///////////////////////////////////////////////////////////////////////////////////////
+
+            //NetworkTask 생성자.
+            NetworkTask_LogIn networkTask_LogIn3 = new NetworkTask_LogIn(LoginActivity.this, urlAddr3, "loginCheck");
+            ///////////////////////////////////////////////////////////////////////////////////////
+
+            ///////////////////////////////////////////////////////////////////////////////////////
+            // Description:
+            //  - 입력 결과 값을 받기 위해 Object로 return
+            //
+            ///////////////////////////////////////////////////////////////////////////////////////
+            Object obj = networkTask_LogIn3.execute().get();
+            result = (int) obj;
+            Log.v(TAG,"connectLoginCheckData :"+result);
+            ///////////////////////////////////////////////////////////////////////////////////////
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return result;
+
+    }
+    //----------------------------------------------------------------------------------------------
 
     //editText 외의 화면 클릭시 키보드 숨기기
     @Override

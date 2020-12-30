@@ -41,18 +41,21 @@
         android:orientation="horizontal"
         >
         <Button
+            android:id="@+id/mainview_call"
             android:text="전화"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
             />
         <Button
+            android:id="@+id/mainview_sms"
             android:text="문자"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
         />
         <Button
+            android:id="@+id/mainview_email"
             android:text="이메일"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -139,6 +142,7 @@
         android:weightSum="2"
         >
         <Button
+            android:id="@+id/mainview_btndel"
             android:text="삭제"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

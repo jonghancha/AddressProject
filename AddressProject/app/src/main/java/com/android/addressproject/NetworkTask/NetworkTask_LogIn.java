@@ -19,6 +19,8 @@ import java.util.ArrayList;
 
 public class NetworkTask_LogIn extends AsyncTask<Integer, String, Object> {
 
+    //이강후
+
     final static  String TAG = "NetworkTask_LogIn";
     Context context = null;
     String mAddr = null;

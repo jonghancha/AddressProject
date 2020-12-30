@@ -14,7 +14,7 @@ import android.widget.Toast;
 import com.android.addressproject.NetworkTask.NetworkTask_LogIn;
 import com.android.addressproject.R;
 
-public class SignupActivity extends AppCompatActivity {
+public class SignupActivity extends AppCompatActivity { //이강후
 
     final static String TAG = "SignupActivity";
     String urlAddr = null;
@@ -23,7 +23,7 @@ public class SignupActivity extends AppCompatActivity {
     String sid, spw, sname, sphone, semail;
     EditText Eid, Epw, Ename, Ephone, Eemail;
     Button btn_IdCheck, btn_SignUp;
-    String macIP = "192.168.2.8";
+    String macIP = "192.168.219.104";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

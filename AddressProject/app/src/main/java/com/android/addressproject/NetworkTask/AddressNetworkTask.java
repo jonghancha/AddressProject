@@ -126,7 +126,10 @@ public class AddressNetworkTask extends AsyncTask<Integer, String, Object> {
             // object 별로 불러오는 것 {이 안의 묶음}
             for (int i=0; i<jsonArray.length(); i++){
                 JSONObject jsonObject1 = (JSONObject) jsonArray.get(i);
-//                int addressNo = jsonObject1.getInt("addressNo");
+
+
+                // 20.12.30 세미 변경 ------------
+                int addressNo = jsonObject1.getInt("addressNo");
 
                 String addressName = jsonObject1.getString("addressName");
                 String addressPhone = jsonObject1.getString("addressPhone");
@@ -138,8 +141,12 @@ public class AddressNetworkTask extends AsyncTask<Integer, String, Object> {
                 String addressStar = jsonObject1.getString("addressStar");
 
 
-                Address address = new Address(addressName, addressPhone, addressGroup,
-                        addressEmail, addressText, addressBirth, addressImage, addressStar);
+
+                // 20.12.30 세미 변경 ------------
+//                Address address = new Address(addressName, addressPhone, addressGroup,
+//                        addressEmail, addressText, addressBirth, addressImage, addressStar,addressNo);
+                Address address = new Address(addressName,addressPhone,addressGroup,
+                        addressEmail,addressText,addressBirth,addressImage,addressStar,addressNo);
 
                 addresses.add(address);
             }

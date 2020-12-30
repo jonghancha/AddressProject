@@ -64,6 +64,9 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.MyViewHo
                 intent.putExtra("img", data.get(position).getAddressImage());
                 intent.putExtra("star", data.get(position).getAddressStar());
 
+                // 20.12.30 세미 추가 -------------
+                intent.putExtra("no", data.get(position).getAddressNo());
+
                 v.getContext().startActivity(intent);
                 Toast.makeText(v.getContext(), "상세보기 페이지 이동", Toast.LENGTH_SHORT).show();
 
