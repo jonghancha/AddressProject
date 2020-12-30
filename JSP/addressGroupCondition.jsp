@@ -6,13 +6,14 @@
 <%
     request.setCharacterEncoding("utf-8");
     String searchText = request.getParameter("search_text");
+	String user_userId = request.getParameter("user_userId");
 
 	String url_mysql = "jdbc:mysql://localhost/AddressBook?serverTimezone=Asia/Seoul&characterEncoding=utf8&useSSL=false";
  	String id_mysql = "root";
  	String pw_mysql = "qwer1234";
     String WhereDefault = "select addressGroup from address";
-    String Condition = " where addressGroup LIKE '%" + searchText + "%'"
-			+ " GROUP BY addressGroup";
+    String Condition = " where addressGroup LIKE '%" + searchText + "%' AND " +
+			"user_userId = '" + user_userId + "' GROUP BY addressGroup";
     int count = 0;
     
     try {

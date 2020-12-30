@@ -6,6 +6,7 @@
 <%
     request.setCharacterEncoding("utf-8");
     String searchText = request.getParameter("search_text");
+String user_userId = request.getParameter("user_userId");
 
 	String url_mysql = "jdbc:mysql://localhost/AddressBook?serverTimezone=Asia/Seoul&characterEncoding=utf8&useSSL=false";
  	String id_mysql = "root";
@@ -15,7 +16,7 @@
                         "addressPhone LIKE '%" + searchText + "%' OR " +
                         "addressGroup LIKE '%" + searchText + "%' OR " +
                         "addressEmail LIKE '%" + searchText + "%') AND " +
-			"addressName is NOT NULL";
+			"addressName is NOT NULL AND user_userId = '" + user_userId + "'";
     int count = 0;
     
     try {
