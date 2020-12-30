@@ -65,8 +65,11 @@ public class InsertActivity extends AppCompatActivity {
     private String imageName = null;
     private String f_ext = null;
     File tempSelectFile;
+    private String pfid;
 
     // 20.12.29 세미 추가, 20.12.30 세미 수정 ------------------------------
+
+    // 20.12.29 세미 추가 ------------------------------
 
     ArrayAdapter<CharSequence> adapter = null;
     Spinner spinner = null;
@@ -123,6 +126,8 @@ public class InsertActivity extends AppCompatActivity {
         // 끝 -------------------------------------------------------------
 
         // 20.12.30 종한 추가
+        pfid = com.android.addressproject.Activity.PreferenceManager.getString(InsertActivity.this,"id"); // 로그인한 id 받아오기
+
         StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
                 .permitDiskReads()
                 .permitDiskWrites()
@@ -261,12 +266,12 @@ public class InsertActivity extends AppCompatActivity {
                     // 파일 이름 및 경로 바꾸기(임시 저장)
                     String date = new SimpleDateFormat("yyyyMMddHmsS").format(new Date());
                     imageName = date+"."+f_ext;
-                    tempSelectFile = new File("/data/data/com.androidlec.imageupload/", imageName);
+                    tempSelectFile = new File("/data/data/com.android.addressproject/", imageName);
                     OutputStream out = new FileOutputStream(tempSelectFile);
                     image_bitmap.compress(Bitmap.CompressFormat.JPEG, 100, out);
 
                     // 임시 파일 경로로 위의 img_path 재정의
-                    img_path = "/data/data/com.androidlec.imageupload/"+imageName;
+                    img_path = "/data/data/com.android.addressproject/"+imageName;
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -311,7 +316,7 @@ public class InsertActivity extends AppCompatActivity {
     private void DoActualRequest(File file) {
         OkHttpClient client = new OkHttpClient();
         Log.v(TAG,"Called actual request");
-        String url = "http://localhost:8080/test/multipartRequest.jsp";
+        String url = "http://192.168.0.54:8080/test/insertMultipart.jsp"; // 본인 아이피 주소 써야합니다. localhost or 127.0.0.1 은 안먹음
 
         RequestBody body = new MultipartBody.Builder()
                 .setType(MultipartBody.FORM)
