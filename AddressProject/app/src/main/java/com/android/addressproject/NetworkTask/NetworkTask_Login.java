@@ -1,4 +1,4 @@
-package com.android.addressproject.Activity;
+package com.android.addressproject.NetworkTask;
 
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -225,3 +225,4 @@ public class NetworkTask_LogIn extends AsyncTask<Integer, String, Object> {
 
 
 }//-----
+
