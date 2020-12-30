@@ -2,19 +2,22 @@ package com.android.addressproject.Activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.android.addressproject.R;
 
-
+//20.12.30 지은 수정
 public class MainViewActivity extends AppCompatActivity {
 
     final static String TAG = "MainViewActivity";
     String urlAddr = null;
-    String scode, sname, sdept, sphone, macIP;
-    TextView Ucode, Uname, Udept, Uphone;
+    String scode, sname, sdept, sphone;
+//    String macIp = "192.168.43.220";
+    TextView Vname, Vphone, Vgroup, Vemail, Vtext, Vbirth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,22 +27,39 @@ public class MainViewActivity extends AppCompatActivity {
 
         // intent 를 받아온다.
         Intent intent = getIntent();
-        macIP = intent.getStringExtra("macIP");
-        urlAddr = "http://localhost:8080/test/studentUpdate.jsp?";  // ?(물음표) 주의
 
-        Ucode = findViewById(R.id.update_code);
-        Uname = findViewById(R.id.update_name);
-        Udept = findViewById(R.id.update_dept);
-        Uphone = findViewById(R.id.update_phone);
+        Vname = findViewById(R.id.view_name);
+        Vphone = findViewById(R.id.view_phone);
+        Vgroup = findViewById(R.id.view_group);
+        Vemail = findViewById(R.id.view_email);
+        Vtext = findViewById(R.id.view_text);
+        Vbirth = findViewById(R.id.view_birth);
 
 
-
-        Ucode.setText(intent.getStringExtra("code"));
-        Uname.setText(intent.getStringExtra("name"));
-        Udept.setText(intent.getStringExtra("dept"));
-        Uphone.setText(intent.getStringExtra("phone"));
+        Vname.setText(intent.getStringExtra("name"));
+        Vphone.setText(intent.getStringExtra("phone"));
+        Vgroup.setText(intent.getStringExtra("group"));
+        Vemail.setText(intent.getStringExtra("email"));
+        Vtext.setText(intent.getStringExtra("text"));
+        Vbirth.setText(intent.getStringExtra("birth"));
 
 
     }
+
+
+    //뒤로가기
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
+        // 뒤로가기
+        switch (item.getItemId()){
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+
+    }
+
 
 }
