@@ -89,6 +89,6 @@
         android:layout_gravity="end|bottom"
         android:layout_margin="30dp"
         android:backgroundTint="?colorPrimary"
-        android:src="@mipmap/ic_launcher" />
+        android:src="@drawable/call" />
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </LinearLayout>
