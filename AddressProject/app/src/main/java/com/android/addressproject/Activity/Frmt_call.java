@@ -1,6 +1,5 @@
 package com.android.addressproject.Activity;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
@@ -152,6 +151,5 @@ public class Frmt_call extends Fragment {
             startActivity(intent);
         }
     };
-
 
 }

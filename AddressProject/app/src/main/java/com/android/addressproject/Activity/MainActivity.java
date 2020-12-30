@@ -1,5 +1,6 @@
 package com.android.addressproject.Activity;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -15,6 +16,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.core.app.ActivityCompat;
 import androidx.preference.PreferenceManager;
 import androidx.viewpager.widget.ViewPager;
 
@@ -69,6 +71,9 @@ public class MainActivity extends AppCompatActivity {
 
 
         //-----------------
+        // 20.12.30 종한 로그인 성공 시 파일 관련 사용자 권한 물어보기 추가
+        ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, MODE_PRIVATE); //사용자에게 사진 사용 권한 받기 (가장중요함)
+
 
         // 20.12.29 지은 viewPager + tablayout 추가 --------------------------------------
         tabLayout = (TabLayout) findViewById(R.id.tabLayout_id);

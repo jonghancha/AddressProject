@@ -25,7 +25,7 @@ public class MainViewActivity extends AppCompatActivity {
         // intent 를 받아온다.
         Intent intent = getIntent();
         macIP = intent.getStringExtra("macIP");
-        urlAddr = "http://192.168.43.220:8080/test/studentUpdate.jsp?";  // ?(물음표) 주의
+        urlAddr = "http://localhost:8080/test/studentUpdate.jsp?";  // ?(물음표) 주의
 
         Ucode = findViewById(R.id.update_code);
         Uname = findViewById(R.id.update_name);
