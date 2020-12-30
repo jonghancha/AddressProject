@@ -5,6 +5,8 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.android.addressproject.Bean.User;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -225,4 +227,3 @@ public class NetworkTask_LogIn extends AsyncTask<Integer, String, Object> {
 
 
 }//-----
-

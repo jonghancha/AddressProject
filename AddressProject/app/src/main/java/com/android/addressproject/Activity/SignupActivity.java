@@ -11,6 +11,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.android.addressproject.NetworkTask.NetworkTask_LogIn;
+import com.android.addressproject.R;
+
 public class SignupActivity extends AppCompatActivity {
 
     final static String TAG = "SignupActivity";
