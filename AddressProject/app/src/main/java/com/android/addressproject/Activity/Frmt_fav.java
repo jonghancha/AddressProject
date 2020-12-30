@@ -46,6 +46,10 @@ public class Frmt_fav extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         v = inflater.inflate(R.layout.fav_frmt,container,false);
+//20.12.30 지은 수정 -----------------
+        // 저장한 키 값으로 저장된 아이디와 암호를 불러와 String 값에 저장
+        String checkId = PreferenceManager.getString(getContext(),"id");
+
         recyclerView = (RecyclerView) v.findViewById(R.id.fav_recycleView);
         AddressAdapter viewAdapter = new AddressAdapter(getContext(), R.layout.item_contact, addresses);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -53,11 +57,13 @@ public class Frmt_fav extends Fragment {
 
         //조건 검색 .jsp 를 따로 만들어서 연결시켜줌.
         //search_text가 검색되는 단어(번호도 가능)
-        urlAddr = "http://192.168.43.220:8080/test/favSelectWithCondition.jsp?search_text=";
+
+        urlAddr = "http://192.168.43.220:8080/test/favSelectWithCondition.jsp?user_userId=" + checkId +"&search_text=";
+
         search_EdT = v.findViewById(R.id.search_ET);
         search_EdT.addTextChangedListener(textChangedListener);
         return v;
-    }
+    }//-----------------------
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -98,16 +104,20 @@ public class Frmt_fav extends Fragment {
         // 텍스트가 변할때마다 조건검색이 실행 됩니다.
         @Override
         public void onTextChanged(CharSequence s, int start, int before, int count) {
-
+//20.12.30 지은 수정 -----------------
+            // 저장한 키 값으로 저장된 아이디와 암호를 불러와 String 값에 저장
+            String checkId = PreferenceManager.getString(getContext(),"id");
 
             // 텍스트가 변할때마다 urlAddr에 덮어씌워져서 그때마다 그냥 초기화시켜줌
-            urlAddr = "http://192.168.43.220:8080/test/favSelectWithCondition.jsp?search_text=";
+
+            urlAddr = "http://192.168.43.220:8080/test/favSelectWithCondition.jsp?user_userId=" + checkId +"&search_text=";
+
 
             String searchText = search_EdT.getText().toString().trim();
             urlAddr = urlAddr + searchText;
             connectGetData();
 
-        }
+        }//---------------
 
         @Override
         public void afterTextChanged(Editable s) {

@@ -123,27 +123,13 @@ public class GroupNetworkTask extends AsyncTask<Integer, String, Object> {
             addresses.clear();    // 하는 이유는
 
 
-
+// 20.12.30 지은 수정
             // object 별로 불러오는 것 {이 안의 묶음}
             for (int i=0; i<jsonArray.length(); i++){
                 JSONObject jsonObject1 = (JSONObject) jsonArray.get(i);
-//                int addressNo = jsonObject1.getInt("addressNo");
-//                String user_userId = jsonObject1.getString("user_userId");
-//                String addressName = jsonObject1.getString("addressName");
-//                String addressPhone = jsonObject1.getString("addressPhone");
                 String addressGroup = jsonObject1.getString("addressGroup");
-//                String addressEmail = jsonObject1.getString("addressEmail");
-//                String addressText = jsonObject1.getString("addressText");
-//                String addressBirth = jsonObject1.getString("addressBirth");
-//                String addressImage = jsonObject1.getString("addressImage");
-//                String addressStar = jsonObject1.getString("addressStar");
-
 
                 Address address = new Address(addressGroup);
-
-                // 빈에 넣는 과정 (Address.java) 와 비교 해볼것
-//                Address address = new Address(addressNo, user_userId, addressName, addressPhone, addressGroup,
-//                        addressEmail, addressText, addressBirth, addressImage, addressStar);
                 addresses.add(address);
             }
 

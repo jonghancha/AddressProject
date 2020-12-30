@@ -1,12 +1,14 @@
 package com.android.addressproject.Activity;
 
 import android.app.Activity;
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.Rect;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.preference.PreferenceManager;
@@ -19,12 +21,15 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import com.android.addressproject.R;
@@ -34,7 +39,9 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
@@ -58,19 +65,34 @@ public class InsertActivity extends AppCompatActivity {
     private String imageName = null;
     private String f_ext = null;
     File tempSelectFile;
-
     private String pfid;
+
+    // 20.12.29 세미 추가, 20.12.30 세미 수정 ------------------------------
+
     // 20.12.29 세미 추가 ------------------------------
 
     ArrayAdapter<CharSequence> adapter = null;
     Spinner spinner = null;
+    EditText insert_birth;
+    Calendar birthCalendar = Calendar.getInstance();
+    DatePickerDialog.OnDateSetListener birthDatePicker = new DatePickerDialog.OnDateSetListener() {
+        @Override
+        public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+            birthCalendar.set(Calendar.YEAR, year);
+            birthCalendar.set(Calendar.MONTH, month);
+            birthCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+            birthupdate();
+        }
+    };
 
-    // 끝 --------------------------------------------
+
+    // 끝 --------------------------------------------------------------
 
 
     private static final int SETTINGS_CODE = 234;
     SharedPreferences sharedPreferences;
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -86,7 +108,7 @@ public class InsertActivity extends AppCompatActivity {
         }
 
 
-        // 20.12.29 세미 추가 ------------------------------
+        // 20.12.29 세미 추가, 20.12.30 세미 수정 ------------------------------
 
         adapter = ArrayAdapter.createFromResource(this, R.array.groupname, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -94,7 +116,14 @@ public class InsertActivity extends AppCompatActivity {
         spinner = findViewById(R.id.insert_groupname);
         spinner.setAdapter(adapter);
 
-        // 끝 --------------------------------------------
+        // 생일
+        insert_birth = findViewById(R.id.insert_birth);
+        insert_birth.setOnClickListener(birthClickListener);
+        insert_birth.setTextIsSelectable(true); // 커서는 살아있음
+        insert_birth.setShowSoftInputOnFocus(false); // 키보드는 숨겨짐
+
+
+        // 끝 -------------------------------------------------------------
 
         // 20.12.30 종한 추가
         pfid = com.android.addressproject.Activity.PreferenceManager.getString(InsertActivity.this,"id"); // 로그인한 id 받아오기
@@ -310,5 +339,26 @@ public class InsertActivity extends AppCompatActivity {
             e.printStackTrace();
         }
     }
+
+    // 20.12.30 세미 추가 ------------------------------
+    View.OnClickListener birthClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            new DatePickerDialog(InsertActivity.this, birthDatePicker, birthCalendar.get(Calendar.YEAR),  birthCalendar.get(Calendar.MONTH), birthCalendar.get(Calendar.DAY_OF_MONTH)).show();
+        }
+    };
+
+    private void birthupdate(){
+        String myFormat = "yyyy/MM/dd"; //출력형식 2020/12/30
+        SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.KOREA);
+
+        EditText etbirth = findViewById(R.id.insert_birth);
+        etbirth.setText(sdf.format(birthCalendar.getTime()));
+    }
+
+    // 끝 --------------------------------------------
+
+
+
 
 }//-- 전체 끝
