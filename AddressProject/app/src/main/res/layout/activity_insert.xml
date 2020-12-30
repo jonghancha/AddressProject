@@ -31,6 +31,7 @@
             android:layout_width="match_parent"
             android:layout_height="0px"
             android:layout_weight="1"
+            android:src="@drawable/ic_baseline_group_24"
             />
 
 
@@ -161,14 +162,16 @@
         android:weightSum="2"
         >
         <Button
-            android:text="삭제"
+            android:id="@+id/btn_insert_cancel"
+            android:text="취소"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
             />
 
         <Button
-            android:text="편집"
+            android:id="@+id/btn_insert"
+            android:text="등록"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
