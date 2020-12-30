@@ -15,4 +15,6 @@
     <color name="colorPrimaryNew">#E91E63</color>
     <color name="colorPrimaryDarkNew">#FB2515</color>
     <color name="colorAccentNew">#DF6A61</color>
+
+    <color name="bg">#EABDEF</color>
 </resources>

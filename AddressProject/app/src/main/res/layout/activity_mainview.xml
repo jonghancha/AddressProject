@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activity.MainViewActivity">
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="0px"
+        android:text="학생정보 상세보기"
+        android:gravity="center"
+        android:textSize="30dp"
+        android:textStyle="bold"
+        android:layout_weight="3"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="3"
+        android:orientation="horizontal"
+        >
+        <Button
+            android:text="전화"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            />
+        <Button
+            android:text="문자"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+        />
+        <Button
+            android:text="이메일"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+        />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="5"
+        android:orientation="vertical"
+        >
+
+    <TextView
+        android:id="@+id/update_code"
+        android:layout_width="match_parent"
+        android:layout_height="0px"
+        android:textSize="20dp"
+        android:layout_weight="1"
+        />
+    <TextView
+        android:id="@+id/update_name"
+        android:layout_width="match_parent"
+        android:layout_height="0px"
+        android:textSize="20dp"
+        android:layout_weight="1"
+        />
+    <TextView
+        android:id="@+id/update_dept"
+        android:layout_width="match_parent"
+        android:layout_height="0px"
+        android:textSize="20dp"
+        android:layout_weight="1"
+        />
+    <TextView
+        android:id="@+id/update_phone"
+        android:layout_width="match_parent"
+        android:layout_height="0px"
+        android:textSize="20dp"
+        android:layout_weight="1"
+        />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="2"
+        >
+        <Button
+            android:text="삭제"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            />
+
+        <Button
+            android:text="편집"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            />
+
+
+
+    </LinearLayout>
+</LinearLayout>

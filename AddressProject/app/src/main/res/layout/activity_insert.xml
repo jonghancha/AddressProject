@@ -1,11 +1,204 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".Activity.InsertActivity">
+    android:layout_margin="20dp"
+    tools:context=".Activity.MainActivity">
 
+    <!--  연락처 등록페이지  -->
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="연락처 등록"
+                android:gravity="center"
+                android:textSize="30dp"
+                android:textStyle="bold"
+                />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="5"
+        android:orientation="vertical"
+        >
+
+        <ImageView
+            android:id="@+id/insert_image"
+            android:layout_width="match_parent"
+            android:layout_height="0px"
+            android:layout_weight="1"
+            android:src="@drawable/ic_baseline_group_24"
+            />
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="이름"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:layout_marginTop="10dp"
+            />
+
+        <EditText
+            android:id="@+id/insert_name"
+            android:layout_width="match_parent"
+            android:layout_height="0px"
+            android:textSize="20dp"
+            android:layout_weight="1"
+            android:hint="이름"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="연락처"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:layout_marginTop="10dp"
+            />
+
+        <EditText
+            android:id="@+id/insert_phone"
+            android:layout_width="match_parent"
+            android:layout_height="0px"
+            android:textSize="20dp"
+            android:layout_weight="1"
+            android:hint="연락처"
+            />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="이메일"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:layout_marginTop="10dp"
+            />
+
+        <EditText
+            android:id="@+id/insert_email"
+            android:layout_width="match_parent"
+            android:layout_height="0px"
+            android:textSize="20dp"
+            android:layout_weight="1"
+            android:hint="이메일"
+            />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="메모"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:layout_marginTop="10dp"
+            />
+
+        <EditText
+            android:id="@+id/insert_text"
+            android:layout_width="match_parent"
+            android:layout_height="0px"
+            android:textSize="20dp"
+            android:layout_weight="1"
+            android:hint="메모"
+            />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="그룹"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="100px"
+                />
+
+            <Spinner
+                android:id="@+id/insert_groupname"
+                android:layout_width="500px"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25px"
+                />
+
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="생일"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="100px"
+                />
+
+            <EditText
+                android:id="@+id/insert_birth"
+                android:layout_width="500px"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25px"
+                android:gravity="center"
+                android:hint="터치해주세요"
+                />
+
+            <!--            <EditText-->
+<!--                android:id="@+id/insert_mbirth"-->
+<!--                android:layout_width="200px"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginTop="25px"-->
+<!--                />-->
+<!--            <EditText-->
+<!--                android:id="@+id/insert_dbirth"-->
+<!--                android:layout_width="200px"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginTop="25px"-->
+<!--                />-->
+
+        </LinearLayout>
+
+
+            </LinearLayout>
+
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="2"
+        >
+        <Button
+
+            android:id="@+id/btn_insert_cancel"
+            android:text="취소"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            />
+
+        <Button
+            android:id="@+id/btn_insert"
+            android:text="등록"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            />
+
+    </LinearLayout>
 
 </LinearLayout>

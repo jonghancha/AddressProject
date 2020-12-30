@@ -7,67 +7,23 @@
     android:orientation="vertical"
     tools:context=".Activity.MainActivity">
 
-
-    <LinearLayout
+    <com.google.android.material.tabs.TabLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="20dp"
-        android:weightSum="6">
+        android:background="@color/colorPrimary"
+        app:tabMode="scrollable"
+        app:tabIndicatorColor="@color/colorAccent"
+        android:id="@+id/tabLayout_id">
+    </com.google.android.material.tabs.TabLayout>
+<TextView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/mainid"/>
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:src="@mipmap/ic_launcher_round" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="20dp"
-            android:layout_weight="5"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center_vertical"
-                android:text="나의 이름"
-                android:textStyle="bold" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:gravity="center_vertical"
-                android:text="연락처"
-                android:textStyle="bold" />
-
-
-        </LinearLayout>
-    </LinearLayout>
-
-
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
+    <androidx.viewpager.widget.ViewPager
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:id="@+id/pageViewId">
+    </androidx.viewpager.widget.ViewPager>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/lv_member"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-
-            />
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/floatingActionButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentBottom="true"
-            android:layout_gravity="end|bottom"
-            android:layout_margin="30dp"
-            android:backgroundTint="?colorPrimary"
-            android:src="@mipmap/ic_launcher" />
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </LinearLayout>
