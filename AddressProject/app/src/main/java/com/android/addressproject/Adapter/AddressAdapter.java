@@ -55,8 +55,6 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.MyViewHo
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), MainViewActivity.class);
-                intent.putExtra("userid", data.get(position).getUser_userId());
-                intent.putExtra("code", data.get(position).getAddressNo());
                 intent.putExtra("name", data.get(position).getAddressName());
                 intent.putExtra("phone", data.get(position).getAddressPhone());
                 intent.putExtra("group", data.get(position).getAddressGroup());
@@ -64,6 +62,10 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.MyViewHo
                 intent.putExtra("text", data.get(position).getAddressText());
                 intent.putExtra("birth", data.get(position).getAddressBirth());
                 intent.putExtra("img", data.get(position).getAddressImage());
+                intent.putExtra("star", data.get(position).getAddressStar());
+
+                // 20.12.30 세미 추가 -------------
+                intent.putExtra("no", data.get(position).getAddressNo());
 
                 v.getContext().startActivity(intent);
                 Toast.makeText(v.getContext(), "상세보기 페이지 이동", Toast.LENGTH_SHORT).show();

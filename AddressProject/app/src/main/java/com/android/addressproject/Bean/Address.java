@@ -29,6 +29,18 @@ public class Address {
         this.addressStar = addressStar;
     }
 
+    public Address(String addressName, String addressPhone, String addressGroup, String addressEmail, String addressText, String addressBirth, String addressImage, String addressStar,int addressNo) {
+        this.addressName = addressName;
+        this.addressPhone = addressPhone;
+        this.addressGroup = addressGroup;
+        this.addressEmail = addressEmail;
+        this.addressText = addressText;
+        this.addressBirth = addressBirth;
+        this.addressImage = addressImage;
+        this.addressStar = addressStar;
+        this.addressNo = addressNo;
+    }
+
     public Address(String addressGroup) {
         this.addressGroup = addressGroup;
     }

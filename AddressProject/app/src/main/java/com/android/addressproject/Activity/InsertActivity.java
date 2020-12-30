@@ -65,8 +65,9 @@ public class InsertActivity extends AppCompatActivity {
     private String imageName = null;
     private String f_ext = null;
     File tempSelectFile;
-    private String pfid;
-
+    private String user_userId;
+    EditText insertAddressName, insertAddressPhone, insertAddressEmail, insertAddressText, insertAddressBirth;
+    Spinner insertAddressGroup;
     // 20.12.29 세미 추가, 20.12.30 세미 수정 ------------------------------
 
     // 20.12.29 세미 추가 ------------------------------
@@ -126,7 +127,13 @@ public class InsertActivity extends AppCompatActivity {
         // 끝 -------------------------------------------------------------
 
         // 20.12.30 종한 추가
-        pfid = com.android.addressproject.Activity.PreferenceManager.getString(InsertActivity.this,"id"); // 로그인한 id 받아오기
+        user_userId = com.android.addressproject.Activity.PreferenceManager.getString(InsertActivity.this,"id"); // 로그인한 id 받아오기
+        insertAddressName = findViewById(R.id.insert_name);
+        insertAddressPhone = findViewById(R.id.insert_phone);
+        insertAddressGroup = findViewById(R.id.insert_groupname);
+        insertAddressEmail = findViewById(R.id.insert_email);
+        insertAddressText = findViewById(R.id.insert_text);
+        insertAddressBirth = findViewById(R.id.insert_birth);
 
         StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
                 .permitDiskReads()
@@ -306,24 +313,44 @@ public class InsertActivity extends AppCompatActivity {
 
     //파일 변환
     private void doMultiPartRequest() {
+        Log.v(TAG, "이미지패스 는 !" + img_path);
+        img_path = "";
+        File f;
+        if (img_path == ""){
+            f = new File(String.valueOf(R.drawable.ic_baseline_group_24));
+        }else{
+            f = new File(img_path);
+        }
 
-        File f = new File(img_path);
+        Log.v(TAG, "사진 이름은" + f.getName());
+            DoActualRequest(f);
 
-        DoActualRequest(f);
     }
 
     //서버 보내기
     private void DoActualRequest(File file) {
         OkHttpClient client = new OkHttpClient();
         Log.v(TAG,"Called actual request");
-        String url = "http://192.168.0.54:8080/test/insertMultipart.jsp"; // 본인 아이피 주소 써야합니다. localhost or 127.0.0.1 은 안먹음
+
+        String url = "http://192.168.43.220:8080/test/insertMultipart.jsp"; // 본인 아이피 주소 써야합니다. localhost or 127.0.0.1 은 안먹음
+
 
         RequestBody body = new MultipartBody.Builder()
                 .setType(MultipartBody.FORM)
                 .addFormDataPart("image", file.getName(),
                         RequestBody.create(MediaType.parse("image/jpeg"), file))
+                .addFormDataPart("user_userId", user_userId)
+                .addFormDataPart("addressName", String.valueOf(insertAddressName.getText()))
+                .addFormDataPart("addressPhone", String.valueOf(insertAddressPhone.getText()))
+                .addFormDataPart("addressGroup", insertAddressGroup.getSelectedItem().toString())
+                .addFormDataPart("addressEmail", String.valueOf(insertAddressEmail.getText()))
+                .addFormDataPart("addressText", String.valueOf(insertAddressText.getText()))
+                .addFormDataPart("addressBirth", String.valueOf(insertAddressBirth.getText()))
                 .build();
         Log.v(TAG,"Request body generated");
+        Log.v(TAG, "user_userId : " + user_userId);
+        Log.v(TAG, "addressName : " + String.valueOf(insertAddressName.getText()));
+        Log.v(TAG, "addressPhone : " + String.valueOf(insertAddressPhone.getText()));
 
         Request request = new Request.Builder()
                 .url(url)

@@ -11,11 +11,27 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="0px"
-        android:text="학생정보 상세보기"
+        android:text="연락처 상세보기"
         android:gravity="center"
         android:textSize="30dp"
         android:textStyle="bold"
         android:layout_weight="3"
+        />
+    <TextView
+        android:id="@+id/view_name"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="0px"
+        android:textSize="20dp"
+        android:layout_weight="1"
+        />
+    <TextView
+        android:id="@+id/view_phone"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="0px"
+        android:textSize="20dp"
+        android:layout_weight="1"
         />
 
     <LinearLayout
@@ -25,18 +41,21 @@
         android:orientation="horizontal"
         >
         <Button
+            android:id="@+id/mainview_call"
             android:text="전화"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
             />
         <Button
+            android:id="@+id/mainview_sms"
             android:text="문자"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
         />
         <Button
+            android:id="@+id/mainview_email"
             android:text="이메일"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -51,35 +70,71 @@
         android:layout_weight="5"
         android:orientation="vertical"
         >
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="그룹"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:layout_marginTop="10dp"
+            />
+        <TextView
+            android:id="@+id/view_group"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:layout_weight="1"
+            />
 
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="이메일"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:layout_marginTop="10dp"
+            />
     <TextView
-        android:id="@+id/update_code"
+        android:id="@+id/view_email"
         android:layout_width="match_parent"
-        android:layout_height="0px"
+        android:layout_height="wrap_content"
         android:textSize="20dp"
         android:layout_weight="1"
         />
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="설명"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:layout_marginTop="10dp"
+            />
     <TextView
-        android:id="@+id/update_name"
+        android:id="@+id/view_text"
         android:layout_width="match_parent"
-        android:layout_height="0px"
+        android:layout_height="wrap_content"
         android:textSize="20dp"
         android:layout_weight="1"
         />
-    <TextView
-        android:id="@+id/update_dept"
-        android:layout_width="match_parent"
-        android:layout_height="0px"
-        android:textSize="20dp"
-        android:layout_weight="1"
-        />
-    <TextView
-        android:id="@+id/update_phone"
-        android:layout_width="match_parent"
-        android:layout_height="0px"
-        android:textSize="20dp"
-        android:layout_weight="1"
-        />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="생일"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:layout_marginTop="10dp"
+            />
+        <TextView
+            android:id="@+id/view_birth"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textSize="20dp"
+            />
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
@@ -87,6 +142,7 @@
         android:weightSum="2"
         >
         <Button
+            android:id="@+id/mainview_btndel"
             android:text="삭제"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

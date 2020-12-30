@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
@@ -14,7 +15,13 @@ import com.android.addressproject.R;
 public class FindActivity extends AppCompatActivity {
 
     LinearLayout Vid, Vpw;
-    Button btnId, btnPw;
+    Button btnId, btnPw, btn_FindId, btn_FindPw;
+
+    // 20.12.30 세미 아이디찾기 추가 -------------------------------------
+    String urlAddr = null;
+    EditText etFI_name, etFI_phone;
+
+    // 끝 ---------------------------------------------------
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +41,23 @@ public class FindActivity extends AppCompatActivity {
 
         btnId.setOnClickListener(FonclickListener);
         btnPw.setOnClickListener(FonclickListener);
+
+        // 20.12.30 세미 추가 -------------------------------------
+
+        // 연결
+        etFI_name = findViewById(R.id.etFI_name);
+        etFI_phone = findViewById(R.id.etFI_phone);
+        btn_FindId = findViewById(R.id.btn_FindId);
+
+
+
+        // 클릭시
+        btn_FindId.setOnClickListener(findClickListener);
+
+
+
+        // ------------------------------------------------------
+
     }
     View.OnClickListener FonclickListener = new View.OnClickListener() {
         @Override
@@ -66,6 +90,24 @@ public class FindActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
 
     }
+
+
+    // 20.12.30 세미 추가 -------------------------------------
+
+    View.OnClickListener findClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+
+            // 값 가져오기
+            String tempFIname = etFI_name.getText().toString();
+            String tempFIphone = etFI_phone.getText().toString();
+
+        urlAddr = "http://192.168.200.178:8080/test/findidUser.jsp?find_name=" + tempFIname + "&find_phone=" + tempFIphone;
+        }
+    };
+
+
+    // 끝 ---------------------------------------------------
 
 
 

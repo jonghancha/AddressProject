@@ -11,11 +11,12 @@ String user_userId = request.getParameter("user_userId");
 	String url_mysql = "jdbc:mysql://localhost/AddressBook?serverTimezone=Asia/Seoul&characterEncoding=utf8&useSSL=false";
  	String id_mysql = "root";
  	String pw_mysql = "qwer1234";
-    String WhereDefault = "select addressName, addressPhone, addressGroup, addressEmail from address";
+    String WhereDefault = "select addressName, addressPhone, addressGroup, addressEmail, addressText, addressBirth, addressImage, addressStar 				from address";
+
     String Condition = " where (addressName LIKE '%" + searchText + "%' OR " +
                         "addressPhone LIKE '%" + searchText + "%' OR " +
                         "addressGroup LIKE '%" + searchText + "%' OR " +
-                        "addressEmail LIKE '%" + searchText + "%') AND " +
+			"addressEmail LIKE '%" + searchText + "%') AND " +
 			"addressName is NOT NULL AND user_userId = '" + user_userId + "'";
     int count = 0;
     
@@ -27,7 +28,7 @@ String user_userId = request.getParameter("user_userId");
         ResultSet rs = stmt_mysql.executeQuery(WhereDefault + Condition); // 
 %>
 		{ 
-  			"address_info"  : [ 
+  			"address_select"  : [ 
 <%
         while (rs.next()) {
             if (count == 0) {
@@ -42,7 +43,11 @@ String user_userId = request.getParameter("user_userId");
 			"addressName" : "<%=rs.getString(1) %>", 
 			"addressPhone" : "<%=rs.getString(2) %>",   
 			"addressGroup" : "<%=rs.getString(3) %>",  
-			"addressEmail" : "<%=rs.getString(4) %>"
+			"addressEmail" : "<%=rs.getString(4) %>",		
+			"addressText" : "<%=rs.getString(5) %>", 
+			"addressBirth" : "<%=rs.getString(6) %>",   
+			"addressImage" : "<%=rs.getString(7) %>",  
+			"addressStar" : "<%=rs.getString(8) %>"
 			}
 
 <%		
