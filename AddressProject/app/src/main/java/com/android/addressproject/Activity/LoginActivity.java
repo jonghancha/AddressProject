@@ -115,6 +115,7 @@ public class LoginActivity extends AppCompatActivity {
                         intent.putExtra("id",checkId);
                         intent.putExtra("pw",checkPw);
                         startActivity(intent);
+                        finish();
                     }
 
                     // 끝 ---------------------------------------------------------------------------

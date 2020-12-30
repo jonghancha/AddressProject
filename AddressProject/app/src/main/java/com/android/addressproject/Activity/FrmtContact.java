@@ -1,5 +1,6 @@
 package com.android.addressproject.Activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -19,6 +20,7 @@ import com.android.addressproject.Adapter.GroupAdapter;
 import com.android.addressproject.Bean.Address;
 import com.android.addressproject.NetworkTask.GroupNetworkTask;
 import com.android.addressproject.R;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 
@@ -52,6 +54,11 @@ public class FrmtContact extends Fragment {
 
         // 저장한 키 값으로 저장된 아이디와 암호를 불러와 String 값에 저장
         String checkId = PreferenceManager.getString(getContext(),"id");
+
+
+
+        FloatingActionButton floatingActionButton = v.findViewById(R.id.contact_float);
+        floatingActionButton.setOnClickListener(CfloatCliclListener);
 
 
         recyclerView = (RecyclerView) v.findViewById(R.id.contact_recycleView);
@@ -141,5 +148,15 @@ public class FrmtContact extends Fragment {
         connectGetData();
         Log.v(TAG, "onResume()");
     }
+
+
+    View.OnClickListener CfloatCliclListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Intent intent = new Intent(getActivity(), InsertGroupActivity.class);
+            startActivity(intent);
+        }
+    };
+
 
 }

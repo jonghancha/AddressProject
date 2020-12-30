@@ -56,6 +56,8 @@ public class Frmt_fav extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setAdapter(viewAdapter);
 
+
+
         //조건 검색 .jsp 를 따로 만들어서 연결시켜줌.
         //search_text가 검색되는 단어(번호도 가능)
 
