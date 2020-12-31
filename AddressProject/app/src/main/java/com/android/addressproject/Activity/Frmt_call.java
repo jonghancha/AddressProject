@@ -68,8 +68,8 @@ public class Frmt_call extends Fragment {
         //조건 검색 .jsp 를 따로 만들어서 연결시켜줌.
         //search_text가 검색되는 단어(번호도 가능)
 
-        // 검색 + 띄우는 jsp
-        urlAddr = "http://192.168.43.220:8080/test/addressSelectWithCondition.jsp?user_userId=" + checkId +"&search_text=";
+        urlAddr = "http://" + ShareVar.macIP + ":8080/test/addressSelectWithCondition.jsp?user_userId=" + checkId +"&search_text=";
+
 
         search_EdT = v.findViewById(R.id.search_ET);
         search_EdT.addTextChangedListener(textChangedListener);
@@ -79,7 +79,7 @@ public class Frmt_call extends Fragment {
 
         //++++++++++++++++++++++++++++++++++++++++++
         // 로그인 한 id에 대한 이름 과 연락처를 띄우는 jsp
-        urlAddr1 = "http://192.168.43.220:8080/test/mySelect.jsp?user_userId=" + checkId;
+        urlAddr1 = "http://" + ShareVar.macIP + ":8080/test/mySelect.jsp?user_userId=" + checkId;
         getUserDate();  // 띄우기 위한 메소드
 
         TextView myid = v.findViewById(R.id.myid);
@@ -110,7 +110,7 @@ public class Frmt_call extends Fragment {
             // object 에서 선언은 되었지만 실질적으로 리턴한것은 arraylist
             Object object = networkTask.execute().get();
             addresses = (ArrayList<Address>) object;
-
+            Log.v(TAG, "addresses size = " + String.valueOf(addresses.size()));
             //StudentAdapter.java 의 생성자를 받아온다.
             adapter = new AddressAdapter(getActivity(), R.layout.item_contact, addresses);
             recyclerView.setAdapter(adapter);
@@ -141,7 +141,7 @@ public class Frmt_call extends Fragment {
 
             // 텍스트가 변할때마다 urlAddr에 덮어씌워져서 그때마다 그냥 초기화시켜줌
 
-            urlAddr = "http://192.168.43.220:8080/test/addressSelectWithCondition.jsp?user_userId=" + checkId +"&search_text=";
+            urlAddr = "http://" + ShareVar.macIP + ":8080/test/addressSelectWithCondition.jsp?user_userId=" + checkId +"&search_text=";
 
             //----------------------
 

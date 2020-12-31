@@ -3,6 +3,7 @@ package com.android.addressproject.Adapter;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,8 +13,11 @@ import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.android.addressproject.Activity.MainActivity;
 import com.android.addressproject.Activity.MainViewActivity;
+import com.android.addressproject.Activity.ShareVar;
 import com.android.addressproject.Bean.Address;
+import com.android.addressproject.NetworkTask.ViewImageNetworkTask;
 import com.android.addressproject.R;
 
 import java.util.ArrayList;
@@ -25,6 +29,7 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.MyViewHo
     int layout = 0;
     ArrayList<Address> data = null;
     LayoutInflater inflater = null;
+    String urlAddr;
 
     public AddressAdapter(Context mContext, int layout, ArrayList<Address> data) {
         this.mContext = mContext;
@@ -46,6 +51,12 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.MyViewHo
         //
         // img 불러와야 함..
         //
+        urlAddr = "http://" + ShareVar.macIP + ":8080/test/";
+
+        urlAddr = urlAddr + data.get(position).getAddressImage();
+        Log.v("AddressAdapter", "urlAddr = " + urlAddr);
+        ViewImageNetworkTask networkTask = new ViewImageNetworkTask(mContext, urlAddr, holder.img);
+        networkTask.execute(100); // 10초. 이것만 쓰면 pre post do back 등 알아서 실행
         holder.name.setText(data.get(position).getAddressName());
         holder.phone_num.setText(data.get(position).getAddressPhone());
 
@@ -76,6 +87,7 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.MyViewHo
 
     @Override
     public int getItemCount() {
+//        Log.v("AddressAdapter", "data.size = " + String.valueOf(data.size()));
         return data.size();
     }
 
