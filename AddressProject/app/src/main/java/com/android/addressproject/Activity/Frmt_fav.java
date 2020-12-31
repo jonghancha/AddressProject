@@ -62,7 +62,7 @@ public class Frmt_fav extends Fragment {
         //search_text가 검색되는 단어(번호도 가능)
 
 
-        urlAddr = "http://192.168.200.178:8080/test/favSelectWithCondition.jsp?user_userId=" + checkId +"&search_text=";
+        urlAddr = "http://192.168.43.220:8080/test/favSelectWithCondition.jsp?user_userId=" + checkId +"&search_text=";
 
         search_EdT = v.findViewById(R.id.search_ET);
         search_EdT.addTextChangedListener(textChangedListener);
@@ -115,7 +115,7 @@ public class Frmt_fav extends Fragment {
             // 텍스트가 변할때마다 urlAddr에 덮어씌워져서 그때마다 그냥 초기화시켜줌
 
 
-            urlAddr = "http://192.168.200.178:8080/test/favSelectWithCondition.jsp?user_userId=" + checkId +"&search_text=";
+            urlAddr = "http://192.168.43.220:8080/test/favSelectWithCondition.jsp?user_userId=" + checkId +"&search_text=";
 
 
             String searchText = search_EdT.getText().toString().trim();

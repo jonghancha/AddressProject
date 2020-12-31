@@ -5,10 +5,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.text.InputFilter;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -25,7 +28,7 @@ public class SignupActivity extends AppCompatActivity { //이강후
     String sid, spw, sname, sphone, semail;
     EditText Eid, Epw, Ename, Ephone, Eemail;
     Button btn_IdCheck, btn_SignUp;
-    String macIP = "192.168.219.104";
+    String macIP = "192.168.43.220";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -122,6 +125,7 @@ public class SignupActivity extends AppCompatActivity { //이강후
                                 .setMessage("로그인 페이지에서 로그인해주세요.")
                                 .setPositiveButton("이동", mClick)
                                 .show();
+                        finish();
 
                     }else{
 
@@ -225,6 +229,22 @@ public class SignupActivity extends AppCompatActivity { //이강후
 
 
 
-
+    //editText 외의 화면 클릭시 키보드 숨기기
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        View focusView = getCurrentFocus();
+        if (focusView != null) {
+            Rect rect = new Rect();
+            focusView.getGlobalVisibleRect(rect);
+            int x = (int) ev.getX(), y = (int) ev.getY();
+            if (!rect.contains(x, y)) {
+                InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+                if (imm != null)
+                    imm.hideSoftInputFromWindow(focusView.getWindowToken(), 0);
+                focusView.clearFocus();
+            }
+        }
+        return super.dispatchTouchEvent(ev);
+    }
 
 }//----

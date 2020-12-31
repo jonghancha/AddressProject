@@ -5,17 +5,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="?colorPrimary"
+    android:gravity="center"
     tools:context=".Activity.SplashActivity">
 
 
-    <TextView
+    <ImageView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="이미지(logo) 넣을 곳"
-        android:textStyle="bold"
-        android:gravity="center"
-        />
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:src="@drawable/address"/>
 
 
 </LinearLayout>
