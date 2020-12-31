@@ -10,9 +10,11 @@ import android.graphics.Rect;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.StrictMode;
 import android.preference.PreferenceManager;
 import android.provider.MediaStore;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -26,6 +28,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
+import android.text.TextUtils;
+
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -33,6 +37,9 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import com.android.addressproject.R;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -68,6 +75,8 @@ public class InsertActivity extends AppCompatActivity {
     private String user_userId;
     EditText insertAddressName, insertAddressPhone, insertAddressEmail, insertAddressText, insertAddressBirth;
     Spinner insertAddressGroup;
+
+    String result;
     // 20.12.29 세미 추가, 20.12.30 세미 수정 ------------------------------
 
     // 20.12.29 세미 추가 ------------------------------
@@ -153,18 +162,40 @@ public class InsertActivity extends AppCompatActivity {
         });
 
         btnInsert = findViewById(R.id.btn_insert);
-        //이미지 전송 버튼
+
+        //데이터 입력 버튼
         btnInsert.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                // 네트워크 연결 (Thread = asynctask)
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        doMultiPartRequest();
+                // 이름과 패스워가 비어있는 경우 체크, TextUtils는 안드로이드에서 제공하는 null체크 함수
+                if(TextUtils.isEmpty(insertAddressName.getText()) || TextUtils.isEmpty(insertAddressPhone.getText())){
+                    // 아이디나 암호 둘 중 하나가 비어있으면 토스트메세지 띄움
+
+                    if(TextUtils.isEmpty(insertAddressName.getText())){
+                        Toast.makeText(InsertActivity.this,"이름을 입력해주세요.",Toast.LENGTH_SHORT).show();
+                        // 커서 위치 옮기기
+                        insertAddressName.requestFocus();
+                        insertAddressName.setCursorVisible(true);
+                    }else {
+                        // 커서 위치 옮기기
+                        Toast.makeText(InsertActivity.this,"전화번호를 입력해주세요.",Toast.LENGTH_SHORT).show();
+                        insertAddressPhone.requestFocus();
+                        insertAddressPhone.setCursorVisible(true);
                     }
-                }).start();
+                    // 둘 다 충족하면 다음 동작을 구현
+                }else {
+                    // 네트워크 연결 (Thread = asynctask)
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            doMultiPartRequest();
+                        }
+                    }).start();
+                }
+
+
+
             }
         });
 
@@ -313,14 +344,16 @@ public class InsertActivity extends AppCompatActivity {
 
     //파일 변환
     private void doMultiPartRequest() {
-        Log.v(TAG, "이미지패스 는 !" + img_path);
-        img_path = "";
+
+        String baseUri = "/data/data/com.android.addressproject/baseline_account_circle_black_48.png";
+
         File f;
-        if (img_path == ""){
-            f = new File(String.valueOf(R.drawable.ic_baseline_group_24));
+        if (img_path.length() == 0){
+            f = new File(baseUri);
         }else{
             f = new File(img_path);
         }
+        Log.v(TAG, "이미지패스 는 !" + f.getAbsolutePath());
 
         Log.v(TAG, "사진 이름은" + f.getName());
             DoActualRequest(f);
@@ -331,7 +364,7 @@ public class InsertActivity extends AppCompatActivity {
     private void DoActualRequest(File file) {
         OkHttpClient client = new OkHttpClient();
         Log.v(TAG,"Called actual request");
-        String url = "http://192.168.0.125:8080/test/insertMultipart.jsp"; // 본인 아이피 주소 써야합니다. localhost or 127.0.0.1 은 안먹음
+        String url = "http://192.168.0.54:8080/test/insertMultipart.jsp"; // 본인 아이피 주소 써야합니다. localhost or 127.0.0.1 은 안먹음
 
         RequestBody body = new MultipartBody.Builder()
                 .setType(MultipartBody.FORM)
@@ -358,11 +391,39 @@ public class InsertActivity extends AppCompatActivity {
         try {
             Response response = client.newCall(request).execute();
             Log.v(TAG,"Request successful");
-            Log.v(TAG,response.body().string());
-        } catch (IOException e) {
+            String responsBody = response.body().string();
+            Log.v(TAG,responsBody);
+            result = parserAction(responsBody);
+
+
+
+        } catch (IOException  e) {
             Log.v(TAG,"Exception occured :" + e.toString());
             e.printStackTrace();
         }
+
+        // 데이터 입력 후 insertActivity 종료.
+        finish();
+
+    }
+
+    // 20.12.31 종한 추가
+    // 데이터 입력 후 json파싱
+    private String parserAction(String s) {
+        Log.v(TAG,"parserAction()");
+        String returnValue = null;
+
+        try {
+            Log.v(TAG, s);
+
+            JSONObject jsonObject = new JSONObject(s);
+            returnValue = jsonObject.getString("result");
+            Log.v(TAG, returnValue);
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return returnValue;
     }
 
     // 20.12.30 세미 추가 ------------------------------
@@ -380,6 +441,8 @@ public class InsertActivity extends AppCompatActivity {
         EditText etbirth = findViewById(R.id.insert_birth);
         etbirth.setText(sdf.format(birthCalendar.getTime()));
     }
+
+
 
     // 끝 --------------------------------------------
 
