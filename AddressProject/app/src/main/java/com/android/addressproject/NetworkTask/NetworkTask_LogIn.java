@@ -19,7 +19,9 @@ import java.util.ArrayList;
 
 public class NetworkTask_LogIn extends AsyncTask<Integer, String, Object> {
 
-    final static  String TAG = "NetworkTask_LogIn";
+    //이강후
+
+   final static  String TAG = "NetworkTask_LogIn";
     Context context = null;
     String mAddr = null;
     ProgressDialog progressDialog = null;
@@ -65,6 +67,7 @@ public class NetworkTask_LogIn extends AsyncTask<Integer, String, Object> {
         ///////////////////////////////////////////////////////////////////////////////////////
         int result=0;
         String result2=null;
+        int result3=0;
         ///////////////////////////////////////////////////////////////////////////////////////
 
         try {
@@ -97,9 +100,9 @@ public class NetworkTask_LogIn extends AsyncTask<Integer, String, Object> {
                 }else if(where.equals("signup")){
                     result2 = parserSignUp(stringBuffer.toString());
                     Log.v(TAG, "result2");
-                    //         }else if(where.equals("login")){
-                    //             result = parserLogIn(stringBuffer.toString());
-
+                }else if(where.equals("loginCheck")){
+                    result3 = parserLogInCheck(stringBuffer.toString());
+                    Log.v(TAG,"result3");
                 }
                 ///////////////////////////////////////////////////////////////////////////////////////
 
@@ -127,10 +130,10 @@ public class NetworkTask_LogIn extends AsyncTask<Integer, String, Object> {
         ///////////////////////////////////////////////////////////////////////////////////////
         if(where.equals("idcheck")){
             return result;
-        }else {
+        }else if(where.equals("signup")) {
             return result2;
-            //    }else if(where.equals("login")){
-            //    return result3;//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@수정요
+        }else{
+            return result3;
         }
         ///////////////////////////////////////////////////////////////////////////////////////
     }
@@ -176,6 +179,7 @@ public class NetworkTask_LogIn extends AsyncTask<Integer, String, Object> {
         return  returnValue;
     }
 
+    //---------------------------------------------------------------------------------------
     private String parserSignUp(String s){
         Log.v(TAG,"ParserSignUp()");
         String returnValue2 = null;
@@ -192,38 +196,29 @@ public class NetworkTask_LogIn extends AsyncTask<Integer, String, Object> {
         }
         return returnValue2;
     }
-    ///////////////////////////////////////////////////////////////////////////////////////
- /*   private void parserSelect(String s){
-        Log.v(TAG,"Parser()");
+
+    //---------------------------------------------------------------------------------------
+    private int parserLogInCheck(String s){
+        Log.v(TAG,"ParserLogInCheck()");
+        int returnValue3 = 0;
 
         try {
             JSONObject jsonObject = new JSONObject(s);
-            JSONArray jsonArray = new JSONArray(jsonObject.getString("students_info")); //제일 상위.
-            members.clear();
+            JSONArray jsonArray = new JSONArray(jsonObject.getString("user_info"));
 
-            for(int i = 0; i < jsonArray.length(); i++){
+            for(int i =0; i < jsonArray.length(); i++) {
                 JSONObject jsonObject1 = (JSONObject) jsonArray.get(i);
-                String code = jsonObject1.getString("code");
-                String name = jsonObject1.getString("name");
-                String dept = jsonObject1.getString("dept");
-                String phone = jsonObject1.getString("phone");
+                returnValue3 = jsonObject1.getInt("result3");
 
-                Log.v(TAG, "code : " + code);
-                Log.v(TAG, "name : " + name);
-                Log.v(TAG, "dept : " + dept);
-                Log.v(TAG, "phone : " + phone);//여기까지는 받아온것.
-
-                //여기부터는 위에서 받아온걸 리턴값으로 주기위한것.
-                Student member = new Student(code, name, dept, phone);
-                members.add(member);
-                // Log.v(TAG, member.toString());
-                Log.v(TAG, "----------------------------------");
+                Log.v(TAG, "result3 : " + returnValue3);
             }
         }catch (Exception e){
             e.printStackTrace();
         }
+        return  returnValue3;
     }
-*/
+    ///////////////////////////////////////////////////////////////////////////////////////
+
 
 
 }//-----

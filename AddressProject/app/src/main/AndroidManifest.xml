@@ -22,6 +22,8 @@
         <activity android:name=".Activity.UpdateActivity" />
         <activity android:name=".Activity.InsertActivity" />
         <activity android:name=".Activity.MainViewActivity"/>
+        <activity android:name=".Activity.InsertGroupActivity"/>
+        <activity android:name=".Activity.GroupViewActivity"/>
         <activity
             android:name=".Activity.SettingsActivity"
             android:label="@string/title_activity_settings" />

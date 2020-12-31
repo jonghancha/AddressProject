@@ -5,7 +5,6 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
-
 import com.android.addressproject.Bean.Address;
 
 import org.json.JSONArray;
@@ -19,7 +18,7 @@ import java.net.URL;
 import java.util.ArrayList;
 
 // 20.12.29 지은 추가
-public class AddressNetworkTask extends AsyncTask<Integer, String, Object> {
+public class FavNetworkTask extends AsyncTask<Integer, String, Object> {
 
     final static String TAG = "NetworkTask";
     Context context = null;
@@ -28,7 +27,7 @@ public class AddressNetworkTask extends AsyncTask<Integer, String, Object> {
     ArrayList<Address> addresses; // 불러와야 해서
 
     //Constructor
-    public AddressNetworkTask(Context context, String mAddr) {
+    public FavNetworkTask(Context context, String mAddr) {
         this.context = context;
         this.mAddr = mAddr;
         this.addresses = new ArrayList<Address>();    //직접 침 : 이유는 꼭 쓸 필요성은 없지만 arraylist를 사용하기 위해 생성해줌
@@ -116,7 +115,7 @@ public class AddressNetworkTask extends AsyncTask<Integer, String, Object> {
         try {
             // 배열이기 때문에 [] 이렇게 시작
             JSONObject jsonObject = new JSONObject(s);
-            JSONArray jsonArray = new JSONArray(jsonObject.getString("address_select"));
+            JSONArray jsonArray = new JSONArray(jsonObject.getString("address_info"));
             // object 가 읽어줌
             //students_info는 테이블 명이라고 생각할 것
 
@@ -126,27 +125,16 @@ public class AddressNetworkTask extends AsyncTask<Integer, String, Object> {
             // object 별로 불러오는 것 {이 안의 묶음}
             for (int i=0; i<jsonArray.length(); i++){
                 JSONObject jsonObject1 = (JSONObject) jsonArray.get(i);
-
-
-                // 20.12.30 세미 변경 ------------
-                int addressNo = jsonObject1.getInt("addressNo");
+//                int addressNo = jsonObject1.getInt("addressNo");
 
                 String addressName = jsonObject1.getString("addressName");
                 String addressPhone = jsonObject1.getString("addressPhone");
                 String addressGroup = jsonObject1.getString("addressGroup");
                 String addressEmail = jsonObject1.getString("addressEmail");
-                String addressText = jsonObject1.getString("addressText");
-                String addressBirth = jsonObject1.getString("addressBirth");
-                String addressImage = jsonObject1.getString("addressImage");
-                String addressStar = jsonObject1.getString("addressStar");
 
 
-
-                // 20.12.30 세미 변경 ------------
-//                Address address = new Address(addressName, addressPhone, addressGroup,
-//                        addressEmail, addressText, addressBirth, addressImage, addressStar,addressNo);
-                Address address = new Address(addressName,addressPhone,addressGroup,
-                        addressEmail,addressText,addressBirth,addressImage,addressStar,addressNo);
+                Address address = new Address(addressName, addressPhone, addressGroup,
+                        addressEmail);
 
                 addresses.add(address);
             }
