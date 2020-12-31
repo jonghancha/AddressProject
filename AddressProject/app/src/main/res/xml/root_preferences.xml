@@ -26,7 +26,7 @@
     <!-- 인텐트를 넣으면 새로운 Component 실행 가능-->
     <PreferenceScreen android:title="회원탈퇴">
         <intent
-            android:targetClass="com.android.addressproject.LoginActivity"
+            android:targetClass="com.android.addressproject.Activity.Memdel"
             android:targetPackage="com.android.addressproject" />
 
     </PreferenceScreen>

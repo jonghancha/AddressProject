@@ -87,6 +87,7 @@ public class MainViewActivity extends AppCompatActivity {
 
             Intent intent = null;
             String phonedata = Vphone.getText().toString();
+            String emaildata = Vemail.getText().toString();
             Log.v(TAG, "phonedata 값 : " + phonedata);
 
             // 전화
