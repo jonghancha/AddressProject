@@ -52,21 +52,11 @@ public class MainActivity extends AppCompatActivity {
         setThemeOfApp();
         setContentView(R.layout.activity_main);
 
-        //20.12.30 지은 실험
-        Intent intent = getIntent();
-        String id = intent.getExtras().getString("id");
-        TextView mainid = findViewById(R.id.mainid);
-        mainid.setText(id);
-
-//        //fragment 생성
-        Fragment frmt_call = new Frmt_call();
-//
-//        //번들객체 생성, text값 저장
-        Bundle bundle = new Bundle();
-        bundle.putString("id",id.toString());
-//
-//        //fragment1로 번들 전달
-        frmt_call.setArguments(bundle);
+//        //20.12.30 지은 실험
+//        Intent intent = getIntent();
+//        String id = intent.getStringExtra("id");
+//        TextView mainid = findViewById(R.id.mainid);
+//        mainid.setText(id);
 //
 
 
