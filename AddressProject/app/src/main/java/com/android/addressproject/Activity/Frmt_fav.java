@@ -17,7 +17,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.android.addressproject.Adapter.AddressAdapter;
 import com.android.addressproject.Bean.Address;
 import com.android.addressproject.NetworkTask.AddressNetworkTask;
-import com.android.addressproject.NetworkTask.FavNetworkTask;
 import com.android.addressproject.R;
 
 import java.util.ArrayList;
@@ -56,13 +55,11 @@ public class Frmt_fav extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setAdapter(viewAdapter);
 
-
-
         //조건 검색 .jsp 를 따로 만들어서 연결시켜줌.
         //search_text가 검색되는 단어(번호도 가능)
 
 
-        urlAddr = "http://192.168.200.178:8080/test/favSelectWithCondition.jsp?user_userId=" + checkId +"&search_text=";
+        urlAddr = "http://192.168.0.54:8080/test/favSelectWithCondition.jsp?user_userId=" + checkId +"&search_text=";
 
         search_EdT = v.findViewById(R.id.search_ET);
         search_EdT.addTextChangedListener(textChangedListener);
@@ -78,7 +75,7 @@ public class Frmt_fav extends Fragment {
     //메소드
     private void connectGetData(){
         try {
-            FavNetworkTask networkTask = new FavNetworkTask(getActivity(), urlAddr); //onCreate 에 urlAddr 이 선언된것이 들어옴
+            AddressNetworkTask networkTask = new AddressNetworkTask(getActivity(), urlAddr); //onCreate 에 urlAddr 이 선언된것이 들어옴
 
             // object 에서 선언은 되었지만 실질적으로 리턴한것은 arraylist
             Object object = networkTask.execute().get();
@@ -115,7 +112,8 @@ public class Frmt_fav extends Fragment {
             // 텍스트가 변할때마다 urlAddr에 덮어씌워져서 그때마다 그냥 초기화시켜줌
 
 
-            urlAddr = "http://192.168.200.178:8080/test/favSelectWithCondition.jsp?user_userId=" + checkId +"&search_text=";
+            urlAddr = "http://192.168.0.54:8080/test/favSelectWithCondition.jsp?user_userId=" + checkId +"&search_text=";
+
 
 
             String searchText = search_EdT.getText().toString().trim();

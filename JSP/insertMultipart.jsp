@@ -23,7 +23,7 @@ String fileName;
 
   // 5메가까지 제한 넘어서면 예외발생 
 
-try { 
+try {
 	MultipartRequest multi = new MultipartRequest(request, realPath, sizeLimit, "UTF-8", new DefaultFileRenamePolicy());
 	String user_userId = multi.getParameter("user_userId");
 	String addressName = multi.getParameter("addressName");
