@@ -13,21 +13,24 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.android.addressproject.Bean.User;
 import com.android.addressproject.NetworkTask.CUDNetworkTask;
+import com.android.addressproject.NetworkTask.UserNetworkTask;
 import com.android.addressproject.R;
+
+import java.util.ArrayList;
 
 //21.01.01 지은 수정
 public class MyViewActivity extends AppCompatActivity {
 
-    Button mainview_call, mainview_sms, mainview_email, mainview_btndel;
-    String addno;
-
+    Button myview_btnpw, myview_btnupd;
+    ArrayList<User> users;
+    String urlAddr1 = null;
     // 끝 --------------------------------------------
 
     final static String TAG = "MainViewActivity";
     String urlAddr = null;
-//    String macIp = "192.168.43.220";
-    TextView Vname, Vphone, Vgroup, Vemail, Vtext, Vbirth;
+    TextView VMname, VMphone, VMemail;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,40 +38,51 @@ public class MyViewActivity extends AppCompatActivity {
         setContentView(R.layout.activity_myview);
         setTitle("나의정보 상세보기 화면");
 
-        // intent 를 받아온다.
-        Intent intent = getIntent();
 
-        Vname = findViewById(R.id.view_name);
-        Vphone = findViewById(R.id.view_phone);
-        Vgroup = findViewById(R.id.view_group);
-        Vemail = findViewById(R.id.view_email);
-        Vtext = findViewById(R.id.view_text);
-        Vbirth = findViewById(R.id.view_birth);
+        // 저장한 키 값으로 저장된 아이디와 암호를 불러와 String 값에 저장
+        String checkId = PreferenceManager.getString(MyViewActivity.this,"id");
 
+        // 로그인 한 id에 대한 이름 과 연락처를 띄우는 jsp
+        urlAddr1 = "http://" + ShareVar.macIP + ":8080/test/mySelect.jsp?user_userId=" + checkId;
+        getUserDate();  // 띄우기 위한 메소드
+        VMname = findViewById(R.id.myv_name);
+        VMphone = findViewById(R.id.myv_phone);
+        VMemail = findViewById(R.id.myv_email);
 
-        Vname.setText(intent.getStringExtra("name"));
-        Vphone.setText(intent.getStringExtra("phone"));
-        Vgroup.setText(intent.getStringExtra("group"));
-        Vemail.setText(intent.getStringExtra("email"));
-        Vtext.setText(intent.getStringExtra("text"));
-        Vbirth.setText(intent.getStringExtra("birth"));
+        VMname.setText(users.get(0).getUserName());
+        VMphone.setText(users.get(0).getUserPhone());
+        VMemail.setText(users.get(0).getUserEmail());
 
-        // 20.12.30 세미 전화, 문자, 이메일 버튼 및 연락처 삭제 ------------------------------
 
         // 연결
-        mainview_call = findViewById(R.id.mainview_call);
-        mainview_sms = findViewById(R.id.mainview_sms);
-        mainview_email = findViewById(R.id.mainview_email);
-        mainview_btndel = findViewById(R.id.mainview_btndel);   // 삭제버튼
-
-        // 삭제버튼
-        addno = Integer.toString(intent.getIntExtra("no",0));
+        myview_btnpw = findViewById(R.id.myv_btnpw);    // 비밀번호 수정 버튼
+        myview_btnupd = findViewById(R.id.myv_btnupd);   // 정보 수정 버튼
 
 
-        // 끝 -----------------------------------------------------------------------
+        myview_btnupd.setOnClickListener(myvClickListener);
+        myview_btnupd.setOnClickListener(myvClickListener);
 
 
     }
+
+
+    // 버튼 클릭시 이벤트
+    View.OnClickListener myvClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            switch (v.getId()){
+                // 비밀번호 수정 페이지로 이동 혹은 비밀번호 수정 다이어로그 출력
+                case R.id.myv_btnpw:
+//                    Intent intent = new Intent(MyViewActivity.this, );
+                    break;
+
+                    // 정보 수정 페이지로 이동
+                case R.id.myv_btnupd:
+//                    Intent intent = new Intent(MyViewActivity.this, );
+                    break;
+            }
+        }
+    };
 
 
 
@@ -85,28 +99,17 @@ public class MyViewActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
 
     }
-    // ---------------------------------
 
-
-
-    // 20.12.30 삭제 세미 ---------------------------------------------------
-    private void connectDeleteData(){
-        try{
-            CUDNetworkTask deleteworkTask = new CUDNetworkTask(MyViewActivity.this, urlAddr);
-            deleteworkTask.execute().get();
+    // 내가 로그인한 id값에 대한 이름과 연락처를 불러옴
+    private void getUserDate(){
+        try {
+            UserNetworkTask networkTask = new UserNetworkTask(MyViewActivity.this, urlAddr1);
+            Object obj = networkTask.execute().get();
+            users = (ArrayList<User>) obj;
         }catch (Exception e){
             e.printStackTrace();
         }
-        finish();
     }
 
-    // 끝 ------------------------------------------------------------------
-
-
-
-
-
-
-
-
+    // ---------------------------------
 }//--------------
