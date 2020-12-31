@@ -26,6 +26,7 @@
         <activity android:name=".Activity.InsertGroupActivity"/>
         <activity android:name=".Activity.GroupViewActivity"/>
         <activity android:name=".Activity.MyViewActivity"/>
+        <activity android:name=".Activity.MyUpdateActivity"/>
         <activity
             android:name=".Activity.SettingsActivity"
             android:label="@string/title_activity_settings" />

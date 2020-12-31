@@ -26,10 +26,8 @@ public class MyViewActivity extends AppCompatActivity {
     Button myview_btnpw, myview_btnupd;
     ArrayList<User> users;
     String urlAddr1 = null;
-    // 끝 --------------------------------------------
 
     final static String TAG = "MainViewActivity";
-    String urlAddr = null;
     TextView VMname, VMphone, VMemail;
 
     @Override
@@ -73,12 +71,25 @@ public class MyViewActivity extends AppCompatActivity {
             switch (v.getId()){
                 // 비밀번호 수정 페이지로 이동 혹은 비밀번호 수정 다이어로그 출력
                 case R.id.myv_btnpw:
-//                    Intent intent = new Intent(MyViewActivity.this, );
+
+
                     break;
 
                     // 정보 수정 페이지로 이동
                 case R.id.myv_btnupd:
-//                    Intent intent = new Intent(MyViewActivity.this, );
+                    // 상세정보 화면으로 이동하기(인텐트 날리기)
+                    Intent intent = new Intent(
+                            MyViewActivity.this, // 현재화면의 제어권자
+                            MyUpdateActivity.class); // 다음넘어갈 화면
+
+                    // intent 객체에 데이터를 실어서 보내기
+                    // 리스트뷰 클릭시 인텐트 (Intent) 생성하고 position 값을 이용하여 인텐트로 넘길값들을 넘긴다
+                    intent.putExtra("userName", users.get(0).getUserName());
+                    intent.putExtra("userPhone", users.get(0).getUserPhone());
+                    intent.putExtra("userEmail", users.get(0).getUserEmail());
+
+                    startActivity(intent);
+                    finish();
                     break;
             }
         }

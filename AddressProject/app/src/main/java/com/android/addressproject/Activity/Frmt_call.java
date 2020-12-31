@@ -61,7 +61,7 @@ public class Frmt_call extends Fragment {
 
         FloatingActionButton floatingActionButton = v.findViewById(R.id.floatingActionButton);
         floatingActionButton.setOnClickListener(floatCliclListener);
-        recyclerView = (RecyclerView) v.findViewById(R.id.call_recycleView);
+        recyclerView = v.findViewById(R.id.call_recycleView);
 
 
         //20.12.30 지은 추가 -----------------
@@ -166,6 +166,7 @@ public class Frmt_call extends Fragment {
     public void onResume() {
         super.onResume();
         connectGetData();
+        getUserDate();
         Log.v(TAG, "onResume()");
     }
 
