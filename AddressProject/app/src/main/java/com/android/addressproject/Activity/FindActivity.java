@@ -153,7 +153,6 @@ public class FindActivity extends AppCompatActivity {
 
 
 
-
                     }else {
 
                         new AlertDialog.Builder(FindActivity.this)

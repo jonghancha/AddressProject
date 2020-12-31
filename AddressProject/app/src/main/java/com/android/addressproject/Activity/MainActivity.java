@@ -52,14 +52,6 @@ public class MainActivity extends AppCompatActivity {
         setThemeOfApp();
         setContentView(R.layout.activity_main);
 
-//        //20.12.30 지은 실험
-//        Intent intent = getIntent();
-//        String id = intent.getStringExtra("id");
-//        TextView mainid = findViewById(R.id.mainid);
-//        mainid.setText(id);
-//
-
-
         //-----------------
         // 20.12.30 종한 로그인 성공 시 파일 관련 사용자 권한 물어보기 추가
         ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, MODE_PRIVATE); //사용자에게 사진 사용 권한 받기 (가장중요함)
