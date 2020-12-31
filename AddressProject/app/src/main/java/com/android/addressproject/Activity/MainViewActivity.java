@@ -87,6 +87,7 @@ public class MainViewActivity extends AppCompatActivity {
 
             Intent intent = null;
             String phonedata = Vphone.getText().toString();
+            String emaildata = Vemail.getText().toString();
             Log.v(TAG, "phonedata 값 : " + phonedata);
 
             // 전화
@@ -105,12 +106,19 @@ public class MainViewActivity extends AppCompatActivity {
 
                 // 이메일
                 case R.id.mainview_email:
-
+                    intent = new Intent(Intent.ACTION_SEND);
+                    intent.setType("plain/Text");
+                    intent.putExtra(Intent.EXTRA_EMAIL, emaildata);
+                    intent.setType("message/rfc822");
+                    startActivity(intent);
                     break;
 
                 // 삭제 버튼 클릭
                 case R.id.mainview_btndel:
+
                     urlAddr = "http://" + ShareVar.macIP + ":8080/test/AddressDelete.jsp?addno="+addno;
+
+
                     connectDeleteData();
                     Toast.makeText(MainViewActivity.this, "삭제되었습니다." + addno, Toast.LENGTH_SHORT).show();
 
