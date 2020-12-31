@@ -20,7 +20,6 @@
             android:background="@drawable/ic_baseline_search_24"
             />
         <EditText
-
             android:id="@+id/search_ET"
             android:layout_width="0px"
             android:layout_weight="5"
@@ -31,16 +30,10 @@
             />
     </LinearLayout>
     <LinearLayout
+        android:id="@+id/mymain"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="20dp"
-        android:weightSum="6">
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:src="@mipmap/ic_launcher_round" />
+        android:layout_margin="20dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -54,7 +47,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:gravity="center_vertical"
+                android:gravity="center"
                 android:text="나의 이름"
                 android:textStyle="bold" />
 
@@ -63,7 +56,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
-                android:gravity="center_vertical"
+                android:gravity="center"
                 android:text="연락처"
                 android:textStyle="bold" />
 

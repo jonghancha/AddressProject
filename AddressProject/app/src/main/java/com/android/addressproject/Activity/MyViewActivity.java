@@ -16,10 +16,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.android.addressproject.NetworkTask.CUDNetworkTask;
 import com.android.addressproject.R;
 
-//20.12.30 지은 수정
-public class MainViewActivity extends AppCompatActivity {
-
-    // 20.12.30 세미 추가 ------------------------------
+//21.01.01 지은 수정
+public class MyViewActivity extends AppCompatActivity {
 
     Button mainview_call, mainview_sms, mainview_email, mainview_btndel;
     String addno;
@@ -28,15 +26,14 @@ public class MainViewActivity extends AppCompatActivity {
 
     final static String TAG = "MainViewActivity";
     String urlAddr = null;
-    String scode, sname, sdept, sphone;
 //    String macIp = "192.168.43.220";
     TextView Vname, Vphone, Vgroup, Vemail, Vtext, Vbirth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_mainview);
-        setTitle("상세보기 화면");
+        setContentView(R.layout.activity_myview);
+        setTitle("나의정보 상세보기 화면");
 
         // intent 를 받아온다.
         Intent intent = getIntent();
@@ -68,58 +65,12 @@ public class MainViewActivity extends AppCompatActivity {
         addno = Integer.toString(intent.getIntExtra("no",0));
 
 
-        mainview_call.setOnClickListener(btnClickListener);
-        mainview_sms.setOnClickListener(btnClickListener);
-        mainview_email.setOnClickListener(btnClickListener);
-        mainview_btndel.setOnClickListener(btnClickListener);
-
         // 끝 -----------------------------------------------------------------------
 
 
     }
 
 
-    // 20.12.30 세미 전화, 문자, 이메일 버튼 추가 ------------------------------
-
-    View.OnClickListener btnClickListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-
-            Intent intent = null;
-            String phonedata = Vphone.getText().toString();
-            Log.v(TAG, "phonedata 값 : " + phonedata);
-
-            // 전화
-            switch (v.getId()){
-                case R.id.mainview_call:
-                    intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:"+phonedata));
-                    startActivity(intent);
-                    break;
-
-                // 문자
-                case R.id.mainview_sms:
-
-                    intent = new Intent(Intent.ACTION_SENDTO, Uri.parse("smsto:"+phonedata));
-                    startActivity(intent);
-                    break;
-
-                // 이메일
-                case R.id.mainview_email:
-
-                    break;
-
-                // 삭제 버튼 클릭
-                case R.id.mainview_btndel:
-                    urlAddr = "http://192.168.200.178:8080/test/AddressDelete.jsp?addno="+addno;
-                    connectDeleteData();
-                    Toast.makeText(MainViewActivity.this, "삭제되었습니다." + addno, Toast.LENGTH_SHORT).show();
-
-                    break;
-            }
-        }
-    };
-
-    // 끝 ---------------------------------------------------------------
 
     //뒤로가기 ---------------------------
     @Override
@@ -141,7 +92,7 @@ public class MainViewActivity extends AppCompatActivity {
     // 20.12.30 삭제 세미 ---------------------------------------------------
     private void connectDeleteData(){
         try{
-            CUDNetworkTask deleteworkTask = new CUDNetworkTask(MainViewActivity.this, urlAddr);
+            CUDNetworkTask deleteworkTask = new CUDNetworkTask(MyViewActivity.this, urlAddr);
             deleteworkTask.execute().get();
         }catch (Exception e){
             e.printStackTrace();

@@ -73,7 +73,7 @@ public class InsertGroupActivity extends AppCompatActivity {
 
         String checkId = com.android.addressproject.Activity.PreferenceManager.getString(this,"id");
 
-        urlAddr = "http://192.168.200.178:8080/test/groupInsert.jsp?user_userId=" + checkId;  // ?(물음표) 주의
+        urlAddr = "http://192.168.43.220:8080/test/groupInsert.jsp?user_userId=" + checkId;  // ?(물음표) 주의
 
 
 

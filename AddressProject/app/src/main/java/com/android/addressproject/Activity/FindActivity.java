@@ -33,7 +33,7 @@ public class FindActivity extends AppCompatActivity {
     String snameid, snamepw, sphone, sid, semail;
     EditText EnameId, Ephone, Eid, EnamePw, Eemail;
     Button btn_Fid, btn_Fpw, btn_FindId, btn_FindPw;
-    String macIP = "192.168.219.104";
+    String macIP = "192.168.43.220";
 
     LinearLayout Vid, Vpw;
 
