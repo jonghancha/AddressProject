@@ -33,7 +33,7 @@ public class LoginActivity extends AppCompatActivity {
     String sid, spw, sname, sphone, semail;
     EditText edName, edPhone, edEmail;
 
-    String macIP = "192.168.43.220";
+    String macIP = ShareVar.macIP;
     //----------------------------------------------------------------------------------
 
     //세미
