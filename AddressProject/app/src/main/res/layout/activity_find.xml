@@ -50,7 +50,7 @@
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:layout_gravity="center"
-            android:visibility="visible"
+            android:visibility="invisible"
             android:gravity="center"
             >
             <TextView

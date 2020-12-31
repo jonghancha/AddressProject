@@ -1,65 +1,84 @@
 package com.android.addressproject.Activity;
 
+import android.app.AlertDialog;
+import android.content.Intent;
 import android.os.Bundle;
+import android.text.InputFilter;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.android.addressproject.NetworkTask.FindNetworkTask;
 import com.android.addressproject.R;
+
+import static android.app.ProgressDialog.show;
 
 public class FindActivity extends AppCompatActivity {
 
-    LinearLayout Vid, Vpw;
-    Button btnId, btnPw, btn_FindId, btn_FindPw;
 
-    // 20.12.30 세미 아이디찾기 추가 -------------------------------------
+    //이강후.
+
+    final static String TAG = "FindActivity";
     String urlAddr = null;
-    EditText etFI_name, etFI_phone;
+    String urlAddr2 = null;
 
-    // 끝 ---------------------------------------------------
+    String snameid, snamepw, sphone, sid, semail;
+    EditText EnameId, Ephone, Eid, EnamePw, Eemail;
+    Button btn_Fid, btn_Fpw, btn_FindId, btn_FindPw;
+    String macIP = "192.168.219.104";
+
+    LinearLayout Vid, Vpw;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_find);
 
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.setDisplayHomeAsUpEnabled(true);
-        }
+        //텍스트 필드 연결
+
+        //아이디 찾기.
+        EnameId = findViewById(R.id.etFI_name);
+        Ephone = findViewById(R.id.etFI_phone);
+        //패스워드 찾기.
+        Eid = findViewById(R.id.etFP_id);
+        EnamePw = findViewById(R.id.etFP_name);
+        Eemail = findViewById(R.id.etFP_email);
+
+        //입력시 자릿수 제한.
+        EnameId.setFilters(new InputFilter[]{new InputFilter.LengthFilter(15)});
+        Ephone.setFilters(new InputFilter[]{new InputFilter.LengthFilter(15)});
+        Eid.setFilters(new InputFilter[]{new InputFilter.LengthFilter(15)});
+        EnamePw.setFilters(new InputFilter[]{new InputFilter.LengthFilter(15)});
+        Eemail.setFilters(new InputFilter[]{new InputFilter.LengthFilter(22)});
+
+
+        //버튼 연결.
+        btn_Fid = findViewById(R.id.btn_Fid); //위쪽 버튼
+        btn_Fpw = findViewById(R.id.btn_Fpw);
+        btn_Fid.setOnClickListener(mclickListener);
+        btn_Fpw.setOnClickListener(mclickListener);
+
+        btn_FindId = findViewById(R.id.btn_FindId); //아래쪽 버튼
+        btn_FindPw = findViewById(R.id.btn_FindPw);
+        btn_FindId.setOnClickListener(onClickListener);
+        btn_FindPw.setOnClickListener(onClickListener);
 
         Vid = findViewById(R.id.view_Fid);
         Vpw = findViewById(R.id.view_Fpw);
 
-        btnId = findViewById(R.id.btn_Fid);
-        btnPw = findViewById(R.id.btn_Fpw);
 
-        btnId.setOnClickListener(FonclickListener);
-        btnPw.setOnClickListener(FonclickListener);
-
-        // 20.12.30 세미 추가 -------------------------------------
-
-        // 연결
-        etFI_name = findViewById(R.id.etFI_name);
-        etFI_phone = findViewById(R.id.etFI_phone);
-        btn_FindId = findViewById(R.id.btn_FindId);
-
-
-
-        // 클릭시
-        btn_FindId.setOnClickListener(findClickListener);
-
-
-
-        // ------------------------------------------------------
 
     }
-    View.OnClickListener FonclickListener = new View.OnClickListener() {
+
+    View.OnClickListener mclickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             switch (v.getId()){
@@ -78,37 +97,148 @@ public class FindActivity extends AppCompatActivity {
     };
 
 
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 
-        // 뒤로가기
-        switch (item.getItemId()){
-            case android.R.id.home:
-                onBackPressed();
-                return true;
+    View.OnClickListener onClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            switch (v.getId()){
+                case R.id.btn_FindId:
+                    snameid = EnameId.getText().toString();
+                    sphone = Ephone.getText().toString();
+
+                    Intent intent = getIntent();
+                    urlAddr = "http://" + macIP + ":8080/test/findID.jsp?";
+                    urlAddr = urlAddr + "name=" + snameid + "&phone=" + sphone;
+
+                    //jsp를 실행해서 Json code를 String으로 받음
+                    String ID = connectFindIDdata();
+
+                    if(ID == null) {
+
+                        new AlertDialog.Builder(FindActivity.this)
+                                .setTitle(snameid + "님의 ID의 아이디를 찾을 수 없습니다.")
+                                .setMessage("입력값을 다시 확인해주세요.")
+                                .setPositiveButton("확인", null)
+                                .show();
+
+                    }else{
+
+                        new AlertDialog.Builder(FindActivity.this)
+                                .setTitle(snameid + "님의 ID는 [" + ID + "] 입니다.")
+                                .setMessage("")
+                                .setPositiveButton("확인", null)
+                                .show();
+                    }
+                        break;
+
+                case R.id.btn_FindPw:
+                    sid = Eid.getText().toString();
+                    snamepw = EnamePw.getText().toString();
+                    semail = Eemail.getText().toString();
+
+                    Intent intent2 = getIntent();
+                    urlAddr2 = "http://" + macIP + ":8080/test/findPw.jsp?";
+                    urlAddr2 = urlAddr2 + "id=" + sid + "&name=" + snamepw + "&email=" + semail;
+
+                    //jsp를 실행해서 Json code를 String으로 받음
+                    String Pw = connectFindPWdata();
+
+                    if(Pw == null){
+
+                        new AlertDialog.Builder(FindActivity.this)
+                                .setTitle(snamepw+"님의 패스워드를 찾을 수 없습니다.")
+                                .setMessage("입력값을 다시 확인해주세요.")
+                                .setPositiveButton("확인", null)
+                                .show();
+
+
+
+                    }else {
+
+                        new AlertDialog.Builder(FindActivity.this)
+                                .setTitle(snamepw + "님의 패스워드는 [" + Pw + "] 입니다.")
+                                .setMessage("")
+                                .setPositiveButton("확인", null)
+                                .show();
+
+                    }
+                        break;
         }
-        return super.onOptionsItemSelected(item);
+    }
+    };
 
+    private String connectFindIDdata(){
+        String result = null;
+        Log.v(TAG, urlAddr);
+
+        try {
+            ///////////////////////////////////////////////////////////////////////////////////////
+            //
+            // Description:
+            //  - NetworkTask를 한곳에서 관리하기 위해 기존 CUDNetworkTask 삭제
+            //  - NetworkTask의 생성자 추가 : where
+            //
+            ///////////////////////////////////////////////////////////////////////////////////////
+
+            //NetworkTask 생성자.
+            FindNetworkTask findNetworkTask = new FindNetworkTask(FindActivity.this, urlAddr, "findId");
+            ///////////////////////////////////////////////////////////////////////////////////////
+
+            ///////////////////////////////////////////////////////////////////////////////////////
+            // Date : 2020.12.24
+            //
+            // Description:
+            //  - 입력 결과 값을 받기 위해 Object로 return후에 String으로 변환 하여 사용
+            //
+            ///////////////////////////////////////////////////////////////////////////////////////
+            Object obj = findNetworkTask.execute().get();
+            result = (String) obj;
+            Log.v(TAG," :"+result);
+            ///////////////////////////////////////////////////////////////////////////////////////
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    //----------
+
+    private String connectFindPWdata(){
+        String result2 = null;
+        Log.v(TAG, urlAddr2);
+
+        try {
+            ///////////////////////////////////////////////////////////////////////////////////////
+            //
+            // Description:
+            //  - NetworkTask를 한곳에서 관리하기 위해 기존 CUDNetworkTask 삭제
+            //  - NetworkTask의 생성자 추가 : where
+            //
+            ///////////////////////////////////////////////////////////////////////////////////////
+
+            //NetworkTask 생성자.
+            FindNetworkTask findNetworkTask2 = new FindNetworkTask(FindActivity.this, urlAddr2, "findPw");
+            ///////////////////////////////////////////////////////////////////////////////////////
+
+            ///////////////////////////////////////////////////////////////////////////////////////
+            // Date : 2020.12.24
+            //
+            // Description:
+            //  - 입력 결과 값을 받기 위해 Object로 return후에 String으로 변환 하여 사용
+            //
+            ///////////////////////////////////////////////////////////////////////////////////////
+            Object obj2 = findNetworkTask2.execute().get();
+            result2 = (String) obj2;
+            Log.v(TAG," :"+result2);
+            ///////////////////////////////////////////////////////////////////////////////////////
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return result2;
     }
 
 
-    // 20.12.30 세미 추가 -------------------------------------
 
-    View.OnClickListener findClickListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-
-            // 값 가져오기
-            String tempFIname = etFI_name.getText().toString();
-            String tempFIphone = etFI_phone.getText().toString();
-
-        urlAddr = "http://192.168.43.220:8080/test/findidUser.jsp?find_name=" + tempFIname + "&find_phone=" + tempFIphone;
-        }
-    };
-
-
-    // 끝 ---------------------------------------------------
-
-
-
-}
+}//---

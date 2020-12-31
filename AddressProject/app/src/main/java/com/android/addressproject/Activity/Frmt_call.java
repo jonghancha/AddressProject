@@ -124,6 +124,7 @@ public class Frmt_call extends Fragment {
             // 텍스트가 변할때마다 urlAddr에 덮어씌워져서 그때마다 그냥 초기화시켜줌
 
             urlAddr = "http://192.168.43.220:8080/test/addressSelectWithCondition.jsp?user_userId=" + checkId +"&search_text=";
+
             //----------------------
 
 

@@ -28,7 +28,7 @@ public class SignupActivity extends AppCompatActivity { //이강후
     String sid, spw, sname, sphone, semail;
     EditText Eid, Epw, Ename, Ephone, Eemail;
     Button btn_IdCheck, btn_SignUp;
-    String macIP = "192.168.43.220";
+    String macIP = "192.168.0.54";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -127,6 +127,7 @@ public class SignupActivity extends AppCompatActivity { //이강후
                                 .show();
                         finish();
 
+                        finish();
                     }else{
 
                         new AlertDialog.Builder(SignupActivity.this)
