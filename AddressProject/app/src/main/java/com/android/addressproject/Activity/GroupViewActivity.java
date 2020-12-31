@@ -70,8 +70,8 @@ public class GroupViewActivity extends AppCompatActivity {
         // 저장한 키 값으로 저장된 아이디와 암호를 불러와 String 값에 저장
         String checkId = com.android.addressproject.Activity.PreferenceManager.getString(GroupViewActivity.this,"id");
 
-        urlAddr1 = "http://192.168.43.220:8080/test/groupDelete.jsp?user_userId=" + checkId +"&addressGroup=" + addressGroup;
-        urlAddr = "http://192.168.43.220:8080/test/groupSelect.jsp?user_userId=" + checkId +"&addressGroup=" + addressGroup +"&search_text=";
+        urlAddr1 = "http://" + ShareVar.macIP + ":8080/test/groupDelete.jsp?user_userId=" + checkId +"&addressGroup=" + addressGroup;
+        urlAddr = "http://" + ShareVar.macIP + ":8080/test/groupSelect.jsp?user_userId=" + checkId +"&addressGroup=" + addressGroup +"&search_text=";
 
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
@@ -88,7 +88,7 @@ public class GroupViewActivity extends AppCompatActivity {
             String addressGroup = intent.getStringExtra("group");
             String checkId = com.android.addressproject.Activity.PreferenceManager.getString(GroupViewActivity.this,"id");
 
-            urlAddr1 = "http://192.168.43.220:8080/test/groupDelete.jsp?user_userId=" + checkId +"&addressGroup=" + addressGroup;
+            urlAddr1 = "http://" + ShareVar.macIP + ":8080/test/groupDelete.jsp?user_userId=" + checkId +"&addressGroup=" + addressGroup;
 
             connectDeleteData();
             Toast.makeText(GroupViewActivity.this, urlAddr1+" 가 삭제 되었습니다.", Toast.LENGTH_SHORT).show();
@@ -153,7 +153,7 @@ public class GroupViewActivity extends AppCompatActivity {
 
             Intent intent = getIntent();
             String addressGroup = intent.getStringExtra("group");
-            urlAddr = "http://192.168.43.220:8080/test/groupSelect.jsp?user_userId=" + checkId +"&addressGroup=" + addressGroup +"&search_text=";
+            urlAddr = "http://" + ShareVar.macIP + ":8080/test/groupSelect.jsp?user_userId=" + checkId +"&addressGroup=" + addressGroup +"&search_text=";
 
 
             String searchText = search_EdT.getText().toString().trim();
