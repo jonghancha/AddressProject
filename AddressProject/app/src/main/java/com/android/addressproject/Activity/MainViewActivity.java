@@ -105,12 +105,16 @@ public class MainViewActivity extends AppCompatActivity {
 
                 // 이메일
                 case R.id.mainview_email:
-
+                    intent = new Intent(Intent.ACTION_SEND);
+                    intent.setType("plain/Text");
+                    intent.putExtra(Intent.EXTRA_EMAIL, emaildata);
+                    intent.setType("message/rfc822");
+                    startActivity(intent);
                     break;
 
                 // 삭제 버튼 클릭
                 case R.id.mainview_btndel:
-                    urlAddr = "http://192.168.200.178:8080/test/AddressDelete.jsp?addno="+addno;
+                    urlAddr = "http://192.168.2.3:8080/test/AddressDelete.jsp?addno="+addno;
                     connectDeleteData();
                     Toast.makeText(MainViewActivity.this, "삭제되었습니다." + addno, Toast.LENGTH_SHORT).show();
 
