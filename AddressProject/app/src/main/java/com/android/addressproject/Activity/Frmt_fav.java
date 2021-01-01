@@ -64,7 +64,7 @@ public class Frmt_fav extends Fragment {
         //조건 검색 .jsp 를 따로 만들어서 연결시켜줌.
         //search_text가 검색되는 단어(번호도 가능)
 
-        urlAddr = "http://" + ShareVar.macIP + ":8080/test/addressSelectWithCondition.jsp?user_userId=" + checkId +"&search_text=";
+        urlAddr = "http://" + ShareVar.macIP + ":8080/test/favSelectWithCondition.jsp?user_userId=" + checkId +"&search_text=";
 
 
         search_EdT = v.findViewById(R.id.search_ET);
@@ -121,7 +121,7 @@ public class Frmt_fav extends Fragment {
 
             // 텍스트가 변할때마다 urlAddr에 덮어씌워져서 그때마다 그냥 초기화시켜줌
 
-            urlAddr = "http://" + ShareVar.macIP + ":8080/test/addressSelectWithCondition.jsp?user_userId=" + checkId +"&search_text=";
+            urlAddr = "http://" + ShareVar.macIP + ":8080/test/favSelectWithCondition.jsp?user_userId=" + checkId +"&search_text=";
 
             //----------------------
 
