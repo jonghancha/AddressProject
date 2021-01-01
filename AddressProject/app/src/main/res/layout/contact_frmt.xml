@@ -61,6 +61,6 @@
             android:layout_gravity="end|bottom"
             android:layout_margin="30dp"
             android:backgroundTint="?colorPrimary"
-            android:src="@drawable/add_24" />
+            android:src="@drawable/ic_baseline_group_add_24" />
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </LinearLayout>

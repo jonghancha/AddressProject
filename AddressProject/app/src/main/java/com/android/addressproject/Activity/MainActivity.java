@@ -92,9 +92,10 @@ public class MainActivity extends AppCompatActivity {
         //--------------------------------------------------------------------------------
 
         // 20.12.29 지은 tablayout 추가 --------------------------------------
-        tabLayout.getTabAt(0).setIcon(R.drawable.ic_call_black_24dp);
-        tabLayout.getTabAt(1).setIcon(R.drawable.ic_group_black_24dp);
-        tabLayout.getTabAt(2).setIcon(R.drawable.ic_favorite_black_24dp);
+        tabLayout.getTabAt(0).setIcon(R.drawable.ic_call_black_24dp).setText("연락처");
+        tabLayout.getTabAt(1).setIcon(R.drawable.ic_group_black_24dp).setText("그룹");
+        tabLayout.getTabAt(2).setIcon(R.drawable.ic_favorite_black_24dp).setText("즐겨찾기");
+
 
         //Remove ActionBar Shadow
 
@@ -145,7 +146,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    ///
+    //테마
     private void setThemeOfApp(){
         sharedPreferences = PreferenceManager
                 .getDefaultSharedPreferences(getBaseContext());
