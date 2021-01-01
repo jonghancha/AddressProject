@@ -76,21 +76,8 @@ public class Frmt_call extends Fragment {
         //-----------------------------------------------------
 
 
+        getUser();
 
-        //++++++++++++++++++++++++++++++++++++++++++
-        // 로그인 한 id에 대한 이름 과 연락처를 띄우는 jsp
-        urlAddr1 = "http://" + ShareVar.macIP + ":8080/test/mySelect.jsp?user_userId=" + checkId;
-        getUserDate();  // 띄우기 위한 메소드
-
-        TextView myid = v.findViewById(R.id.myid);
-        myid.setText(users.get(0).getUserName());
-        TextView myphone = v.findViewById(R.id.myphone);
-        myphone.setText(users.get(0).getUserPhone());
-        //++++++++++++++++++++++++++++++++++++++++++
-
-        // 나의 정보 상세보기를 위한
-        LinearLayout mymain = v.findViewById(R.id.mymain);
-        mymain.setOnClickListener(myClickListener);
 
 
         return v;
@@ -166,7 +153,7 @@ public class Frmt_call extends Fragment {
     public void onResume() {
         super.onResume();
         connectGetData();
-        getUserDate();
+        getUser();
         Log.v(TAG, "onResume()");
     }
 
@@ -179,6 +166,27 @@ public class Frmt_call extends Fragment {
             startActivity(intent);
         }
     };
+
+
+    private void getUser(){
+
+        // 저장한 키 값으로 저장된 아이디와 암호를 불러와 String 값에 저장
+        String checkId = PreferenceManager.getString(getContext(),"id");
+        //++++++++++++++++++++++++++++++++++++++++++
+        // 로그인 한 id에 대한 이름 과 연락처를 띄우는 jsp
+        urlAddr1 = "http://" + ShareVar.macIP + ":8080/test/mySelect.jsp?user_userId=" + checkId;
+        getUserDate();  // 띄우기 위한 메소드
+
+        TextView myid = v.findViewById(R.id.myid);
+        myid.setText(users.get(0).getUserName());
+        TextView myphone = v.findViewById(R.id.myphone);
+        myphone.setText(users.get(0).getUserPhone());
+        //++++++++++++++++++++++++++++++++++++++++++
+
+        // 나의 정보 상세보기를 위한
+        LinearLayout mymain = v.findViewById(R.id.mymain);
+        mymain.setOnClickListener(myClickListener);
+    }
 
 
     // 내가 로그인한 id값에 대한 이름과 연락처를 불러옴
