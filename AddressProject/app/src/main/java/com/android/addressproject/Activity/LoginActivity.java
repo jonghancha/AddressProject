@@ -143,7 +143,7 @@ public class LoginActivity extends AppCompatActivity {
                             String checkId = PreferenceManager.getString(mContext,"id");
                             String checkPw = PreferenceManager.getString(mContext,"pw");
                             startActivity(intentLogIn);
-
+                            finish();
                             break;
 
                     }

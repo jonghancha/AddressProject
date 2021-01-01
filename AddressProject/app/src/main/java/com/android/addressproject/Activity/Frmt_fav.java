@@ -1,5 +1,6 @@
 package com.android.addressproject.Activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -8,20 +9,25 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+
 import com.android.addressproject.Adapter.AddressAdapter;
 import com.android.addressproject.Bean.Address;
+import com.android.addressproject.Bean.User;
 import com.android.addressproject.NetworkTask.AddressNetworkTask;
+import com.android.addressproject.NetworkTask.UserNetworkTask;
 import com.android.addressproject.R;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 
-// 20.12.29 지은 추가
 public class Frmt_fav extends Fragment {
 
     View v;
@@ -31,7 +37,6 @@ public class Frmt_fav extends Fragment {
     AddressAdapter adapter;
     private RecyclerView.LayoutManager layoutManager;
     RecyclerView recyclerView;
-
 
     // 검색창
     EditText search_EdT;
@@ -45,28 +50,31 @@ public class Frmt_fav extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-
         v = inflater.inflate(R.layout.fav_frmt,container,false);
-//20.12.30 지은 수정 -----------------
+        //20.12.30 지은 추가 -----------------
         // 저장한 키 값으로 저장된 아이디와 암호를 불러와 String 값에 저장
         String checkId = PreferenceManager.getString(getContext(),"id");
 
-        recyclerView = (RecyclerView) v.findViewById(R.id.fav_recycleView);
-//        AddressAdapter viewAdapter = new AddressAdapter(getContext(), R.layout.item_contact, addresses);
-//        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-//        recyclerView.setAdapter(viewAdapter);
+        //-----------
 
+        recyclerView = (RecyclerView) v.findViewById(R.id.fav_recycleView);
+
+
+        //20.12.30 지은 추가 -----------------
         //조건 검색 .jsp 를 따로 만들어서 연결시켜줌.
         //search_text가 검색되는 단어(번호도 가능)
 
-
-        urlAddr = "http://" + ShareVar.macIP + ":8080/test/favSelectWithCondition.jsp?user_userId=" + checkId +"&search_text=";
+        urlAddr = "http://" + ShareVar.macIP + ":8080/test/addressSelectWithCondition.jsp?user_userId=" + checkId +"&search_text=";
 
 
         search_EdT = v.findViewById(R.id.search_ET);
         search_EdT.addTextChangedListener(textChangedListener);
+        //--------------------------------------------------
+
+
+
         return v;
-    }//-----------------------
+    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -74,7 +82,7 @@ public class Frmt_fav extends Fragment {
     }
 
 
-    //메소드
+    //메소드 = 로그인한 아이디값에 저장된 연락처 띄워주는
     private void connectGetData(){
         try {
             AddressNetworkTask networkTask = new AddressNetworkTask(getActivity(), urlAddr); //onCreate 에 urlAddr 이 선언된것이 들어옴
@@ -82,7 +90,7 @@ public class Frmt_fav extends Fragment {
             // object 에서 선언은 되었지만 실질적으로 리턴한것은 arraylist
             Object object = networkTask.execute().get();
             addresses = (ArrayList<Address>) object;
-
+            Log.v(TAG, "addresses size = " + String.valueOf(addresses.size()));
             //StudentAdapter.java 의 생성자를 받아온다.
             adapter = new AddressAdapter(getActivity(), R.layout.item_contact, addresses);
             recyclerView.setAdapter(adapter);
@@ -96,7 +104,7 @@ public class Frmt_fav extends Fragment {
     }
 
 
-
+    //-------------------------------------------------------
     //  textChanged 시 검색기능 쓰기
     TextWatcher textChangedListener = new TextWatcher() {
         @Override
@@ -107,22 +115,22 @@ public class Frmt_fav extends Fragment {
         // 텍스트가 변할때마다 조건검색이 실행 됩니다.
         @Override
         public void onTextChanged(CharSequence s, int start, int before, int count) {
-//20.12.30 지은 수정 -----------------
+            //20.12.30 지은 추가 -----------------
             // 저장한 키 값으로 저장된 아이디와 암호를 불러와 String 값에 저장
             String checkId = PreferenceManager.getString(getContext(),"id");
 
             // 텍스트가 변할때마다 urlAddr에 덮어씌워져서 그때마다 그냥 초기화시켜줌
 
+            urlAddr = "http://" + ShareVar.macIP + ":8080/test/addressSelectWithCondition.jsp?user_userId=" + checkId +"&search_text=";
 
-            urlAddr = "http://" + ShareVar.macIP + ":8080/test/favSelectWithCondition.jsp?user_userId=" + checkId +"&search_text=";
-
+            //----------------------
 
 
             String searchText = search_EdT.getText().toString().trim();
             urlAddr = urlAddr + searchText;
             connectGetData();
 
-        }//---------------
+        }
 
         @Override
         public void afterTextChanged(Editable s) {
@@ -130,13 +138,19 @@ public class Frmt_fav extends Fragment {
         }
     };
 
+//-------------------------------------------------------
 
-    //resume 에 써주는 것이 좋다. create 에 써도 무관하지만
+
+    //입력 되어도 리스트에 실시간으로 추가 되게 만들어줌(유지)
     @Override
     public void onResume() {
         super.onResume();
         connectGetData();
         Log.v(TAG, "onResume()");
     }
+
+
+
+
 
 }

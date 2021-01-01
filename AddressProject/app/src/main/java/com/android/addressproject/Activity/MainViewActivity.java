@@ -53,7 +53,7 @@ public class MainViewActivity extends AppCompatActivity {
         Vphone.setText(intent.getStringExtra("phone"));
         Vgroup.setText(intent.getStringExtra("group"));
         Vemail.setText(intent.getStringExtra("email"));
-        Vtext.setText(intent.getStringExtra("addno"));
+        Vtext.setText(intent.getStringExtra("text"));
         Vbirth.setText(intent.getStringExtra("birth"));
 
         // 20.12.30 세미 전화, 문자, 이메일 버튼 및 연락처 삭제 ------------------------------
