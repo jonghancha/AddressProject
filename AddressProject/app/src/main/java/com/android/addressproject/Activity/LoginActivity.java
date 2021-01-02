@@ -24,13 +24,13 @@ import com.android.addressproject.R;
 
 public class LoginActivity extends AppCompatActivity {
 
-    //로그인 field - 이강후.
+    //로그인  - 이강후.
 
     final static String TAG = "LoginActivity";
     String urlAddr3 = null;
     String urlAddr4 = null;
 
-    String sid1, spw1, sname, sphone, semail;
+    String sid, spw, sname, sphone, semail;
     EditText edName, edPhone, edEmail;
 
 
@@ -73,8 +73,8 @@ public class LoginActivity extends AppCompatActivity {
         cb_atlogin = findViewById(R.id.cb_atlogin);
 
         //입력시 자릿수 제한.
-        edId.setFilters(new InputFilter[]{ new InputFilter.LengthFilter(15)});
-        edPw.setFilters(new InputFilter[]{ new InputFilter.LengthFilter(15)});
+        edId.setFilters(new InputFilter[]{new InputFilter.LengthFilter(15)});
+        edPw.setFilters(new InputFilter[]{new InputFilter.LengthFilter(15)});
 
         // 체크박스 클릭시
         cb_atlogin.setOnClickListener(cbClickListener);
@@ -82,69 +82,70 @@ public class LoginActivity extends AppCompatActivity {
         // 로그인 정보 기억하기 체크 유무 확인
         // 자동로그인 체크된 상태로 앱을 종료하고 다시 실행했을때, 체크된 상태로 종료했기 때문에 boo는 true가 나오고,
         // 저장되어있던 id, pw 키 값을 불러와 아이디, 암호 입력창에 셋팅
-        boolean boo = PreferenceManager.getBoolean(mContext,"check");
-        if(boo){ // 체크가 되어있다면 아래 코드를 수행
+        boolean boo = PreferenceManager.getBoolean(mContext, "check");
+        if (boo) { // 체크가 되어있다면 아래 코드를 수행
             // 저장된 아이디와 암호를 가져와 셋팅한다.
-            edId.setText(PreferenceManager.getString(mContext,"id"));
+            edId.setText(PreferenceManager.getString(mContext, "id"));
             edPw.setText(PreferenceManager.getString(mContext, "pw"));
             cb_atlogin.setChecked(true);    // 체크박스는 여전히 체크표시 하도록 셋팅
         }
-
+    }
         // 끝 ---------------------------------------------------------------------------------------
 
-    }
+        //--로그인 메인기능- 이강후-----------------------------------------------------------------------
 
-    View.OnClickListener LonClickListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
+        View.OnClickListener LonClickListener = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
-            switch (v.getId()){
+                switch (v.getId()) {
+
+
                     // id, pw 찾기 클릭 시
-                case R.id.tv_findIP:
-                    Intent intentIP = new Intent(LoginActivity.this, FindActivity.class);
-                    startActivity(intentIP);
-                    break;
+                    case R.id.tv_findIP:
+                        Intent intentIP = new Intent(LoginActivity.this, FindActivity.class);
+                        startActivity(intentIP);
+                        break;
 
-                case R.id.btn_LSignUp:
-                    Intent intentSignUp = new Intent(LoginActivity.this, SignupActivity.class);
-                    startActivity(intentSignUp);
-                    break;
+                    //회원가입 클릭 시.
+                    case R.id.btn_LSignUp:
+                        Intent intentSignUp = new Intent(LoginActivity.this, SignupActivity.class);
+                        startActivity(intentSignUp);
+                        break;
 
                     // 로그인 버튼 클릭 시
-                case R.id.btn_Login:
+                    case R.id.btn_Login:
 
-                    //-----------------------로그인 메인기능- 이강후--------------------------------------
-                    
-                    sid1 = edId.getText().toString();
-                    spw1 = edPw.getText().toString();
+                        sid = edId.getText().toString();
+                        spw = edPw.getText().toString();
 
-                    if(sid1.length()==0){
+                        if (sid.length() == 0) {
 
-                        new AlertDialog.Builder(LoginActivity.this)
-                                .setTitle("아이디를 입력해주세요!!")
-                                .setMessage("")
-                                .setPositiveButton("확인", null)
-                                .show();
+                            new AlertDialog.Builder(LoginActivity.this)
+                                    .setTitle("아이디를 입력해주세요!!")
+                                    .setMessage("")
+                                    .setPositiveButton("확인", null)
+                                    .show();
 
-                    }else if(spw1.length()==0){
+                        } else if (spw.length() == 0) {
 
-                        new AlertDialog.Builder(LoginActivity.this)
-                                .setTitle("패스워드를 입력해주세요!!")
-                                .setMessage("")
-                                .setPositiveButton("확인", null)
-                                .show();
+                            new AlertDialog.Builder(LoginActivity.this)
+                                    .setTitle("패스워드를 입력해주세요!!")
+                                    .setMessage("")
+                                    .setPositiveButton("확인", null)
+                                    .show();
 
-                    }else{
+                        } else {
                             Intent intent = getIntent();
                             urlAddr3 = "http://" + macIP + ":8080/test/loginCheck.jsp?";
-                            urlAddr3 = urlAddr3 + "id=" + sid1 + "&pw=" + spw1;
+                            urlAddr3 = urlAddr3 + "id=" + sid + "&pw=" + spw;
 
         /*                    urlAddr4 = "http://" + macIP + ":8080/test/loginGetData.jsp?";
                             urlAddr4 = urlAddr4 + "id=" + sid + "&pw=" + spw;*/
                             //이 방식 대신 PreferenceManager.setString방식을 쓰기로 함.
 
                             int count = connectLoginCheckData();
-                            Log.v(TAG,"count =" +count);
+                            Log.v(TAG, "count =" + count);
 
                             switch (count) {
                                 case 0: //아이디와 패스워드 일치하는 정보 없음.
@@ -165,62 +166,24 @@ public class LoginActivity extends AppCompatActivity {
                                     PreferenceManager.setString(mContext, "id", edId.getText().toString()); //id라는 키값으로 저장
                                     PreferenceManager.setString(mContext, "pw", edPw.getText().toString()); // pw라는 키값으로 저장
 
-                            Intent intentLogIn = new Intent(LoginActivity.this, MainActivity.class);
-                            // 저장한 키 값으로 저장된 아이디와 암호를 불러와 String 값에 저장
-                            String checkId = PreferenceManager.getString(mContext,"id");
-                            String checkPw = PreferenceManager.getString(mContext,"pw");
-                            startActivity(intentLogIn);
-                            finish();
-                            break;
+                                    Intent intentLogIn = new Intent(LoginActivity.this, MainActivity.class);
+                                    // 저장한 키 값으로 저장된 아이디와 암호를 불러와 String 값에 저장
+                                    String checkId = PreferenceManager.getString(mContext, "id");
+                                    String checkPw = PreferenceManager.getString(mContext, "pw");
+                                    startActivity(intentLogIn);
+                                    finish();
+                                    break;
 
                             }
-                    }
-                    //---------------------------------------------------------------------------------------
-
-/*                    String checkId = null;
-                    String checkPw = null;
-
-                    // 아이디와 패스워가 비어있는 경우 체크, TextUtils는 안드로이드에서 제공하는 null체크 함수
-                    if(TextUtils.isEmpty(checkId) || TextUtils.isEmpty(checkPw)){
-                        // 아이디나 암호 둘 중 하나가 비어있으면 토스트메세지 띄움
-
-                        if(TextUtils.isEmpty(checkId)){
-                            Toast.makeText(LoginActivity.this,"아이디를 입력해주세요.",Toast.LENGTH_SHORT).show();
-                            // 커서 위치 옮기기
-                            edId.requestFocus();
-                            edId.setCursorVisible(true);
-                        }else {
-                            // 커서 위치 옮기기
-                            Toast.makeText(LoginActivity.this,"패스워드를 입력해주세요.",Toast.LENGTH_SHORT).show();
-                            edPw.requestFocus();
-                            edPw.setCursorVisible(true);
                         }
-                        // 둘 다 충족하면 다음 동작을 구현
-                    }else {
-                        intent.putExtra("id",checkId);
-                        intent.putExtra("pw",checkPw);
-                        startActivity(intent);
-                        finish();
-                    }*/
-
-                    // 끝 ---------------------------------------------------------------------------
-
-
-//                    Intent intentL = new Intent(LoginActivity.this, MainActivity.class);
-//                    startActivity(intentL);
-                    //finish();
-//                    break;
-
-                    // 회원가입 클릭 시
-/*                case R.id.btn_LSignUp:
-                    Intent intentS = new Intent(LoginActivity.this, SignupActivity.class);
-                    startActivity(intentS);
-                    break;*/
+                            break;
+                }
             }
-        }
-    };
+        };
 
-    private int connectLoginCheckData(){   //--------------이강후-------------------------------------
+        //----------------------------------- 이강후 -----------------------------------------------------
+
+    private int connectLoginCheckData(){
         int result = 0;
 
         try{
@@ -252,7 +215,7 @@ public class LoginActivity extends AppCompatActivity {
         return result;
 
     }
-    //----------------------------------------------------------------------------------------------
+    // 세미 -----------------------------------------------------------------------------------------
 
     //editText 외의 화면 클릭시 키보드 숨기기
     @Override

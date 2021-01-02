@@ -106,6 +106,24 @@ public class FindActivity extends AppCompatActivity {
                     snameid = EnameId.getText().toString();
                     sphone = Ephone.getText().toString();
 
+                    if (snameid.length() == 0) {
+
+                        new AlertDialog.Builder(FindActivity.this)
+                                .setTitle("이름을 입력해주세요!!")
+                                .setMessage("")
+                                .setPositiveButton("확인", null)
+                                .show();
+
+                    }else if(sphone.length() ==0){
+
+                        new AlertDialog.Builder(FindActivity.this)
+                                .setTitle("연락처를 입력해주세요!!")
+                                .setMessage("")
+                                .setPositiveButton("확인", null)
+                                .show();
+
+                    }else{
+
                     Intent intent = getIntent();
                     urlAddr = "http://" + macIP + ":8080/test/findID.jsp?";
                     urlAddr = urlAddr + "name=" + snameid + "&phone=" + sphone;
@@ -128,39 +146,72 @@ public class FindActivity extends AppCompatActivity {
                                 .setMessage("")
                                 .setPositiveButton("확인", null)
                                 .show();
+                        }
+
                     }
+
                         break;
+
+
 
                 case R.id.btn_FindPw:
                     sid = Eid.getText().toString();
                     snamepw = EnamePw.getText().toString();
                     semail = Eemail.getText().toString();
 
-                    Intent intent2 = getIntent();
-                    urlAddr2 = "http://" + macIP + ":8080/test/findPw.jsp?";
-                    urlAddr2 = urlAddr2 + "id=" + sid + "&name=" + snamepw + "&email=" + semail;
 
-                    //jsp를 실행해서 Json code를 String으로 받음
-                    String Pw = connectFindPWdata();
-
-                    if(Pw == null){
+                    if (sid.length() == 0) {
 
                         new AlertDialog.Builder(FindActivity.this)
-                                .setTitle(snamepw+"님의 패스워드를 찾을 수 없습니다.")
-                                .setMessage("입력값을 다시 확인해주세요.")
-                                .setPositiveButton("확인", null)
-                                .show();
-
-
-
-                    }else {
-
-                        new AlertDialog.Builder(FindActivity.this)
-                                .setTitle(snamepw + "님의 패스워드는 [" + Pw + "] 입니다.")
+                                .setTitle("아이디를 입력해주세요!!")
                                 .setMessage("")
                                 .setPositiveButton("확인", null)
                                 .show();
 
+                    }else if(snamepw.length() ==0){
+
+                        new AlertDialog.Builder(FindActivity.this)
+                                .setTitle("이름을 입력해주세요!!")
+                                .setMessage("")
+                                .setPositiveButton("확인", null)
+                                .show();
+
+                    }else if (semail.length() == 0){
+
+                        new AlertDialog.Builder(FindActivity.this)
+                                .setTitle("이메일을 입력해주세요!!")
+                                .setMessage("")
+                                .setPositiveButton("확인", null)
+                                .show();
+
+                    }else {
+
+
+                        Intent intent2 = getIntent();
+                        urlAddr2 = "http://" + macIP + ":8080/test/findPw.jsp?";
+                        urlAddr2 = urlAddr2 + "id=" + sid + "&name=" + snamepw + "&email=" + semail;
+
+                        //jsp를 실행해서 Json code를 String으로 받음
+                        String Pw = connectFindPWdata();
+
+                        if (Pw == null) {
+
+                            new AlertDialog.Builder(FindActivity.this)
+                                    .setTitle(snamepw + "님의 패스워드를 찾을 수 없습니다.")
+                                    .setMessage("입력값을 다시 확인해주세요.")
+                                    .setPositiveButton("확인", null)
+                                    .show();
+
+
+                        } else {
+
+                            new AlertDialog.Builder(FindActivity.this)
+                                    .setTitle(snamepw + "님의 패스워드는 [" + Pw + "] 입니다.")
+                                    .setMessage("")
+                                    .setPositiveButton("확인", null)
+                                    .show();
+
+                        }
                     }
                         break;
         }
