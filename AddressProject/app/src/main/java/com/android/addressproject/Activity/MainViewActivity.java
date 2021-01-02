@@ -8,6 +8,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -15,6 +16,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.android.addressproject.NetworkTask.CUDNetworkTask;
+import com.android.addressproject.NetworkTask.ViewImageNetworkTask;
 import com.android.addressproject.R;
 
 //20.12.30 지은 수정
@@ -25,6 +27,7 @@ public class MainViewActivity extends AppCompatActivity {
     ImageButton mainview_call, mainview_sms, mainview_email, mainview_btndel, mainview_btnupd;
     Button  mainview_star;
     String addno;
+    ImageView mainviewImage;
 
     // 끝 --------------------------------------------
 
@@ -50,6 +53,14 @@ public class MainViewActivity extends AppCompatActivity {
         Vtext = findViewById(R.id.view_text);
         Vbirth = findViewById(R.id.view_birth);
 
+
+        mainviewImage = findViewById(R.id.mainview_image);
+
+        urlAddr = "http://" + ShareVar.macIP + ":8080/test/";
+        urlAddr = urlAddr + intent.getStringExtra("img");
+        Log.v("AddressAdapter", "urlAddr = " + urlAddr);
+        ViewImageNetworkTask networkTask = new ViewImageNetworkTask(MainViewActivity.this, urlAddr, mainviewImage);
+        networkTask.execute(100); // 10초. 이것만 쓰면 pre post do back 등 알아서 실행
 
         Vname.setText(intent.getStringExtra("name"));
         Vphone.setText(intent.getStringExtra("phone"));
