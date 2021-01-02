@@ -48,15 +48,19 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.MyViewHo
     @Override
     public void onBindViewHolder(MyViewHolder holder, @SuppressLint("RecyclerView") final int position) {
 
-        //
-        // img 불러와야 함..
-        //
-        urlAddr = "http://" + ShareVar.macIP + ":8080/test/";
+        // 프로필 사진에 아무것도 설정 안해놨을 경우. 그냥 mipmap 사진 갖다 씀
+        if (data.get(position).getAddressImage().contains("baseline_account_circle_black_48")){
+            holder.img.setImageResource(R.mipmap.baseline_account_circle_black_48);
+        }else{ // 사진을 설정해 놓은 경우. network 통해 다운받아서 보여줌. 이때 이미 폰에 존재하면 중복생성X
 
+        urlAddr = "http://" + ShareVar.macIP + ":8080/test/";
         urlAddr = urlAddr + data.get(position).getAddressImage();
         Log.v("AddressAdapter", "urlAddr = " + urlAddr);
         ViewImageNetworkTask networkTask = new ViewImageNetworkTask(mContext, urlAddr, holder.img);
         networkTask.execute(100); // 10초. 이것만 쓰면 pre post do back 등 알아서 실행
+        }
+
+
         holder.name.setText(data.get(position).getAddressName());
         holder.phone_num.setText(data.get(position).getAddressPhone());
 
