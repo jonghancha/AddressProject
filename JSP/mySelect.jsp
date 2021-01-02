@@ -5,16 +5,14 @@
 <%-- test 폴더에 넣어주세요  --%>
 <%
     request.setCharacterEncoding("utf-8");
-    String searchText = request.getParameter("search_text");
-	String user_userId = request.getParameter("user_userId");
+String user_userId = request.getParameter("user_userId");
 
 	String url_mysql = "jdbc:mysql://localhost/AddressBook?serverTimezone=Asia/Seoul&characterEncoding=utf8&useSSL=false";
  	String id_mysql = "root";
  	String pw_mysql = "qwer1234";
-    String WhereDefault = "select addressGroup from address";
-    String Condition = " where addressGroup LIKE '%" + searchText + "%' AND " +
-			"user_userId = '" + user_userId + "' GROUP BY addressGroup " +
-				"order by addressGroup asc";
+    String WhereDefault = "select userId, userPw, userName, userPhone, userEmail from user";
+
+    String Condition = " where userId = '" + user_userId + "'";
     int count = 0;
     
     try {
@@ -25,7 +23,7 @@
         ResultSet rs = stmt_mysql.executeQuery(WhereDefault + Condition); // 
 %>
 		{ 
-  			"group_info"  : [ 
+  			"user_select"  : [ 
 <%
         while (rs.next()) {
             if (count == 0) {
@@ -37,7 +35,11 @@
             }
 %>            
 			{
-			"addressGroup" : "<%=rs.getString(1) %>"
+			"userId" : "<%=rs.getString(1) %>", 
+			"userPw" : "<%=rs.getString(2) %>",   
+			"userName" : "<%=rs.getString(3) %>",
+			"userPhone" : "<%=rs.getString(4) %>",  
+			"userEmail" : "<%=rs.getString(5) %>"
 			}
 
 <%		

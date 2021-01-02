@@ -17,7 +17,8 @@ String user_userId = request.getParameter("user_userId");
                         "addressPhone LIKE '%" + searchText + "%' OR " +
                         "addressGroup LIKE '%" + searchText + "%' OR " +
 			"addressEmail LIKE '%" + searchText + "%') AND " +
-			"addressName is NOT NULL AND user_userId = '" + user_userId + "'";
+			"addressName is NOT NULL AND user_userId = '" + user_userId + "'" +
+			"order by addressName asc";
     int count = 0;
     
     try {

@@ -6,6 +6,7 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import com.android.addressproject.Bean.Address;
+import com.android.addressproject.Bean.User;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -17,20 +18,20 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 
-// 20.12.29 지은 추가
-public class FavNetworkTask extends AsyncTask<Integer, String, Object> {
+// 20.12.31 지은 추가
+public class UserNetworkTask extends AsyncTask<Integer, String, Object> {
 
-    final static String TAG = "NetworkTask";
+    final static String TAG = "UserNetworkTask";
     Context context = null;
     String mAddr = null;
     ProgressDialog progressDialog = null;
-    ArrayList<Address> addresses; // 불러와야 해서
+    ArrayList<User> useres; // 불러와야 해서
 
     //Constructor
-    public FavNetworkTask(Context context, String mAddr) {
+    public UserNetworkTask(Context context, String mAddr) {
         this.context = context;
         this.mAddr = mAddr;
-        this.addresses = new ArrayList<Address>();    //직접 침 : 이유는 꼭 쓸 필요성은 없지만 arraylist를 사용하기 위해 생성해줌
+        this.useres = new ArrayList<User>();    //직접 침 : 이유는 꼭 쓸 필요성은 없지만 arraylist를 사용하기 위해 생성해줌
         Log.v(TAG, "Start : "+ mAddr);
     }
 
@@ -88,7 +89,7 @@ public class FavNetworkTask extends AsyncTask<Integer, String, Object> {
                 e.printStackTrace();
             }
         }
-        return addresses;
+        return useres;
     }
 
     @Override
@@ -115,28 +116,27 @@ public class FavNetworkTask extends AsyncTask<Integer, String, Object> {
         try {
             // 배열이기 때문에 [] 이렇게 시작
             JSONObject jsonObject = new JSONObject(s);
-            JSONArray jsonArray = new JSONArray(jsonObject.getString("address_info"));
+            JSONArray jsonArray = new JSONArray(jsonObject.getString("user_select"));
             // object 가 읽어줌
             //students_info는 테이블 명이라고 생각할 것
 
-            addresses.clear();    // 하는 이유는
+            useres.clear();    // 하는 이유는
 
 // 20.12.30 지은 수정
             // object 별로 불러오는 것 {이 안의 묶음}
             for (int i=0; i<jsonArray.length(); i++){
                 JSONObject jsonObject1 = (JSONObject) jsonArray.get(i);
-//                int addressNo = jsonObject1.getInt("addressNo");
 
-                String addressName = jsonObject1.getString("addressName");
-                String addressPhone = jsonObject1.getString("addressPhone");
-                String addressGroup = jsonObject1.getString("addressGroup");
-                String addressEmail = jsonObject1.getString("addressEmail");
+                String userId = jsonObject1.getString("userId");
+                String userPw = jsonObject1.getString("userPw");
+                String userName = jsonObject1.getString("userName");
+                String userPhone = jsonObject1.getString("userPhone");
+                String userEmail = jsonObject1.getString("userEmail");
 
 
-                Address address = new Address(addressName, addressPhone, addressGroup,
-                        addressEmail);
+                User user = new User(userId, userPw, userName, userPhone, userEmail);
 
-                addresses.add(address);
+                useres.add(user);
             }
 
 

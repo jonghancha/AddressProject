@@ -8,6 +8,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.WindowManager;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -52,6 +53,9 @@ public class MainActivity extends AppCompatActivity {
         setThemeOfApp();
         setContentView(R.layout.activity_main);
 
+        // 지은 추가 = 검색창 눌렀을 때 탭레이아웃 올라오는거 막음
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING);
+
         //-----------------
         // 20.12.30 종한 로그인 성공 시 파일 관련 사용자 권한 물어보기 추가
         ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, MODE_PRIVATE); //사용자에게 사진 사용 권한 받기 (가장중요함)
@@ -92,9 +96,10 @@ public class MainActivity extends AppCompatActivity {
         //--------------------------------------------------------------------------------
 
         // 20.12.29 지은 tablayout 추가 --------------------------------------
-        tabLayout.getTabAt(0).setIcon(R.drawable.ic_call_black_24dp);
-        tabLayout.getTabAt(1).setIcon(R.drawable.ic_group_black_24dp);
-        tabLayout.getTabAt(2).setIcon(R.drawable.ic_favorite_black_24dp);
+        tabLayout.getTabAt(0).setIcon(R.drawable.ic_call_black_24dp).setText("연락처");
+        tabLayout.getTabAt(1).setIcon(R.drawable.ic_group_black_24dp).setText("그룹");
+        tabLayout.getTabAt(2).setIcon(R.drawable.ic_favorite_black_24dp).setText("즐겨찾기");
+
 
         //Remove ActionBar Shadow
 
@@ -145,7 +150,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    ///
+    //테마
     private void setThemeOfApp(){
         sharedPreferences = PreferenceManager
                 .getDefaultSharedPreferences(getBaseContext());
@@ -179,5 +184,7 @@ public class MainActivity extends AppCompatActivity {
             toast.cancel();
         }
     }
+
+
 
 }

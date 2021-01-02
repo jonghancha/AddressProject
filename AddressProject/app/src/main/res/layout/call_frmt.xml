@@ -20,7 +20,6 @@
             android:background="@drawable/ic_baseline_search_24"
             />
         <EditText
-
             android:id="@+id/search_ET"
             android:layout_width="0px"
             android:layout_weight="5"
@@ -31,31 +30,23 @@
             />
     </LinearLayout>
     <LinearLayout
+        android:id="@+id/mymain"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="20dp"
-        android:weightSum="6">
+        android:background="#ECDFBD"
+        android:orientation="vertical"
+        android:layout_margin="20dp">
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:src="@mipmap/ic_launcher_round" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="20dp"
-            android:layout_weight="5"
-            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/myid"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:gravity="center_vertical"
+                android:gravity="center"
+                android:textColor="@color/black"
                 android:text="나의 이름"
+                android:textSize="15dp"
                 android:textStyle="bold" />
 
             <TextView
@@ -63,12 +54,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
-                android:gravity="center_vertical"
+                android:gravity="center"
+                android:textColor="@color/black"
                 android:text="연락처"
+                android:textSize="15dp"
                 android:textStyle="bold" />
 
-
-        </LinearLayout>
     </LinearLayout>
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"

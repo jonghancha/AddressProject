@@ -1,5 +1,6 @@
 package com.android.addressproject.Activity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
@@ -8,16 +9,21 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.addressproject.Adapter.GroupAdapter;
 import com.android.addressproject.Bean.Address;
+import com.android.addressproject.NetworkTask.CUDNetworkTask;
 import com.android.addressproject.NetworkTask.GroupNetworkTask;
 import com.android.addressproject.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -34,6 +40,7 @@ public class FrmtContact extends Fragment {
     GroupAdapter adapter;
     private RecyclerView.LayoutManager layoutManager;
     RecyclerView recyclerView;
+    String groupInsert;
 
     // 검색창
     EditText search_EdT;
@@ -52,8 +59,6 @@ public class FrmtContact extends Fragment {
 
         //20.12.30 지은 수정 -----------------
 
-        // 저장한 키 값으로 저장된 아이디와 암호를 불러와 String 값에 저장
-        String checkId = PreferenceManager.getString(getContext(),"id");
 
 
 
@@ -61,16 +66,7 @@ public class FrmtContact extends Fragment {
         floatingActionButton.setOnClickListener(CfloatCliclListener);
 
 
-        recyclerView = (RecyclerView) v.findViewById(R.id.contact_recycleView);
-//        GroupAdapter viewAdapter = new GroupAdapter(getContext(), R.layout.item_con, group);
-//        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-//        recyclerView.setAdapter(viewAdapter);
-
-        //조건 검색 .jsp 를 따로 만들어서 연결시켜줌.
-        //search_text가 검색되는 단어(번호도 가능)
-
-
-        urlAddr = "http://" + ShareVar.macIP + ":8080/test/addressGroupCondition.jsp?user_userId=" + checkId +"&search_text=";
+        recyclerView = v.findViewById(R.id.contact_recycleView);
 
 
         search_EdT = v.findViewById(R.id.search_ET);
@@ -88,6 +84,10 @@ public class FrmtContact extends Fragment {
     //메소드
     private void connectGetData(){
         try {
+            // 저장한 키 값으로 저장된 아이디와 암호를 불러와 String 값에 저장
+            String checkId = PreferenceManager.getString(getContext(),"id");
+
+            urlAddr = "http://" + ShareVar.macIP + ":8080/test/addressGroupCondition.jsp?user_userId=" + checkId +"&search_text=";
             GroupNetworkTask networkTask = new GroupNetworkTask(getActivity(), urlAddr); //onCreate 에 urlAddr 이 선언된것이 들어옴
 
             // object 에서 선언은 되었지만 실질적으로 리턴한것은 arraylist
@@ -152,10 +152,54 @@ public class FrmtContact extends Fragment {
     View.OnClickListener CfloatCliclListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            Intent intent = new Intent(getActivity(), InsertGroupActivity.class);
-            startActivity(intent);
+//            Intent intent = new Intent(getActivity(), InsertGroupActivity.class);
+//            startActivity(intent);
+
+            final LinearLayout linear = (LinearLayout) View.inflate(getContext(), R.layout.group, null);
+            new AlertDialog.Builder(getContext())
+                    .setTitle("추가할 그룹 명을 입력하세요")
+                    .setIcon(R.drawable.group)
+
+                    // 위에서 선언한
+                    .setView(linear)
+                    .setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            // linear에 있는 아이 이므로 앞에 넣어줘야한다.
+                            EditText product = linear.findViewById(R.id.di_group);
+
+                            groupInsert = product.getText().toString();
+
+                            String checkId = com.android.addressproject.Activity.PreferenceManager.getString(getContext(),"id");
+
+
+                            urlAddr = "http://" + ShareVar.macIP + ":8080/test/groupInsert.jsp?user_userId=" + checkId;  // ?(물음표) 주의
+
+                            urlAddr = urlAddr +"&addressGroup="+ groupInsert;
+                            connectInsertGroupData();
+                            Toast.makeText(getContext(), groupInsert+" 가 입력 되었습니다.", Toast.LENGTH_SHORT).show();
+                            connectGetData();
+                        }
+                    })
+                    .setNegativeButton("취소", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            Toast.makeText(getActivity(), "그룹 추가를 취소하였습니다.", Toast.LENGTH_SHORT).show();
+                        }
+                    })
+                    .show();
         }
     };
+
+    private void connectInsertGroupData(){
+        try {
+            CUDNetworkTask insnetworkTask = new CUDNetworkTask(getContext(), urlAddr);
+            insnetworkTask.execute().get();
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
 
 
 }

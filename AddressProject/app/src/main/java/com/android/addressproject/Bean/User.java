@@ -2,29 +2,30 @@ package com.android.addressproject.Bean;
 
 public class User {
     //Field (필드) = Bean 에선 이렇게 한줄 씩 쓰는 것이 좋다.
-    String userNo;
     String userId;
     String userPw;
+    String userName;
     String userPhone;
     String userEmail;
 
     // Constructor (생성자)
 
 
-    public User(String userNo, String userId, String userPw, String userPhone, String userEmail) {
-        this.userNo = userNo;
+    public User(String userId, String userPw, String userName, String userPhone, String userEmail) {
+
         this.userId = userId;
         this.userPw = userPw;
+        this.userName = userName;
         this.userPhone = userPhone;
         this.userEmail = userEmail;
     }
 
-    public String getUserNo() {
-        return userNo;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setUserNo(String userNo) {
-        this.userNo = userNo;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public String getUserId() {

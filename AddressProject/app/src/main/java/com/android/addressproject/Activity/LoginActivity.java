@@ -153,19 +153,21 @@ public class LoginActivity extends AppCompatActivity {
 
                                 case 1: //아이디와 패스워드 일치.
 
+
                                     // 20.12.29 세미 자동로그인 추가 ------------------------------------
 
                                     // id, pw 입력창에서 텍스트를 가져와  PrefrerenceManager에 저장함
                                     PreferenceManager.setString(mContext, "id", edId.getText().toString()); //id라는 키값으로 저장
                                     PreferenceManager.setString(mContext, "pw", edPw.getText().toString()); // pw라는 키값으로 저장
 
-                                    Intent intentLogIn = new Intent(LoginActivity.this, MainActivity.class);
-                                    // 저장한 키 값으로 저장된 아이디와 암호를 불러와 String 값에 저장
-                                    String checkId = PreferenceManager.getString(mContext, "id");
-                                    String checkPw = PreferenceManager.getString(mContext, "pw");
-                                    startActivity(intentLogIn);
+                            Intent intentLogIn = new Intent(LoginActivity.this, MainActivity.class);
+                            // 저장한 키 값으로 저장된 아이디와 암호를 불러와 String 값에 저장
+                            String checkId = PreferenceManager.getString(mContext,"id");
+                            String checkPw = PreferenceManager.getString(mContext,"pw");
+                            startActivity(intentLogIn);
+                            finish();
+                            break;
 
-                                    break;
                             }
                     }
                     //---------------------------------------------------------------------------------------
