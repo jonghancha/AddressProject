@@ -3,7 +3,7 @@
 
 ## 1. 시스템 설치법
 - activity PACKAGE 안 ShareVar 클래스에서 본인 IP로 변경하기
-<img src= "https://github.com/jonghancha/AddressProject/blob/main/mdImage/sharevar.png">
+<img src= "https://github.com/jonghancha/AddressProject/blob/main/mdImage/Inkedsharevar_LI.jpg">
 
 - Mutipart JSP Folder : Tomcat >> webapps >> ROOT >> test
 
