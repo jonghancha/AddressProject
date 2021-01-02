@@ -8,6 +8,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.WindowManager;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -51,6 +52,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setThemeOfApp();
         setContentView(R.layout.activity_main);
+
+        // 지은 추가 = 검색창 눌렀을 때 탭레이아웃 올라오는거 막음
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING);
 
         //-----------------
         // 20.12.30 종한 로그인 성공 시 파일 관련 사용자 권한 물어보기 추가
@@ -180,5 +184,7 @@ public class MainActivity extends AppCompatActivity {
             toast.cancel();
         }
     }
+
+
 
 }

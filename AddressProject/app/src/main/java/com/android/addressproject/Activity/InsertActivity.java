@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Rect;
 import android.net.Uri;
 import android.os.Build;
@@ -42,6 +43,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -345,17 +347,43 @@ public class InsertActivity extends AppCompatActivity {
     //파일 변환
     private void doMultiPartRequest() {
 
-        String baseUri = "/data/data/com.android.addressproject/baseline_account_circle_black_48.png";
+//        String baseUri = "/data/data/com.android.addressproject/baseline_account_circle_black_48.png";
 
         File f;
-        if (img_path.length() == 0){
-            f = new File(baseUri);
-        }else{
+        String dataDirectory = Environment.getDataDirectory().getAbsolutePath() + "/data/com.android.addressproject/files/";
+        if (img_path.length() == 0){ // 사용자가 갤러리에서 아무 사진도 선택하지 않았을 경우
+
+            // 기본 프로필 사진의 존재 여부
+            if (new File(dataDirectory + "baseline_account_circle_black_48.png").exists()){
+                Log.v(TAG, "BasePhoto exists");
+                f = new File(dataDirectory, "baseline_account_circle_black_48.png");
+
+            }else{
+
+                // 기본 프로필 사진이 존재하지 않는 경우 mipmap리소스를 받아 사진파일을 생성한다
+                // BitmapFactory class
+                Bitmap bm = BitmapFactory.decodeResource( getResources(), R.mipmap.baseline_account_circle_black_48);
+                f = new File(dataDirectory, "baseline_account_circle_black_48.png");
+                FileOutputStream outStream = null;
+                try {
+                    outStream = new FileOutputStream(f);
+                    bm.compress(Bitmap.CompressFormat.PNG, 100, outStream);
+                    outStream.flush();
+                    outStream.close();
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
+
+        }else{ // 사용자가 갤러리에서 사진을 선택한 경우
             f = new File(img_path);
         }
         Log.v(TAG, "이미지패스 는 !" + f.getAbsolutePath());
 
-        Log.v(TAG, "사진 이름은" + f.getName());
+        Log.v(TAG, "사진 이름은 " + f.getName());
             DoActualRequest(f);
 
     }
@@ -394,6 +422,7 @@ public class InsertActivity extends AppCompatActivity {
             String responsBody = response.body().string();
             Log.v(TAG,responsBody);
             result = parserAction(responsBody);
+
 
 
 

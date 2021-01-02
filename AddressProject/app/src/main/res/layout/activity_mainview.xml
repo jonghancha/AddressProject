@@ -4,10 +4,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_margin="15dp"
+    android:background="@color/white"
     android:layout_height="match_parent"
     tools:context=".Activity.MainViewActivity">
-
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:layout_weight="9"
+    android:layout_margin="20dp">
 
     <TextView
         android:layout_width="match_parent"
@@ -22,15 +27,17 @@
         android:id="@+id/view_name"
         android:gravity="center"
         android:layout_width="match_parent"
-        android:layout_height="0px"
-        android:textSize="20dp"
+        android:layout_height="25dp"
+        android:textSize="25dp"
+        android:textStyle="bold"
+        android:textColor="@color/black"
         android:layout_weight="1"
         />
     <TextView
         android:id="@+id/view_phone"
         android:gravity="center"
         android:layout_width="match_parent"
-        android:layout_height="0px"
+        android:layout_height="20dp"
         android:textSize="20dp"
         android:layout_weight="1"
         />
@@ -38,30 +45,44 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:weightSum="4"
         android:orientation="horizontal"
         >
-        <Button
+        <ImageButton
             android:id="@+id/mainview_call"
-            android:text="전화"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
-            />
-        <Button
+            android:maxHeight="40dp"
+            android:maxWidth="24dp"
+            android:scaleType="fitCenter"
+            android:adjustViewBounds="true"
+            android:background="@color/white"
+            android:src="@drawable/call2"/>
+
+        <ImageButton
             android:id="@+id/mainview_sms"
-            android:text="문자"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-        />
-        <Button
+            android:maxHeight="40dp"
+            android:maxWidth="24dp"
+            android:scaleType="fitCenter"
+            android:background="@color/white"
+            android:adjustViewBounds="true"
+            android:src="@drawable/message"/>
+        <ImageButton
             android:id="@+id/mainview_email"
-            android:text="이메일"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-        />
+            android:maxHeight="40dp"
+            android:maxWidth="24dp"
+            android:scaleType="fitCenter"
+            android:background="@color/white"
+            android:adjustViewBounds="true"
+            android:src="@drawable/email"/>
         <Button
             android:id="@+id/mainview_star"
             android:text="star"
@@ -71,6 +92,13 @@
             />
     </LinearLayout>
 
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="4dp"
+    android:layout_marginTop="6dp"
+    android:layout_marginBottom="6dp"
+    android:background="?colorPrimary"/>
+
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -78,6 +106,21 @@
         android:layout_weight="5"
         android:orientation="vertical"
         >
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="연락처"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:layout_marginTop="10dp"
+            />
+        <TextView
+            android:id="@+id/view_phone1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:layout_weight="1"
+            />
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -144,25 +187,64 @@
             android:textSize="20dp"
             />
     </LinearLayout>
+</LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:weightSum="2"
         >
-        <Button
-            android:id="@+id/mainview_btndel"
-            android:text="삭제"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1"
-            />
+            android:orientation="vertical"
+            android:background="?colorPrimary"
+            android:padding="10dp"
+            android:layout_weight="1">
+            <ImageButton
+                android:id="@+id/mainview_btndel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:maxHeight="30dp"
+                android:maxWidth="24dp"
+                android:scaleType="fitCenter"
+                android:background="?colorPrimary"
+                android:adjustViewBounds="true"
+                android:src="@drawable/delete"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="삭제"/>
+        </LinearLayout>
 
-        <Button
-            android:text="편집"
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1"
-            />
+            android:orientation="vertical"
+            android:background="?colorPrimary"
+            android:padding="10dp"
+            android:layout_marginBottom="0px"
+            android:layout_weight="1">
+            <ImageButton
+                android:id="@+id/mainview_btnupd"
+                android:text="전화"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:maxHeight="30dp"
+                android:maxWidth="24dp"
+                android:scaleType="fitCenter"
+                android:background="?colorPrimary"
+                android:adjustViewBounds="true"
+                android:src="@drawable/update"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="편집"/>
+        </LinearLayout>
 
 
 

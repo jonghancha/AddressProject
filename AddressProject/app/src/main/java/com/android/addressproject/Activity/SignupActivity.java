@@ -104,44 +104,87 @@ public class SignupActivity extends AppCompatActivity { //이강후
                     sphone = Ephone.getText().toString();
                     semail = Eemail.getText().toString();
 
-                    intent = getIntent();
-                    urlAddr2 = "http://" + macIP + ":8080/test/memberInsertReturn.jsp?";
-                    urlAddr2 = urlAddr2 + "id=" + sid + "&pw=" + spw + "&name=" + sname + "&phone=" + sphone + "&email=" + semail;
-
-                    ///////////////////////////////////////////////////////////////////////////////////////
-                    // Date : 2020.12.24
-                    //
-                    // Description:
-                    //  - studentInsertReturn.jsp를 실행하여 Json Code 받은 값이 1인 경우에는 입력 성공 아니면 입력 실패
-                    //
-                    ///////////////////////////////////////////////////////////////////////////////////////
-                    String count2 = connectInsertData();
-                    Log.v(TAG,"count2 = " + count2);
-
-
-                    if(count2.equals("1")){
+                    if(sid.length()==0){
 
                         new AlertDialog.Builder(SignupActivity.this)
-                                .setTitle("[회원가입을 축하드립니다!!!]")
-                                .setMessage("로그인 페이지에서 로그인해주세요.")
-                                .setPositiveButton("이동", mClick)
-                                .show();
-                        finish();
-
-                        finish();
-                    }else{
-
-                        new AlertDialog.Builder(SignupActivity.this)
-                                .setTitle("[이미 사용중인 ID입니다!!]")
-                                .setMessage("사용할 수 없으니 다른 아이디를 입력해주세요.")
+                                .setTitle("아이디를 입력해주세요!!")
+                                .setMessage("")
                                 .setPositiveButton("확인", null)
                                 .show();
 
-                      //  Toast.makeText(SignupActivity.this, "중복된 아이디입니. 다른 아이디를 사용하세요!!", Toast.LENGTH_SHORT).show();
+                    }else if(spw.length()==0){
 
+                        new AlertDialog.Builder(SignupActivity.this)
+                                .setTitle("비밀번호를 입력해주세요!!")
+                                .setMessage("")
+                                .setPositiveButton("확인", null)
+                                .show();
+
+                    }else if(sname.length()==0){
+
+                        new AlertDialog.Builder(SignupActivity.this)
+                                .setTitle("이름을 입력해주세요!!")
+                                .setMessage("")
+                                .setPositiveButton("확인", null)
+                                .show();
+
+                    }else if(sphone.length()==0){
+
+                        new AlertDialog.Builder(SignupActivity.this)
+                                .setTitle("연락처를 입력해주세요!!")
+                                .setMessage("")
+                                .setPositiveButton("확인", null)
+                                .show();
+
+                    }else if(semail.length()==0) {
+
+                        new AlertDialog.Builder(SignupActivity.this)
+                                .setTitle("이메일을 입력해주세요!!")
+                                .setMessage("")
+                                .setPositiveButton("확인", null)
+                                .show();
+
+                    }else {
+
+                        intent = getIntent();
+                        urlAddr2 = "http://" + macIP + ":8080/test/memberInsertReturn.jsp?";
+                        urlAddr2 = urlAddr2 + "id=" + sid + "&pw=" + spw + "&name=" + sname + "&phone=" + sphone + "&email=" + semail;
+
+                        ///////////////////////////////////////////////////////////////////////////////////////
+                        // Date : 2020.12.24
+                        //
+                        // Description:
+                        //  - studentInsertReturn.jsp를 실행하여 Json Code 받은 값이 1인 경우에는 입력 성공 아니면 입력 실패
+                        //
+                        ///////////////////////////////////////////////////////////////////////////////////////
+                        String count2 = connectInsertData();
+                        Log.v(TAG, "count2 = " + count2);
+
+
+                        if (count2.equals("1")) {
+
+                            new AlertDialog.Builder(SignupActivity.this)
+                                    .setTitle("[회원가입을 축하드립니다!!!]")
+                                    .setMessage("로그인 페이지에서 로그인해주세요.")
+                                    .setPositiveButton("이동", mClick)
+                                    .show();
+                            finish();
+
+                            finish();
+                        } else {
+
+                            new AlertDialog.Builder(SignupActivity.this)
+                                    .setTitle("[이미 사용중인 ID입니다!!]")
+                                    .setMessage("사용할 수 없으니 다른 아이디를 입력해주세요.")
+                                    .setPositiveButton("확인", null)
+                                    .show();
+
+                            //  Toast.makeText(SignupActivity.this, "중복된 아이디입니. 다른 아이디를 사용하세요!!", Toast.LENGTH_SHORT).show();
+
+                        }
+                        ///////////////////////////////////////////////////////////////////////////////////////
+                        break;
                     }
-                    ///////////////////////////////////////////////////////////////////////////////////////
-                    break;
             }
         }
     };

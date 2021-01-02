@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,8 +21,9 @@ import com.android.addressproject.R;
 public class MainViewActivity extends AppCompatActivity {
 
     // 20.12.30 세미 추가 ------------------------------
-
-    Button mainview_call, mainview_sms, mainview_email, mainview_btndel, mainview_star;
+    // 21.01.01 지은 수정 ----------------------------==
+    ImageButton mainview_call, mainview_sms, mainview_email, mainview_btndel, mainview_btnupd;
+    Button  mainview_star;
     String addno;
 
     // 끝 --------------------------------------------
@@ -29,8 +31,7 @@ public class MainViewActivity extends AppCompatActivity {
     final static String TAG = "MainViewActivity";
     String urlAddr = null;
     String scode, sname, sdept, sphone;
-//    String macIp = "192.168.43.220";
-    TextView Vname, Vphone, Vgroup, Vemail, Vtext, Vbirth;
+    TextView Vname, Vphone, Vphone1, Vgroup, Vemail, Vtext, Vbirth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +44,7 @@ public class MainViewActivity extends AppCompatActivity {
 
         Vname = findViewById(R.id.view_name);
         Vphone = findViewById(R.id.view_phone);
+        Vphone1 = findViewById(R.id.view_phone1);
         Vgroup = findViewById(R.id.view_group);
         Vemail = findViewById(R.id.view_email);
         Vtext = findViewById(R.id.view_text);
@@ -51,6 +53,7 @@ public class MainViewActivity extends AppCompatActivity {
 
         Vname.setText(intent.getStringExtra("name"));
         Vphone.setText(intent.getStringExtra("phone"));
+        Vphone1.setText(intent.getStringExtra("phone"));
         Vgroup.setText(intent.getStringExtra("group"));
         Vemail.setText(intent.getStringExtra("email"));
         Vtext.setText(intent.getStringExtra("text"));
@@ -63,6 +66,7 @@ public class MainViewActivity extends AppCompatActivity {
         mainview_sms = findViewById(R.id.mainview_sms);
         mainview_email = findViewById(R.id.mainview_email);
         mainview_btndel = findViewById(R.id.mainview_btndel);   // 삭제버튼
+        mainview_btnupd = findViewById(R.id.mainview_btnupd);   // 수정버튼
         mainview_star = findViewById(R.id.mainview_star);       // 즐겨찾기버튼
 
         // 삭제버튼, 즐겨찾기 버튼
@@ -73,6 +77,7 @@ public class MainViewActivity extends AppCompatActivity {
         mainview_sms.setOnClickListener(btnClickListener);
         mainview_email.setOnClickListener(btnClickListener);
         mainview_btndel.setOnClickListener(btnClickListener);
+        mainview_btnupd.setOnClickListener(btnClickListener);
         mainview_star.setOnClickListener(btnClickListener);
 
         // 끝 -----------------------------------------------------------------------
@@ -122,6 +127,11 @@ public class MainViewActivity extends AppCompatActivity {
                     Toast.makeText(MainViewActivity.this, "삭제되었습니다." + addno, Toast.LENGTH_SHORT).show();
                     break;
 
+                // 21.01.01 편집 버튼 클릭 ------
+                case R.id.mainview_btnupd:
+
+
+                    break;
                 // 21.01.01 star 버튼 클릭 -> 즐겨찾기 등록 기능 추가 ---------------
                 case R.id.mainview_star:
                  urlAddr = "http://" + ShareVar.macIP + ":8080/test/starClick.jsp?addno="+addno;
@@ -178,10 +188,5 @@ public class MainViewActivity extends AppCompatActivity {
 
 
     // 끝 ------------------------------------------------------------------
-
-
-
-
-
 
 }//--------------

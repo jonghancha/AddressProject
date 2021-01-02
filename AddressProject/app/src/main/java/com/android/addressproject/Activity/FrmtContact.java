@@ -158,7 +158,7 @@ public class FrmtContact extends Fragment {
             final LinearLayout linear = (LinearLayout) View.inflate(getContext(), R.layout.group, null);
             new AlertDialog.Builder(getContext())
                     .setTitle("추가할 그룹 명을 입력하세요")
-                    .setIcon(R.mipmap.ic_launcher_round)
+                    .setIcon(R.drawable.group)
 
                     // 위에서 선언한
                     .setView(linear)
@@ -190,20 +190,6 @@ public class FrmtContact extends Fragment {
                     .show();
         }
     };
-//
-//    private void connGetGroup(){
-//        String checkId = com.android.addressproject.Activity.PreferenceManager.getString(getContext(),"id");
-//
-//
-//        urlAddr = "http://" + ShareVar.macIP + ":8080/test/groupInsert.jsp?user_userId=" + checkId;  // ?(물음표) 주의
-//
-//        urlAddr = urlAddr +"&addressGroup="+ groupInsert;
-//        connectInsertGroupData();
-//        Toast.makeText(getContext(), groupInsert+" 가 입력 되었습니다.", Toast.LENGTH_SHORT).show();
-//    }
-//
-
-
 
     private void connectInsertGroupData(){
         try {

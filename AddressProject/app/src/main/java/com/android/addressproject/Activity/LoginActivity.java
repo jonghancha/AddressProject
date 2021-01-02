@@ -30,10 +30,12 @@ public class LoginActivity extends AppCompatActivity {
     String urlAddr3 = null;
     String urlAddr4 = null;
 
-    String sid, spw, sname, sphone, semail;
+    String sid1, spw1, sname, sphone, semail;
     EditText edName, edPhone, edEmail;
 
+
     String macIP = ShareVar.macIP;
+
     //----------------------------------------------------------------------------------
 
     //세미
@@ -103,40 +105,65 @@ public class LoginActivity extends AppCompatActivity {
                     startActivity(intentIP);
                     break;
 
+                case R.id.btn_LSignUp:
+                    Intent intentSignUp = new Intent(LoginActivity.this, SignupActivity.class);
+                    startActivity(intentSignUp);
+                    break;
+
                     // 로그인 버튼 클릭 시
                 case R.id.btn_Login:
 
-                    //로그인 메인기능- 이강후-------------------------------------------------------------
-                    sid = edId.getText().toString();
-                    spw = edPw.getText().toString();
+                    //-----------------------로그인 메인기능- 이강후--------------------------------------
+                    
+                    sid1 = edId.getText().toString();
+                    spw1 = edPw.getText().toString();
 
-                    Intent intent = getIntent();
-                    urlAddr3 = "http://" + macIP + ":8080/test/loginCheck.jsp?";
-                    urlAddr3 = urlAddr3 + "id=" + sid + "&pw=" + spw;
-/*                    urlAddr4 = "http://" + macIP + ":8080/test/loginGetData.jsp?";
-                    urlAddr4 = urlAddr4 + "id=" + sid + "&pw=" + spw;*/
-                    //이 방식 대신 PreferenceManager.setString방식을 쓰기로 함.
+                    if(sid1.length()==0){
 
-                    int count = connectLoginCheckData();
-                    Log.v(TAG,"count =" +count);
+                        new AlertDialog.Builder(LoginActivity.this)
+                                .setTitle("아이디를 입력해주세요!!")
+                                .setMessage("")
+                                .setPositiveButton("확인", null)
+                                .show();
 
-                    switch (count){
-                        case 0: //아이디와 패스워드 일치하는 정보 없음.
+                    }else if(spw1.length()==0){
 
-                            new AlertDialog.Builder(LoginActivity.this)
-                                    .setTitle("[ID와 Password 불일치!!]")
-                                    .setMessage("- ID와 Password가 맞는지 다시 확인해주세요. -")
-                                    .setPositiveButton("확인", null)
-                                    .show();
-                            break;
+                        new AlertDialog.Builder(LoginActivity.this)
+                                .setTitle("패스워드를 입력해주세요!!")
+                                .setMessage("")
+                                .setPositiveButton("확인", null)
+                                .show();
 
-                        case 1: //아이디와 패스워드 일치.
+                    }else{
+                            Intent intent = getIntent();
+                            urlAddr3 = "http://" + macIP + ":8080/test/loginCheck.jsp?";
+                            urlAddr3 = urlAddr3 + "id=" + sid1 + "&pw=" + spw1;
 
-                            // 20.12.29 세미 자동로그인 추가 ----------------------------------------------------
+        /*                    urlAddr4 = "http://" + macIP + ":8080/test/loginGetData.jsp?";
+                            urlAddr4 = urlAddr4 + "id=" + sid + "&pw=" + spw;*/
+                            //이 방식 대신 PreferenceManager.setString방식을 쓰기로 함.
 
-                            // id, pw 입력창에서 텍스트를 가져와  PrefrerenceManager에 저장함
-                            PreferenceManager.setString(mContext,"id", edId.getText().toString()); //id라는 키값으로 저장
-                            PreferenceManager.setString(mContext, "pw", edPw.getText().toString()); // pw라는 키값으로 저장
+                            int count = connectLoginCheckData();
+                            Log.v(TAG,"count =" +count);
+
+                            switch (count) {
+                                case 0: //아이디와 패스워드 일치하는 정보 없음.
+
+                                    new AlertDialog.Builder(LoginActivity.this)
+                                            .setTitle("[ID와 Password 불일치!!]")
+                                            .setMessage("- ID와 Password가 맞는지 다시 확인해주세요. -")
+                                            .setPositiveButton("확인", null)
+                                            .show();
+                                    break;
+
+                                case 1: //아이디와 패스워드 일치.
+
+
+                                    // 20.12.29 세미 자동로그인 추가 ------------------------------------
+
+                                    // id, pw 입력창에서 텍스트를 가져와  PrefrerenceManager에 저장함
+                                    PreferenceManager.setString(mContext, "id", edId.getText().toString()); //id라는 키값으로 저장
+                                    PreferenceManager.setString(mContext, "pw", edPw.getText().toString()); // pw라는 키값으로 저장
 
                             Intent intentLogIn = new Intent(LoginActivity.this, MainActivity.class);
                             // 저장한 키 값으로 저장된 아이디와 암호를 불러와 String 값에 저장
@@ -146,10 +173,11 @@ public class LoginActivity extends AppCompatActivity {
                             finish();
                             break;
 
+                            }
                     }
                     //---------------------------------------------------------------------------------------
 
-                    String checkId = null;
+/*                    String checkId = null;
                     String checkPw = null;
 
                     // 아이디와 패스워가 비어있는 경우 체크, TextUtils는 안드로이드에서 제공하는 null체크 함수
@@ -173,7 +201,7 @@ public class LoginActivity extends AppCompatActivity {
                         intent.putExtra("pw",checkPw);
                         startActivity(intent);
                         finish();
-                    }
+                    }*/
 
                     // 끝 ---------------------------------------------------------------------------
 
@@ -181,18 +209,18 @@ public class LoginActivity extends AppCompatActivity {
 //                    Intent intentL = new Intent(LoginActivity.this, MainActivity.class);
 //                    startActivity(intentL);
                     //finish();
-                    break;
+//                    break;
 
                     // 회원가입 클릭 시
-                case R.id.btn_LSignUp:
+/*                case R.id.btn_LSignUp:
                     Intent intentS = new Intent(LoginActivity.this, SignupActivity.class);
                     startActivity(intentS);
-                    break;
+                    break;*/
             }
         }
     };
 
-    private int connectLoginCheckData(){   //이강후---------------------------------------------------
+    private int connectLoginCheckData(){   //--------------이강후-------------------------------------
         int result = 0;
 
         try{
