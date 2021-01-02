@@ -87,6 +87,7 @@ public class MainViewActivity extends AppCompatActivity {
 
             Intent intent = null;
             String phonedata = Vphone.getText().toString();
+            String emaildata = Vemail.getText().toString();
             Log.v(TAG, "phonedata 값 : " + phonedata);
 
             // 전화
@@ -114,7 +115,10 @@ public class MainViewActivity extends AppCompatActivity {
 
                 // 삭제 버튼 클릭
                 case R.id.mainview_btndel:
-                    urlAddr = "http://192.168.2.3:8080/test/AddressDelete.jsp?addno="+addno;
+
+                    urlAddr = "http://" + ShareVar.macIP + ":8080/test/AddressDelete.jsp?addno="+addno;
+
+
                     connectDeleteData();
                     Toast.makeText(MainViewActivity.this, "삭제되었습니다." + addno, Toast.LENGTH_SHORT).show();
 

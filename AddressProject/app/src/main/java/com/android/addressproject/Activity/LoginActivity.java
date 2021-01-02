@@ -34,7 +34,7 @@ public class LoginActivity extends AppCompatActivity {
     EditText edName, edPhone, edEmail;
 
 
-    String macIP = "192.168.219.104";
+    String macIP = ShareVar.macIP;
 
     //----------------------------------------------------------------------------------
 

@@ -21,6 +21,7 @@ import com.android.addressproject.R;
 
 public class SignupActivity extends AppCompatActivity { //이강후
 
+
     final static String TAG = "SignupActivity";
     String urlAddr = null;
     String urlAddr2 = null;
@@ -28,7 +29,7 @@ public class SignupActivity extends AppCompatActivity { //이강후
     String sid, spw, sname, sphone, semail;
     EditText Eid, Epw, Ename, Ephone, Eemail;
     Button btn_IdCheck, btn_SignUp;
-    String macIP = "192.168.0.54";
+    String macIP = ShareVar.macIP;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
