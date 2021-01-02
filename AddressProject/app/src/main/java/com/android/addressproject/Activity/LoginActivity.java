@@ -30,7 +30,7 @@ public class LoginActivity extends AppCompatActivity {
     String urlAddr3 = null;
     String urlAddr4 = null;
 
-    String sid, spw, sname, sphone, semail;
+    String sid1, spw1, sname, sphone, semail;
     EditText edName, edPhone, edEmail;
 
 
@@ -105,15 +105,20 @@ public class LoginActivity extends AppCompatActivity {
                     startActivity(intentIP);
                     break;
 
+                case R.id.btn_LSignUp:
+                    Intent intentSignUp = new Intent(LoginActivity.this, SignupActivity.class);
+                    startActivity(intentSignUp);
+                    break;
+
                     // 로그인 버튼 클릭 시
                 case R.id.btn_Login:
 
                     //-----------------------로그인 메인기능- 이강후--------------------------------------
                     
-                    sid = edId.getText().toString();
-                    spw = edPw.getText().toString();
+                    sid1 = edId.getText().toString();
+                    spw1 = edPw.getText().toString();
 
-                    if(sid.length()==0){
+                    if(sid1.length()==0){
 
                         new AlertDialog.Builder(LoginActivity.this)
                                 .setTitle("아이디를 입력해주세요!!")
@@ -121,7 +126,7 @@ public class LoginActivity extends AppCompatActivity {
                                 .setPositiveButton("확인", null)
                                 .show();
 
-                    }else if(spw.length()==0){
+                    }else if(spw1.length()==0){
 
                         new AlertDialog.Builder(LoginActivity.this)
                                 .setTitle("패스워드를 입력해주세요!!")
@@ -132,7 +137,7 @@ public class LoginActivity extends AppCompatActivity {
                     }else{
                             Intent intent = getIntent();
                             urlAddr3 = "http://" + macIP + ":8080/test/loginCheck.jsp?";
-                            urlAddr3 = urlAddr3 + "id=" + sid + "&pw=" + spw;
+                            urlAddr3 = urlAddr3 + "id=" + sid1 + "&pw=" + spw1;
 
         /*                    urlAddr4 = "http://" + macIP + ":8080/test/loginGetData.jsp?";
                             urlAddr4 = urlAddr4 + "id=" + sid + "&pw=" + spw;*/
