@@ -15,7 +15,7 @@ request.setCharacterEncoding("utf-8");
 
 
 String fileName;
- String realPath = "/Library/Tomcat/webapps/ROOT/test"; // 저장할 디렉토리 (절대경로)
+ String realPath = "/Library/Tomcat/webapps/ROOT/images"; // 저장할 디렉토리 (절대경로)
 
   int sizeLimit = 5 * 1024 * 1024;
 
