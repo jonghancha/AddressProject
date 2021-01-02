@@ -39,6 +39,8 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.graphics.drawable.RoundedBitmapDrawable;
+import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory;
 
 import com.android.addressproject.Bean.InsertData;
 import com.android.addressproject.NetworkTask.InsertImageNetworkTask;
@@ -197,10 +199,11 @@ public class InsertActivity extends AppCompatActivity {
                     }
                     // 둘 다 충족하면 다음 동작을 구현
                 }else {
-                    // 네트워크 연결 (Thread = asynctask)
-                    // 업로드할 이미지를 지정해주기
 
+                    Log.v(TAG, "======================================================================" + img_path.length());
+                    // 업로드할 이미지를 지정해주기
                     makeImgPath();
+                    Log.v(TAG, "======================================================================" + img_path.length());
 
                     // 등록할 정보 담기
                     makeData();
@@ -364,7 +367,10 @@ public class InsertActivity extends AppCompatActivity {
                     //image_bitmap 으로 받아온 이미지의 사이즈를 임의적으로 조절함. width: 400 , height: 300
                     image_bitmap_copy = Bitmap.createScaledBitmap(image_bitmap, 400, 300, true);
                     ImageView image = findViewById(R.id.insert_image);  //이미지를 띄울 위젯 ID값
-                    image.setImageBitmap(image_bitmap_copy);
+                    RoundedBitmapDrawable roundBitmap = RoundedBitmapDrawableFactory.create(getResources(), image_bitmap_copy);
+                    roundBitmap.setCircular(true);
+                    image.setImageDrawable(roundBitmap);
+
 
                     // 파일 이름 및 경로 바꾸기(임시 저장)
                     String date = new SimpleDateFormat("yyyyMMddHmsS").format(new Date());
@@ -410,7 +416,7 @@ public class InsertActivity extends AppCompatActivity {
     //파일 변환
     private void makeImgPath() {
 
-
+        Log.v(TAG, "imgPath의 길이는" +String.valueOf(img_path.length()));
         if (img_path.length() == 0){ // 사용자가 갤러리에서 아무 사진도 선택하지 않았을 경우
 
             // 기본 프로필 사진의 존재 여부
@@ -460,77 +466,13 @@ public class InsertActivity extends AppCompatActivity {
 
 
 
-        insertData = new InsertData(img_path, user_userId, addressName, addressPhone, addressGroup, addressEmail, addressText, addressBirth);
+        insertData = new InsertData("",img_path, user_userId, addressName, addressPhone, addressGroup, addressEmail, addressText, addressBirth);
 
 
     }
 
-    //서버 보내기
-    private void DoActualRequest(File file) {
-        OkHttpClient client = new OkHttpClient();
-        Log.v(TAG,"Called actual request");
 
 
-        RequestBody body = new MultipartBody.Builder()
-                .setType(MultipartBody.FORM)
-                .addFormDataPart("image", file.getName(),
-                        RequestBody.create(MediaType.parse("image/jpeg"), file))
-                .addFormDataPart("user_userId", user_userId)
-                .addFormDataPart("addressName", String.valueOf(insertAddressName.getText()))
-                .addFormDataPart("addressPhone", String.valueOf(insertAddressPhone.getText()))
-                .addFormDataPart("addressGroup", insertAddressGroup.getSelectedItem().toString())
-                .addFormDataPart("addressEmail", String.valueOf(insertAddressEmail.getText()))
-                .addFormDataPart("addressText", String.valueOf(insertAddressText.getText()))
-                .addFormDataPart("addressBirth", String.valueOf(insertAddressBirth.getText()))
-                .build();
-        Log.v(TAG,"Request body generated");
-        Log.v(TAG, "user_userId : " + user_userId);
-        Log.v(TAG, "addressName : " + String.valueOf(insertAddressName.getText()));
-        Log.v(TAG, "addressPhone : " + String.valueOf(insertAddressPhone.getText()));
-
-        Request request = new Request.Builder()
-                .url(url)
-                .post(body)
-                .build();
-
-        try {
-            Response response = client.newCall(request).execute();
-            Log.v(TAG,"Request successful");
-            String responsBody = response.body().string();
-            Log.v(TAG,responsBody);
-            result = parserAction(responsBody);
-
-
-
-
-        } catch (IOException  e) {
-            Log.v(TAG,"Exception occured :" + e.toString());
-            e.printStackTrace();
-        }
-
-        // 데이터 입력 후 insertActivity 종료.
-        finish();
-
-    }
-
-    // 20.12.31 종한 추가
-    // 데이터 입력 후 json파싱
-    private String parserAction(String s) {
-        Log.v(TAG,"parserAction()");
-        String returnValue = null;
-
-        try {
-            Log.v(TAG, s);
-
-            JSONObject jsonObject = new JSONObject(s);
-            returnValue = jsonObject.getString("result");
-            Log.v(TAG, returnValue);
-
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-        return returnValue;
-    }
 
     // 20.12.30 세미 추가 ------------------------------
     View.OnClickListener birthClickListener = new View.OnClickListener() {

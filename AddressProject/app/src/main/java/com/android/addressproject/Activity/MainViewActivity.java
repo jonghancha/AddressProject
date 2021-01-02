@@ -36,6 +36,9 @@ public class MainViewActivity extends AppCompatActivity {
     String scode, sname, sdept, sphone;
     TextView Vname, Vphone, Vphone1, Vgroup, Vemail, Vtext, Vbirth;
 
+    String modifyNo;
+    String modifyImg;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,6 +72,9 @@ public class MainViewActivity extends AppCompatActivity {
         Vemail.setText(intent.getStringExtra("email"));
         Vtext.setText(intent.getStringExtra("text"));
         Vbirth.setText(intent.getStringExtra("birth"));
+
+        modifyImg = intent.getStringExtra("img");
+        modifyNo = Integer.toString(intent.getIntExtra("no",0));
 
         // 20.12.30 세미 전화, 문자, 이메일 버튼 및 연락처 삭제 ------------------------------
 
@@ -140,7 +146,17 @@ public class MainViewActivity extends AppCompatActivity {
 
                 // 21.01.01 편집 버튼 클릭 ------
                 case R.id.mainview_btnupd:
+                    intent = new Intent(MainViewActivity.this, UpdateActivity.class);
+                    intent.putExtra("name", Vname.getText());
+                    intent.putExtra("phone", Vphone.getText());
+                    intent.putExtra("group", Vgroup.getText());
+                    intent.putExtra("email", Vemail.getText());
+                    intent.putExtra("text", Vtext.getText());
+                    intent.putExtra("birth", Vbirth.getText());
+                    intent.putExtra("img", modifyImg);
+                    intent.putExtra("no", modifyNo);
 
+                    startActivity(intent);
 
                     break;
                 // 21.01.01 star 버튼 클릭 -> 즐겨찾기 등록 기능 추가 ---------------

@@ -2,9 +2,11 @@ package com.android.addressproject.Bean;
 
 public class InsertData {
 
-    String img_path, user_userId, insertAddressName, insertAddressPhone, insertAddressGroup, insertAddressEmail, insertAddressText, insertAddressBirth;
+    String addressNo, img_path, user_userId, insertAddressName, insertAddressPhone, insertAddressGroup, insertAddressEmail, insertAddressText, insertAddressBirth;
 
-    public InsertData(String img_path, String user_userId, String insertAddressName, String insertAddressPhone, String insertAddressGroup, String insertAddressEmail, String insertAddressText, String insertAddressBirth) {
+
+    public InsertData(String addressNo, String img_path, String user_userId, String insertAddressName, String insertAddressPhone, String insertAddressGroup, String insertAddressEmail, String insertAddressText, String insertAddressBirth) {
+        this.addressNo = addressNo;
         this.img_path = img_path;
         this.user_userId = user_userId;
         this.insertAddressName = insertAddressName;
@@ -13,6 +15,14 @@ public class InsertData {
         this.insertAddressEmail = insertAddressEmail;
         this.insertAddressText = insertAddressText;
         this.insertAddressBirth = insertAddressBirth;
+    }
+
+    public String getAddressNo() {
+        return addressNo;
+    }
+
+    public void setAddressNo(String addressNo) {
+        this.addressNo = addressNo;
     }
 
     public String getImg_path() {

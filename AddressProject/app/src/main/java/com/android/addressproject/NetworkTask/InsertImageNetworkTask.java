@@ -99,7 +99,11 @@ public class InsertImageNetworkTask extends AsyncTask<Integer, String, Integer> 
                 .addFormDataPart("addressEmail", insertData.getInsertAddressEmail())
                 .addFormDataPart("addressText", insertData.getInsertAddressText())
                 .addFormDataPart("addressBirth", insertData.getInsertAddressBirth())
+                .addFormDataPart("addressNo", insertData.getAddressNo())
                 .build();
+
+
+
 
         Request request = new Request.Builder()
                 .url(mAddr)
@@ -109,6 +113,7 @@ public class InsertImageNetworkTask extends AsyncTask<Integer, String, Integer> 
         try {
             Response response = okHttpClient.newCall(request).execute();
             Log.v(TAG, "Success");
+            Log.v(TAG, response.body().string());
             return 1;
 
         }catch (Exception e){
