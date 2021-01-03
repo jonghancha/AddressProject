@@ -13,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.android.addressproject.NetworkTask.CUDNetworkTask;
@@ -33,7 +34,6 @@ public class MainViewActivity extends AppCompatActivity {
 
     final static String TAG = "MainViewActivity";
     String urlAddr = null;
-    String scode, sname, sdept, sphone;
     TextView Vname, Vphone, Vphone1, Vgroup, Vemail, Vtext, Vbirth;
 
     String modifyNo;
@@ -44,6 +44,13 @@ public class MainViewActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mainview);
         setTitle("상세보기 화면");
+
+
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
+
 
         // intent 를 받아온다.
         Intent intent = getIntent();
