@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.android.addressproject.Bean.User;
@@ -38,6 +39,11 @@ public class MyUpdateActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_myupdate);
         setTitle("나의정보 상세보기 화면");
+
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
 
 
         // 저장한 키 값으로 저장된 아이디와 암호를 불러와 String 값에 저장
