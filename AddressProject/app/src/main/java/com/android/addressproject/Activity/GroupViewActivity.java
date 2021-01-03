@@ -1,5 +1,6 @@
 package com.android.addressproject.Activity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Rect;
@@ -15,11 +16,13 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -37,8 +40,9 @@ public class GroupViewActivity extends AppCompatActivity {
 
     // 20.12.31 지은 추가
     final  static String TAG = "GroupViewActivity";
-    String urlAddr = null;
-    String urlAddr1 = null;
+    String urlAddr = null;  // 그룹 띄우기
+    String urlAddr1 = null; // 구룹 삭제
+    String urlAddr2 = null; // 그룹명 수정
     ArrayList<Address> group;
     AddressAdapter adapter;
     private RecyclerView.LayoutManager layoutManager;
@@ -63,6 +67,11 @@ public class GroupViewActivity extends AppCompatActivity {
         Button group_delete = findViewById(R.id.group_delete);
         group_delete.setOnClickListener(GDonClickListener);
 
+
+        Button group_update = findViewById(R.id.group_update);
+        group_update.setOnClickListener(GDonClickListener);
+
+
         Intent intent = getIntent();
         String addressGroup = intent.getStringExtra("group");
         mygroup.setText(addressGroup);
@@ -70,8 +79,10 @@ public class GroupViewActivity extends AppCompatActivity {
         // 저장한 키 값으로 저장된 아이디와 암호를 불러와 String 값에 저장
         String checkId = com.android.addressproject.Activity.PreferenceManager.getString(GroupViewActivity.this,"id");
 
-        urlAddr1 = "http://" + ShareVar.macIP + ":8080/test/groupDelete.jsp?user_userId=" + checkId +"&addressGroup=" + addressGroup;
         urlAddr = "http://" + ShareVar.macIP + ":8080/test/groupSelect.jsp?user_userId=" + checkId +"&addressGroup=" + addressGroup +"&search_text=";
+//
+////        urlAddr1 = "http://" + ShareVar.macIP + ":8080/test/groupDelete.jsp?user_userId=" + checkId +"&addressGroup=" + addressGroup;
+//        urlAddr2 =  "http://" + ShareVar.macIP + ":8080/test/groupUpdate.jsp?user_userId=" + checkId +"&addressGroup=";
 
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
@@ -80,20 +91,78 @@ public class GroupViewActivity extends AppCompatActivity {
 
     }//--onCreate 끝
 
+    // 삭제 버튼
     View.OnClickListener GDonClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
+            switch (v.getId()){
+                //삭제
+                case R.id.group_delete:
+                    Intent intent = getIntent();
+                    String addressGroup = intent.getStringExtra("group");
+                    String checkId = com.android.addressproject.Activity.PreferenceManager.getString(GroupViewActivity.this,"id");
 
-            Intent intent = getIntent();
-            String addressGroup = intent.getStringExtra("group");
-            String checkId = com.android.addressproject.Activity.PreferenceManager.getString(GroupViewActivity.this,"id");
+                    urlAddr1 = "http://" + ShareVar.macIP + ":8080/test/groupDelete.jsp?user_userId=" + checkId +"&addressGroup=" + addressGroup;
 
-            urlAddr1 = "http://" + ShareVar.macIP + ":8080/test/groupDelete.jsp?user_userId=" + checkId +"&addressGroup=" + addressGroup;
+                    connectDeleteData();
+                    Toast.makeText(GroupViewActivity.this, urlAddr1+" 가 삭제 되었습니다.", Toast.LENGTH_SHORT).show();
+                    break;
 
-            connectDeleteData();
-            Toast.makeText(GroupViewActivity.this, urlAddr1+" 가 삭제 되었습니다.", Toast.LENGTH_SHORT).show();
+
+
+                    //수정 다이어로그
+                case R.id.group_update:
+                    final LinearLayout linear = (LinearLayout) View.inflate(GroupViewActivity.this, R.layout.group_update, null);
+                    new AlertDialog.Builder(GroupViewActivity.this)
+                            .setTitle("그룹명 수정")
+                            .setIcon(R.drawable.group)
+
+                            // 위에서 선언한
+                            .setView(linear)
+                            .setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    Intent intent = getIntent();
+                                    String addressGroup = intent.getStringExtra("group");
+                                    String checkId = com.android.addressproject.Activity.PreferenceManager.getString(GroupViewActivity.this,"id");
+
+                                    EditText di_groupUpdate = linear.findViewById(R.id.di_groupUpdate);
+                                    String groupUpdate = di_groupUpdate.getText().toString();
+
+                                    urlAddr2 = "http://" + ShareVar.macIP + ":8080/test/groupUpdate.jsp?user_userId=" + checkId +"&addressGroup=" + groupUpdate;
+
+                                    groupUpdateData();
+                                    Toast.makeText(GroupViewActivity.this, "그룹명이 수정되었습니다.", Toast.LENGTH_SHORT).show();
+
+                                }
+                            })
+                            .setNegativeButton("취소", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    Toast.makeText(GroupViewActivity.this, "그룹명 수정을 취소하였습니다.", Toast.LENGTH_SHORT).show();
+                                }
+                            })
+                            .show();
+
+                    break;
+            }
+
         }
     };
+
+
+
+    private void groupUpdateData(){
+        try {
+            CUDNetworkTask deleteworkTask = new CUDNetworkTask(GroupViewActivity.this, urlAddr2);
+            deleteworkTask.execute().get();
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        finish();
+    }
 
 
 
