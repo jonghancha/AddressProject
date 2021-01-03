@@ -176,7 +176,13 @@ public class InsertActivity extends AppCompatActivity {
         });
 
         btnInsert = findViewById(R.id.btn_insert);
-
+        btnInsertCancel = findViewById(R.id.btn_insert_cancel);
+        btnInsertCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
         //데이터 입력 버튼
         btnInsert.setOnClickListener(new View.OnClickListener() {
             @Override
