@@ -36,6 +36,7 @@ public class FindActivity extends AppCompatActivity {
     String snameid, snamepw, sphone, sid, semail;
     EditText EnameId, Ephone, Eid, EnamePw, Eemail;
     Button btn_Fid, btn_Fpw, btn_FindId, btn_FindPw;
+    Button  btn_Back, btn_Back2;
     String macIP = ShareVar.macIP;
 
     LinearLayout Vid, Vpw;
@@ -68,11 +69,15 @@ public class FindActivity extends AppCompatActivity {
         btn_Fpw = findViewById(R.id.btn_Fpw);
         btn_Fid.setOnClickListener(mclickListener);
         btn_Fpw.setOnClickListener(mclickListener);
+        btn_Back = findViewById(R.id.btn_Back);
+        btn_Back2 = findViewById(R.id.btn_Back2);
 
         btn_FindId = findViewById(R.id.btn_FindId); //아래쪽 버튼
         btn_FindPw = findViewById(R.id.btn_FindPw);
         btn_FindId.setOnClickListener(onClickListener);
         btn_FindPw.setOnClickListener(onClickListener);
+        btn_Back.setOnClickListener(onClickListener);
+        btn_Back2.setOnClickListener(onClickListener);
 
         Vid = findViewById(R.id.view_Fid);
         Vpw = findViewById(R.id.view_Fpw);
@@ -105,6 +110,18 @@ public class FindActivity extends AppCompatActivity {
         @Override
         public void onClick(View v) {
             switch (v.getId()){
+
+                case R.id.btn_Back:
+                    Intent intent6 = new Intent(FindActivity.this, LoginActivity.class);
+                    startActivity(intent6);
+                    break;
+
+                case R.id.btn_Back2:
+                    Intent intent5 = new Intent(FindActivity.this, LoginActivity.class);
+                    startActivity(intent5);
+                    break;
+
+
                 case R.id.btn_FindId:
                     snameid = EnameId.getText().toString();
                     sphone = Ephone.getText().toString();
