@@ -62,7 +62,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:weightSum="4"
+        android:weightSum="5"
         android:orientation="horizontal"
         >
         <ImageButton
@@ -99,12 +99,27 @@
             android:background="@color/white"
             android:adjustViewBounds="true"
             android:src="@drawable/email"/>
-        <Button
+        <ImageButton
             android:id="@+id/mainview_star"
-            android:text="star"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:maxHeight="40dp"
+            android:maxWidth="24dp"
+            android:scaleType="fitCenter"
+            android:background="@color/white"
+            android:src="@drawable/ic_baseline_star_rate_24"
+            />
+        <ImageButton
+            android:id="@+id/mainview_star2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:maxHeight="40dp"
+            android:maxWidth="24dp"
+            android:scaleType="fitCenter"
+            android:background="@color/white"
+            android:src="@drawable/ic_baseline_star_outline_24"
             />
     </LinearLayout>
 
