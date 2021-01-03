@@ -12,7 +12,7 @@ String addressGroup = request.getParameter("addressGroup");
 	String url_mysql = "jdbc:mysql://localhost/AddressBook?serverTimezone=Asia/Seoul&characterEncoding=utf8&useSSL=false";
  	String id_mysql = "root";
  	String pw_mysql = "qwer1234";
-    String WhereDefault = "select addressName, addressPhone, addressGroup, addressEmail, addressText, addressBirth, addressImage, addressStar 				from address";
+    String WhereDefault = "select addressName, addressPhone, addressGroup, addressEmail, addressText, addressBirth, addressImage, addressStar, addressNo from address";
 
     String Condition = " where (addressName LIKE '%" + searchText + "%' OR " +
                         "addressPhone LIKE '%" + searchText + "%' OR " +
@@ -49,7 +49,8 @@ String addressGroup = request.getParameter("addressGroup");
 			"addressText" : "<%=rs.getString(5) %>", 
 			"addressBirth" : "<%=rs.getString(6) %>",   
 			"addressImage" : "<%=rs.getString(7) %>",  
-			"addressStar" : "<%=rs.getString(8) %>"
+			"addressStar" : "<%=rs.getString(8) %>",
+			"addressNo" : "<%=rs.getString(9) %>"
 			}
 
 <%		
