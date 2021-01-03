@@ -15,9 +15,13 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.android.addressproject.Bean.MainviewData;
 import com.android.addressproject.NetworkTask.CUDNetworkTask;
+import com.android.addressproject.NetworkTask.MainViewNetworkTask;
 import com.android.addressproject.NetworkTask.ViewImageNetworkTask;
 import com.android.addressproject.R;
+
+import java.util.concurrent.ExecutionException;
 
 //20.12.30 지은 수정
 public class MainViewActivity extends AppCompatActivity {
@@ -38,6 +42,8 @@ public class MainViewActivity extends AppCompatActivity {
 
     String modifyNo;
     String modifyImg;
+    MainviewData mainviewData;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,22 +65,22 @@ public class MainViewActivity extends AppCompatActivity {
 
         mainviewImage = findViewById(R.id.mainview_image);
 
-        urlAddr = "http://" + ShareVar.macIP + ":8080/test/";
-        urlAddr = urlAddr + intent.getStringExtra("img");
-        Log.v("AddressAdapter", "urlAddr = " + urlAddr);
-        ViewImageNetworkTask networkTask = new ViewImageNetworkTask(MainViewActivity.this, urlAddr, mainviewImage);
-        networkTask.execute(100); // 10초. 이것만 쓰면 pre post do back 등 알아서 실행
-
-        Vname.setText(intent.getStringExtra("name"));
-        Vphone.setText(intent.getStringExtra("phone"));
-        Vphone1.setText(intent.getStringExtra("phone"));
-        Vgroup.setText(intent.getStringExtra("group"));
-        Vemail.setText(intent.getStringExtra("email"));
-        Vtext.setText(intent.getStringExtra("text"));
-        Vbirth.setText(intent.getStringExtra("birth"));
-
         modifyImg = intent.getStringExtra("img");
         modifyNo = Integer.toString(intent.getIntExtra("no",0));
+//        urlAddr = "http://" + ShareVar.macIP + ":8080/test/";
+//        urlAddr = urlAddr + intent.getStringExtra("img");
+//        Log.v("AddressAdapter", "urlAddr = " + urlAddr);
+//        ViewImageNetworkTask networkTask = new ViewImageNetworkTask(MainViewActivity.this, urlAddr, mainviewImage);
+//        networkTask.execute(100); // 10초. 이것만 쓰면 pre post do back 등 알아서 실행
+//
+//
+//        modifyImg = intent.getStringExtra("img");
+//        modifyNo = Integer.toString(intent.getIntExtra("no",0));
+//        // 정보 받아오기
+//        connectData(modifyNo);
+
+
+
 
         // 20.12.30 세미 전화, 문자, 이메일 버튼 및 연락처 삭제 ------------------------------
 
@@ -99,6 +105,39 @@ public class MainViewActivity extends AppCompatActivity {
 
         // 끝 -----------------------------------------------------------------------
 
+
+    }
+
+    private void connectData(String modifyNo) {
+
+
+        String url = "http://" + ShareVar.macIP + ":8080/test/select_query_one.jsp?modifyNo=" + modifyNo; ;
+        MainViewNetworkTask mainViewNetworkTask = new MainViewNetworkTask(MainViewActivity.this, url);
+        try {
+            Object obj = mainViewNetworkTask.execute().get();
+            mainviewData = (MainviewData) obj;
+
+
+            Vname.setText(mainviewData.getViewName());
+            Vphone.setText(mainviewData.getViewPhone());
+            Vphone1.setText(mainviewData.getViewPhone());
+            Vgroup.setText(mainviewData.getViewGroup());
+            Vemail.setText(mainviewData.getViewEmail());
+            Vtext.setText(mainviewData.getViewText());
+            Vbirth.setText(mainviewData.getViewBirth());
+
+
+
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        urlAddr = "http://" + ShareVar.macIP + ":8080/test/";
+        urlAddr = urlAddr + mainviewData.getViewImg();
+        Log.v("AddressAdapter", "urlAddr = " + urlAddr);
+        ViewImageNetworkTask networkTask = new ViewImageNetworkTask(MainViewActivity.this, urlAddr, mainviewImage);
+        networkTask.execute(100); // 10초. 이것만 쓰면 pre post do back 등 알아서 실행
 
     }
 
@@ -168,6 +207,13 @@ public class MainViewActivity extends AppCompatActivity {
             }
         }
     };
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        connectData(modifyNo);
+    }
+
 
     // 끝 ---------------------------------------------------------------
 

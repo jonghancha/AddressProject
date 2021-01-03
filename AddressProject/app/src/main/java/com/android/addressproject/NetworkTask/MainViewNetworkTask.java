@@ -1,11 +1,12 @@
-package com.androidlec.dbcrud_02.NetworkTask;
+package com.android.addressproject.NetworkTask;
 
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import com.androidlec.dbcrud_02.Bean.Student;
+import com.android.addressproject.Bean.MainviewData;
+
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -15,20 +16,19 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.ArrayList;
 
-public class NetworkTask extends AsyncTask<Integer, String, Object> {
+
+public class MainViewNetworkTask extends AsyncTask<Integer, String, Object> {
 
     final static String TAG = "NetworkTask";
     Context context = null;
     String mAddr = null;
     ProgressDialog progressDialog = null;
-    ArrayList<Student> members;
+    MainviewData mainviewData;
 
-    public NetworkTask(Context context, String mAddr) {
+    public MainViewNetworkTask(Context context, String mAddr) {
         this.context = context;
         this.mAddr = mAddr;
-        this.members = new ArrayList<Student>();
         Log.v(TAG, "Start : " + mAddr);
     }
 
@@ -82,7 +82,7 @@ public class NetworkTask extends AsyncTask<Integer, String, Object> {
                 e2.printStackTrace();
             }
         }
-        return members;
+        return mainviewData;
     }
 
     @Override
@@ -104,23 +104,23 @@ public class NetworkTask extends AsyncTask<Integer, String, Object> {
 
         try {
             JSONObject jsonObject = new JSONObject(s);
-            JSONArray jsonArray = new JSONArray(jsonObject.getString("students_info"));
-            members.clear();
+            JSONArray jsonArray = new JSONArray(jsonObject.getString("address_info"));
+
 
             for(int i = 0; i < jsonArray.length(); i++){
                 JSONObject jsonObject1 = (JSONObject) jsonArray.get(i);
-                String code = jsonObject1.getString("code");
-                String name = jsonObject1.getString("name");
-                String dept = jsonObject1.getString("dept");
-                String phone = jsonObject1.getString("phone");
+                String addressName = jsonObject1.getString("addressName");
+                String addressPhone = jsonObject1.getString("addressPhone");
+                String addressGroup = jsonObject1.getString("addressGroup");
+                String addressEmail = jsonObject1.getString("addressEmail");
+                String addressText = jsonObject1.getString("addressText");
+                String addressBirth = jsonObject1.getString("addressBirth");
+                String addressImage = jsonObject1.getString("addressImage");
 
-                Log.v(TAG, "code : " + code);
-                Log.v(TAG, "name : " + name);
-                Log.v(TAG, "dept : " + dept);
-                Log.v(TAG, "phone : " + phone);
 
-                Student member = new Student(code, name, dept, phone);
-                members.add(member);
+
+                mainviewData= new MainviewData(addressName, addressPhone, addressGroup, addressEmail, addressText, addressBirth, addressImage);
+
                 // Log.v(TAG, member.toString());
                 Log.v(TAG, "----------------------------------");
             }
