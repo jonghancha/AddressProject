@@ -119,7 +119,6 @@ public class MyViewActivity extends AppCompatActivity {
                                 }
                             })
                             .show();
-                    finish();
 
                     break;
 
