@@ -1,7 +1,9 @@
 package com.android.addressproject.Adapter;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -13,10 +15,14 @@ import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.android.addressproject.Activity.Frmt_fav;
 import com.android.addressproject.Activity.MainActivity;
 import com.android.addressproject.Activity.MainViewActivity;
+import com.android.addressproject.Activity.Memdel;
+import com.android.addressproject.Activity.PreferenceManager;
 import com.android.addressproject.Activity.ShareVar;
 import com.android.addressproject.Bean.Address;
+import com.android.addressproject.NetworkTask.CUDNetworkTask;
 import com.android.addressproject.NetworkTask.ViewImageNetworkTask;
 import com.android.addressproject.R;
 
@@ -87,6 +93,28 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.MyViewHo
 
             }
         });
+
+        // 21.01.02 세미 즐겨찾기 해제 추가 ---------------------
+
+        holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                int add = data.get(position).getAddressNo();
+                new AlertDialog.Builder(v.getContext())
+                        .setTitle("즐겨찾기를 해제하시겠습니까?" + add)
+                        .setIcon(R.mipmap.ic_launcher)
+                        .setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                int addno = data.get(position).getAddressNo();
+                                urlAddr = "http://" + ShareVar.macIP + ":8080/test/starDel.jsp?addno="+addno;
+                                //connectUpdateData();
+                            }
+                        })
+                        .show();
+                return false;
+            }
+        });
     }
 
     @Override
@@ -110,4 +138,21 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.MyViewHo
             phone_num = itemView.findViewById(R.id.ph_number);
         }
     }
+
+    // 21.01.03 즐겨찾기 삭제 세미 -------------------------------------------------
+
+//    public void connectUpdateData(){
+//        try{
+//            CUDNetworkTask updateworkTask = new CUDNetworkTask(getContext(), urlAddr);
+//            updateworkTask.execute().get();
+//        }catch (Exception e){
+//            e.printStackTrace();
+//        }
+        //finish();
+   // }
+
+
+    // 끝 ------------------------------------------------------------------
+
+
 }
