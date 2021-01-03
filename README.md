@@ -18,3 +18,4 @@
 
 ## 3. 외부 Module 설치법
 - Upload Library : Tomcat >> lib <- cos.jar
+- Android >> Gradle Scripts >> build.gradle(Module)에 okhttp3 추가
