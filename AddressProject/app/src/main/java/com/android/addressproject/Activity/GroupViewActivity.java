@@ -129,7 +129,7 @@ public class GroupViewActivity extends AppCompatActivity {
                                     EditText di_groupUpdate = linear.findViewById(R.id.di_groupUpdate);
                                     String groupUpdate = di_groupUpdate.getText().toString();
 
-                                    urlAddr2 = "http://" + ShareVar.macIP + ":8080/test/groupUpdate.jsp?user_userId=" + checkId +"&addressGroup=" + groupUpdate;
+                                    urlAddr2 = "http://" + ShareVar.macIP + ":8080/test/groupUpdate.jsp?user_userId=" + checkId +"&addressGroup=" + addressGroup;
 
                                     groupUpdateData();
                                     Toast.makeText(GroupViewActivity.this, "그룹명이 수정되었습니다.", Toast.LENGTH_SHORT).show();

@@ -34,7 +34,9 @@ public class MyViewActivity extends AppCompatActivity {
     String urlAddr = null;  // 로그인한 아이디에 대한 비밀번호 수정 창
 
     final static String TAG = "MainViewActivity";
-    TextView VMname, VMphone, VMemail;
+    TextView VMname, VMphone, VMemail, pass_pass;
+
+    String pass;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +65,7 @@ public class MyViewActivity extends AppCompatActivity {
         VMphone.setText(users.get(0).getUserPhone());
         VMemail.setText(users.get(0).getUserEmail());
 
+        pass = users.get(0).getUserPw();
 
         // 연결
         myview_btnpw = findViewById(R.id.myv_btnpw);    // 비밀번호 수정 버튼
@@ -85,6 +88,9 @@ public class MyViewActivity extends AppCompatActivity {
                 case R.id.myv_btnpw:
 
                     final LinearLayout linear = (LinearLayout) View.inflate(MyViewActivity.this, R.layout.pass, null);
+                    pass_pass = linear.findViewById(R.id.pass_pass);
+                    pass_pass.setText(pass);
+
                     new AlertDialog.Builder(MyViewActivity.this)
                             .setTitle("나의 비밀번호 수정")
                             .setIcon(R.drawable.group)
@@ -99,6 +105,9 @@ public class MyViewActivity extends AppCompatActivity {
                                     urlAddr1 = "http://" + ShareVar.macIP + ":8080/test/mySelect.jsp?user_userId=" + checkId;
                                     getUserDate();  // 띄우기 위한 메소드
                                     // linear에 있는 아이 이므로 앞에 넣어줘야한다.
+
+
+
                                     EditText paUpda = linear.findViewById(R.id.pass_Upda); // 현재 비밀번호를 띄울곳
 
 
@@ -115,7 +124,7 @@ public class MyViewActivity extends AppCompatActivity {
                             .setNegativeButton("취소", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
-                                    Toast.makeText(MyViewActivity.this, "비밀번후 수정을 취소하였습니다.", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(MyViewActivity.this, pass, Toast.LENGTH_SHORT).show();
                                 }
                             })
                             .show();

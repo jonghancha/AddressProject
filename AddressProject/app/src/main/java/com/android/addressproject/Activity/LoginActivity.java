@@ -1,5 +1,6 @@
 package com.android.addressproject.Activity;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -22,7 +23,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.android.addressproject.NetworkTask.NetworkTask_LogIn;
 import com.android.addressproject.R;
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends Activity {
 
     //로그인  - 이강후.
 
