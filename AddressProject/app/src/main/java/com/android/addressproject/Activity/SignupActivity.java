@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Rect;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.text.InputFilter;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -19,17 +20,30 @@ import android.widget.Toast;
 import com.android.addressproject.NetworkTask.NetworkTask_LogIn;
 import com.android.addressproject.R;
 
-public class SignupActivity extends AppCompatActivity { //이강후
+import javax.mail.MessagingException;
+import javax.mail.SendFailedException;
+
+public class SignupActivity extends AppCompatActivity {
+
+
+         //이강후
 
 
     final static String TAG = "SignupActivity";
     String urlAddr = null;
     String urlAddr2 = null;
+    int count = 0; //가입확인용.//@@@@@@@
+    int count3; //인증확인용.//@@@@@@@
 
     String sid, spw, sname, sphone, semail;
     EditText Eid, Epw, Ename, Ephone, Eemail;
+    EditText Eauth; //@@@@@@@@ 인증번호 입력
     Button btn_IdCheck, btn_SignUp;
+    Button btn_SendEmail; //@@@@@인증메일보내기 버튼.
+    Button btn_ChkAuth; //@@@@@@인증 버튼.
+
     String macIP = ShareVar.macIP;
+    String emailCode = createEmailCode(); //생성된 랜덤 이메일 코드 저장.
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +59,8 @@ public class SignupActivity extends AppCompatActivity { //이강후
         Epw = findViewById(R.id.etS_pw);
         Ename = findViewById(R.id.etS_name);
         Ephone = findViewById(R.id.etS_phone);
-        Eemail = findViewById(R.id.etS_email);
+        Eemail = findViewById(R.id.etS_email); //@@@@@@ 받는 사람의 이메일
+        Eauth = findViewById(R.id.etS_Auth); //@@@@@@@@ 인증번호 입력.
 
         // 입력시 자릿수 제한
         Eid.setFilters(new InputFilter[]{ new InputFilter.LengthFilter(15)});
@@ -53,51 +68,208 @@ public class SignupActivity extends AppCompatActivity { //이강후
         Ename.setFilters(new InputFilter[]{ new InputFilter.LengthFilter(15)});
         Ephone.setFilters(new InputFilter[]{ new InputFilter.LengthFilter(15)});
         Eemail.setFilters(new InputFilter[]{ new InputFilter.LengthFilter(22)});
+        Eauth.setFilters(new InputFilter[]{ new InputFilter.LengthFilter(8)}); //인증번호 8자리로 제한둠.
+
 
         //버튼 연결.
         btn_IdCheck = findViewById(R.id.btn_SidCheck);
         btn_SignUp = findViewById(R.id.btn_SignUp);
+        btn_SendEmail = findViewById(R.id.btn_SendEmail);
+        btn_ChkAuth = findViewById(R.id.btn_ChkAuth);
 
+        //ClickListener.
         btn_IdCheck.setOnClickListener(onClickListener); //IdCheck버튼 클릭시.
         btn_SignUp.setOnClickListener(onClickListener); //가입버튼 클릭시.
+
+        btn_SendEmail.setOnClickListener(mailClickListener); //@@@@@ 메일로 인증번호 보내개 버튼.
+        btn_ChkAuth.setOnClickListener(mailClickListener); //@@@@@@@ 인증버튼.
+
+        //--------------------------------------------------------------------
+        //onCreat에 인터넷 사용을 위한 권한을 허용해주는것.
+        StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
+                .permitDiskReads()
+                .permitDiskWrites()
+                .permitNetwork().build());
+
+        //여기까지 이메일 사용을 위한 준비 끝남.---------------------------------------
+
     }
+
+
+ //---이메일 인증관련   --------------------------------------------------------------------------------------------------------------------------
+
+    View.OnClickListener mailClickListener = new View.OnClickListener() {
+     @Override
+     public void onClick(View v) {
+
+         switch(v.getId()) {
+
+             // 이메일로 인증번호 전송 버튼 클릭.
+             case R.id.btn_SendEmail:
+
+                 try {
+                     GMailSender gMailSender = new GMailSender("imkanghoo@gmail.com", "magneto1203");
+                     //GMailSender.sendMail(제목, 본문내용, 받는사람);
+                     gMailSender.sendMail("인증번호입니다.", "인증번호 : " + emailCode, Eemail.getText().toString()); //@@@@@@@@@@@@
+                     Log.v(TAG, "emailCode(send) :" + emailCode);
+
+                     new AlertDialog.Builder(SignupActivity.this)
+                             .setTitle("[이메일로 인증번호를 보냈습니다!!]")
+                             .setMessage("인증번호를 확인하고 인증해주세요.")
+                             .setPositiveButton("확인", null)
+                             .show();
+
+                     // Toast.makeText(getApplicationContext(), "이메일을 성공적으로 보냈습니다.", Toast.LENGTH_SHORT).show();
+
+                 } catch (SendFailedException e) {
+
+                     new AlertDialog.Builder(SignupActivity.this)
+                             .setTitle("[이메일 형식이 잘못되었습니다!!]")
+                             .setMessage("이메일 형식을 확인하시고 다시 입력해주세요.")
+                             .setPositiveButton("확인", null)
+                             .show();
+
+                     //Toast.makeText(getApplicationContext(), "이메일 형식이 잘못되었습니다.", Toast.LENGTH_SHORT).show();
+
+                 } catch (MessagingException e) {
+
+                     new AlertDialog.Builder(SignupActivity.this)
+                             .setTitle("[인터넷 연결을 확인해주세요!!]")
+                             .setMessage("")
+                             .setPositiveButton("확인", null)
+                             .show();
+
+                     //  Toast.makeText(getApplicationContext(), "인터넷 연결을 확인해주십시오", Toast.LENGTH_SHORT).show();
+
+                 } catch (Exception e) {
+                     e.printStackTrace();
+                 }
+
+                break;
+
+
+             //인증버튼 클릭---------------------------------------------------------------------------
+
+             case R.id.btn_ChkAuth:
+
+                 Eauth = findViewById(R.id.etS_Auth);
+                 String etAuchResult = Eauth.getText().toString();
+
+
+                 if(emailCode.equals(etAuchResult)){
+                     Log.v(TAG, "emailCode(Auth) :" + emailCode);
+                     Log.v(TAG, "euAuth(Auth) :" + Eauth);
+
+                     count3 = 1; //@@@@@ 인증확인용(1인면 인증됨)
+                     Log.v(TAG, "Auth1 :" + count3);
+
+
+                     new AlertDialog.Builder(SignupActivity.this)
+                             .setTitle("[인증되었습니다!!]")
+                             .setMessage("")
+                             .setPositiveButton("확인", null)
+                             .show();
+
+                     break;
+
+                 }else{
+
+                     Log.v(TAG, "emailCode(Autherror) :" + emailCode);
+                     Log.v(TAG, "euAuth(Autherror) :" + Eauth);
+
+                     count3 = 0; //@@@@ 인증확인용(0이면 인증안됨)
+                     Log.v(TAG, "Auth2 :" + count3);
+
+                     new AlertDialog.Builder(SignupActivity.this)
+                             .setTitle("[인증번호 불일치!!]")
+                             .setMessage("이메일로 받은 인증번호를 다시 확인하고, 재입력해주세요.")
+                             .setPositiveButton("확인", null)
+                             .show();
+
+                 }
+                 break;
+         }
+     }};
+
+ //---생성된 이메일 랜덤 인증코드 반환.---------------------------------------------------------------------
+
+    public String getEmailCode() {
+        return emailCode;
+    } //생성된 이메일 인증코드 반환
+
+ //--- 이메인 랜덤 인증코드 생성.-------------------------------------------------------------------------
+
+    private String createEmailCode() { //이메일 랜덤 인증코드 생성
+        String[] str = {"a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s",
+                "t", "u", "v", "w", "x", "y", "z", "1", "2", "3", "4", "5", "6", "7", "8", "9"};
+        String newCode = new String();
+
+        for (int x = 0; x < 8; x++) {
+            int random = (int) (Math.random() * str.length);
+            newCode += str[random];
+        }
+
+        return newCode;
+    }
+
+
+//---- 회원가입 및 아이디 중복 체크 -------------------------------------------------------------------------------------------------------------------
 
     View.OnClickListener onClickListener = new View.OnClickListener() { //IdCheck버튼 클릭시.
         @Override
         public void onClick(View v) {
+
             switch (v.getId()){
+
+
+                //Id중복버튼 클릭.----------------------------------------------------------------------
+
                 case R.id.btn_SidCheck: //Id중복버튼 클릭.
                     sid = Eid.getText().toString();
 
-                    Intent intent = getIntent();
-                    urlAddr = "http://" + macIP + ":8080/test/idCheck.jsp?";
-                    urlAddr = urlAddr +  "id=" + sid;
-
-                    int count = connectIdCheckData();
-
-                    if(count==1){
+                    if(sid.length()==0) {
 
                         new AlertDialog.Builder(SignupActivity.this)
-                                .setTitle("[이미 사용중인 ID입니다!!]")
-                                .setMessage("사용할 수 없으니 다른 아이디를 입력해주세요.")
+                                .setTitle("아이디를 입력해주세요!!")
+                                .setMessage("")
                                 .setPositiveButton("확인", null)
                                 .show();
+                    }else {
 
-                      //  Toast.makeText(SignupActivity.this, "중복된 아이디입니다.", Toast.LENGTH_SHORT).show();
+                        Intent intent = getIntent();
+                        urlAddr = "http://" + macIP + ":8080/test/idCheck.jsp?";
+                        urlAddr = urlAddr + "id=" + sid;
 
-                    }else if(count==0){
+                        int count = connectIdCheckData();
 
-                        new AlertDialog.Builder(SignupActivity.this)
-                                .setTitle("[사용가능한 ID입니다!!]")
-                                .setMessage("계속 진행해주세요.")
-                                .setPositiveButton("확인", null)
-                                .show();
+                        if (count == 1) {
 
-                     //   Toast.makeText(SignupActivity.this, "사용가능한 아이디입니다.", Toast.LENGTH_SHORT).show();
+                            new AlertDialog.Builder(SignupActivity.this)
+                                    .setTitle("[이미 사용중인 ID입니다!!]")
+                                    .setMessage("사용할 수 없으니 다른 아이디를 입력해주세요.")
+                                    .setPositiveButton("확인", null)
+                                    .show();
+
+                            //  Toast.makeText(SignupActivity.this, "중복된 아이디입니다.", Toast.LENGTH_SHORT).show();
+
+                        } else if (count == 0) {
+
+                            new AlertDialog.Builder(SignupActivity.this)
+                                    .setTitle("[사용가능한 ID입니다!!]")
+                                    .setMessage("계속 진행해주세요.")
+                                    .setPositiveButton("확인", null)
+                                    .show();
+
+                            //   Toast.makeText(SignupActivity.this, "사용가능한 아이디입니다.", Toast.LENGTH_SHORT).show();
+                        }
                     }
-                    break;
+                        break;
+
+
+                //회원가입 버튼 클릭 ------------------------------------------------------------------------------
 
                 case R.id.btn_SignUp: //가입버튼 클릭.
+
                     sid = Eid.getText().toString();
                     spw = Epw.getText().toString();
                     sname = Ename.getText().toString();
@@ -107,7 +279,7 @@ public class SignupActivity extends AppCompatActivity { //이강후
                     if(sid.length()==0){
 
                         new AlertDialog.Builder(SignupActivity.this)
-                                .setTitle("아이디를 입력해주세요!!")
+                                .setTitle("[아이디를 입력해주세요!!]")
                                 .setMessage("")
                                 .setPositiveButton("확인", null)
                                 .show();
@@ -115,7 +287,7 @@ public class SignupActivity extends AppCompatActivity { //이강후
                     }else if(spw.length()==0){
 
                         new AlertDialog.Builder(SignupActivity.this)
-                                .setTitle("비밀번호를 입력해주세요!!")
+                                .setTitle("[비밀번호를 입력해주세요!!]")
                                 .setMessage("")
                                 .setPositiveButton("확인", null)
                                 .show();
@@ -123,7 +295,7 @@ public class SignupActivity extends AppCompatActivity { //이강후
                     }else if(sname.length()==0){
 
                         new AlertDialog.Builder(SignupActivity.this)
-                                .setTitle("이름을 입력해주세요!!")
+                                .setTitle("[이름을 입력해주세요!!]")
                                 .setMessage("")
                                 .setPositiveButton("확인", null)
                                 .show();
@@ -131,7 +303,7 @@ public class SignupActivity extends AppCompatActivity { //이강후
                     }else if(sphone.length()==0){
 
                         new AlertDialog.Builder(SignupActivity.this)
-                                .setTitle("연락처를 입력해주세요!!")
+                                .setTitle("[연락처를 입력해주세요!!]")
                                 .setMessage("")
                                 .setPositiveButton("확인", null)
                                 .show();
@@ -139,14 +311,27 @@ public class SignupActivity extends AppCompatActivity { //이강후
                     }else if(semail.length()==0) {
 
                         new AlertDialog.Builder(SignupActivity.this)
-                                .setTitle("이메일을 입력해주세요!!")
-                                .setMessage("")
+                                .setTitle("[이메일을 입력해주세요!!]")
+                                .setMessage("이메일 인증도 필수입니다.")
                                 .setPositiveButton("확인", null)
                                 .show();
 
                     }else {
 
-                        intent = getIntent();
+                        Log.v(TAG, "countAuth3 : "+ count3);
+
+                        if(count3 == 0){
+
+                            new AlertDialog.Builder(SignupActivity.this)
+                                    .setTitle("이메일 인증을 해주세요!!")
+                                    .setMessage("")
+                                    .setPositiveButton("확인", null)
+                                    .show();
+
+
+                        }else if (count3 == 1) {
+
+                        Intent intent = getIntent();
                         urlAddr2 = "http://" + macIP + ":8080/test/memberInsertReturn.jsp?";
                         urlAddr2 = urlAddr2 + "id=" + sid + "&pw=" + spw + "&name=" + sname + "&phone=" + sphone + "&email=" + semail;
 
@@ -168,9 +353,8 @@ public class SignupActivity extends AppCompatActivity { //이강후
                                     .setMessage("로그인 페이지에서 로그인해주세요.")
                                     .setPositiveButton("이동", mClick)
                                     .show();
-                            finish();
+                        //      finish();
 
-                            finish();
                         } else {
 
                             new AlertDialog.Builder(SignupActivity.this)
@@ -178,16 +362,18 @@ public class SignupActivity extends AppCompatActivity { //이강후
                                     .setMessage("사용할 수 없으니 다른 아이디를 입력해주세요.")
                                     .setPositiveButton("확인", null)
                                     .show();
+                         //   finish();
 
                             //  Toast.makeText(SignupActivity.this, "중복된 아이디입니. 다른 아이디를 사용하세요!!", Toast.LENGTH_SHORT).show();
 
                         }
-                        ///////////////////////////////////////////////////////////////////////////////////////
-                        break;
+                        }
                     }
+                     //   break;
             }
         }
     };
+
     DialogInterface.OnClickListener mClick = new DialogInterface.OnClickListener() {
         @Override
         public void onClick(DialogInterface dialog, int which) {

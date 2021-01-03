@@ -8,14 +8,21 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.android.addressproject.Bean.MainviewData;
 import com.android.addressproject.NetworkTask.CUDNetworkTask;
+import com.android.addressproject.NetworkTask.MainViewNetworkTask;
+import com.android.addressproject.NetworkTask.ViewImageNetworkTask;
 import com.android.addressproject.R;
+
+import java.util.concurrent.ExecutionException;
 
 //20.12.30 지은 수정
 public class MainViewActivity extends AppCompatActivity {
@@ -24,19 +31,31 @@ public class MainViewActivity extends AppCompatActivity {
     // 21.01.01 지은 수정 ----------------------------==
     ImageButton mainview_call, mainview_sms, mainview_email, mainview_btndel, mainview_btnupd,mainview_star,mainview_star2;
     String addno, favorite;
+    ImageView mainviewImage;
 
     // 끝 --------------------------------------------
 
     final static String TAG = "MainViewActivity";
     String urlAddr = null;
-    String scode, sname, sdept, sphone;
     TextView Vname, Vphone, Vphone1, Vgroup, Vemail, Vtext, Vbirth;
+
+    String modifyNo;
+    String modifyImg;
+    MainviewData mainviewData;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mainview);
         setTitle("상세보기 화면");
+
+
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
+
 
         // intent 를 받아온다.
         Intent intent = getIntent();
@@ -50,13 +69,24 @@ public class MainViewActivity extends AppCompatActivity {
         Vbirth = findViewById(R.id.view_birth);
 
 
-        Vname.setText(intent.getStringExtra("name"));
-        Vphone.setText(intent.getStringExtra("phone"));
-        Vphone1.setText(intent.getStringExtra("phone"));
-        Vgroup.setText(intent.getStringExtra("group"));
-        Vemail.setText(intent.getStringExtra("email"));
-        Vtext.setText(intent.getStringExtra("text"));
-        Vbirth.setText(intent.getStringExtra("birth"));
+        mainviewImage = findViewById(R.id.mainview_image);
+
+        modifyImg = intent.getStringExtra("img");
+        modifyNo = Integer.toString(intent.getIntExtra("no",0));
+//        urlAddr = "http://" + ShareVar.macIP + ":8080/test/";
+//        urlAddr = urlAddr + intent.getStringExtra("img");
+//        Log.v("AddressAdapter", "urlAddr = " + urlAddr);
+//        ViewImageNetworkTask networkTask = new ViewImageNetworkTask(MainViewActivity.this, urlAddr, mainviewImage);
+//        networkTask.execute(100); // 10초. 이것만 쓰면 pre post do back 등 알아서 실행
+//
+//
+//        modifyImg = intent.getStringExtra("img");
+//        modifyNo = Integer.toString(intent.getIntExtra("no",0));
+//        // 정보 받아오기
+//        connectData(modifyNo);
+
+
+
 
         // 20.12.30 세미 전화, 문자, 이메일 버튼 및 연락처 삭제 ------------------------------
 
@@ -82,6 +112,39 @@ public class MainViewActivity extends AppCompatActivity {
         mainview_star2.setOnClickListener(btnClickListener);
 
         // 끝 -----------------------------------------------------------------------
+
+    }
+
+    private void connectData(String modifyNo) {
+
+
+        String url = "http://" + ShareVar.macIP + ":8080/test/select_query_one.jsp?modifyNo=" + modifyNo; ;
+        MainViewNetworkTask mainViewNetworkTask = new MainViewNetworkTask(MainViewActivity.this, url);
+        try {
+            Object obj = mainViewNetworkTask.execute().get();
+            mainviewData = (MainviewData) obj;
+
+
+            Vname.setText(mainviewData.getViewName());
+            Vphone.setText(mainviewData.getViewPhone());
+            Vphone1.setText(mainviewData.getViewPhone());
+            Vgroup.setText(mainviewData.getViewGroup());
+            Vemail.setText(mainviewData.getViewEmail());
+            Vtext.setText(mainviewData.getViewText());
+            Vbirth.setText(mainviewData.getViewBirth());
+
+
+
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        urlAddr = "http://" + ShareVar.macIP + ":8080/test/";
+        urlAddr = urlAddr + mainviewData.getViewImg();
+        Log.v("AddressAdapter", "urlAddr = " + urlAddr);
+        ViewImageNetworkTask networkTask = new ViewImageNetworkTask(MainViewActivity.this, urlAddr, mainviewImage);
+        networkTask.execute(100); // 10초. 이것만 쓰면 pre post do back 등 알아서 실행
 
     }
 
@@ -129,7 +192,17 @@ public class MainViewActivity extends AppCompatActivity {
 
                 // 21.01.01 편집 버튼 클릭 ------
                 case R.id.mainview_btnupd:
+                    intent = new Intent(MainViewActivity.this, UpdateActivity.class);
+                    intent.putExtra("name", Vname.getText());
+                    intent.putExtra("phone", Vphone.getText());
+                    intent.putExtra("group", Vgroup.getText());
+                    intent.putExtra("email", Vemail.getText());
+                    intent.putExtra("text", Vtext.getText());
+                    intent.putExtra("birth", Vbirth.getText());
+                    intent.putExtra("img", modifyImg);
+                    intent.putExtra("no", modifyNo);
 
+                    startActivity(intent);
 
                     break;
                 // 21.01.01 star 버튼 클릭 -> 즐겨찾기 등록 기능 추가 ———————
@@ -148,6 +221,13 @@ public class MainViewActivity extends AppCompatActivity {
             }
         }
     };
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        connectData(modifyNo);
+    }
+
 
     // 끝 ---------------------------------------------------------------
 

@@ -2,12 +2,16 @@ package com.android.addressproject.NetworkTask;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Environment;
 import android.util.Log;
 import android.widget.ImageView;
+
+import androidx.core.graphics.drawable.RoundedBitmapDrawable;
+import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory;
 
 import java.io.FileOutputStream;
 import java.io.InputStream;
@@ -54,7 +58,9 @@ public class ViewImageNetworkTask extends AsyncTask<Integer, String, Integer> {
     protected void onPostExecute(Integer integer) { // 마지막 INTEGER
         Log.v(TAG, "onPostExecute");
         Bitmap bitmap = BitmapFactory.decodeFile(devicePath);
-        imageView.setImageBitmap(bitmap);
+        RoundedBitmapDrawable roundBitmap = RoundedBitmapDrawableFactory.create(context.getResources(), bitmap);
+        roundBitmap.setCircular(true);
+        imageView.setImageDrawable(roundBitmap);
         progressDialog.dismiss();
     }
 

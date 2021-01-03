@@ -2,11 +2,14 @@ package com.android.addressproject.Activity;
 
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.text.InputFilter;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -33,6 +36,7 @@ public class FindActivity extends AppCompatActivity {
     String snameid, snamepw, sphone, sid, semail;
     EditText EnameId, Ephone, Eid, EnamePw, Eemail;
     Button btn_Fid, btn_Fpw, btn_FindId, btn_FindPw;
+    Button  btn_Back, btn_Back2;
     String macIP = ShareVar.macIP;
 
     LinearLayout Vid, Vpw;
@@ -65,11 +69,15 @@ public class FindActivity extends AppCompatActivity {
         btn_Fpw = findViewById(R.id.btn_Fpw);
         btn_Fid.setOnClickListener(mclickListener);
         btn_Fpw.setOnClickListener(mclickListener);
+        btn_Back = findViewById(R.id.btn_Back);
+        btn_Back2 = findViewById(R.id.btn_Back2);
 
         btn_FindId = findViewById(R.id.btn_FindId); //아래쪽 버튼
         btn_FindPw = findViewById(R.id.btn_FindPw);
         btn_FindId.setOnClickListener(onClickListener);
         btn_FindPw.setOnClickListener(onClickListener);
+        btn_Back.setOnClickListener(onClickListener);
+        btn_Back2.setOnClickListener(onClickListener);
 
         Vid = findViewById(R.id.view_Fid);
         Vpw = findViewById(R.id.view_Fpw);
@@ -102,9 +110,39 @@ public class FindActivity extends AppCompatActivity {
         @Override
         public void onClick(View v) {
             switch (v.getId()){
+
+                case R.id.btn_Back:
+                    Intent intent6 = new Intent(FindActivity.this, LoginActivity.class);
+                    startActivity(intent6);
+                    break;
+
+                case R.id.btn_Back2:
+                    Intent intent5 = new Intent(FindActivity.this, LoginActivity.class);
+                    startActivity(intent5);
+                    break;
+
+
                 case R.id.btn_FindId:
                     snameid = EnameId.getText().toString();
                     sphone = Ephone.getText().toString();
+
+                    if (snameid.length() == 0) {
+
+                        new AlertDialog.Builder(FindActivity.this)
+                                .setTitle("이름을 입력해주세요!!")
+                                .setMessage("")
+                                .setPositiveButton("확인", null)
+                                .show();
+
+                    }else if(sphone.length() ==0){
+
+                        new AlertDialog.Builder(FindActivity.this)
+                                .setTitle("연락처를 입력해주세요!!")
+                                .setMessage("")
+                                .setPositiveButton("확인", null)
+                                .show();
+
+                    }else{
 
                     Intent intent = getIntent();
                     urlAddr = "http://" + macIP + ":8080/test/findID.jsp?";
@@ -128,39 +166,72 @@ public class FindActivity extends AppCompatActivity {
                                 .setMessage("")
                                 .setPositiveButton("확인", null)
                                 .show();
+                        }
+
                     }
+
                         break;
+
+
 
                 case R.id.btn_FindPw:
                     sid = Eid.getText().toString();
                     snamepw = EnamePw.getText().toString();
                     semail = Eemail.getText().toString();
 
-                    Intent intent2 = getIntent();
-                    urlAddr2 = "http://" + macIP + ":8080/test/findPw.jsp?";
-                    urlAddr2 = urlAddr2 + "id=" + sid + "&name=" + snamepw + "&email=" + semail;
 
-                    //jsp를 실행해서 Json code를 String으로 받음
-                    String Pw = connectFindPWdata();
-
-                    if(Pw == null){
+                    if (sid.length() == 0) {
 
                         new AlertDialog.Builder(FindActivity.this)
-                                .setTitle(snamepw+"님의 패스워드를 찾을 수 없습니다.")
-                                .setMessage("입력값을 다시 확인해주세요.")
-                                .setPositiveButton("확인", null)
-                                .show();
-
-
-
-                    }else {
-
-                        new AlertDialog.Builder(FindActivity.this)
-                                .setTitle(snamepw + "님의 패스워드는 [" + Pw + "] 입니다.")
+                                .setTitle("아이디를 입력해주세요!!")
                                 .setMessage("")
                                 .setPositiveButton("확인", null)
                                 .show();
 
+                    }else if(snamepw.length() ==0){
+
+                        new AlertDialog.Builder(FindActivity.this)
+                                .setTitle("이름을 입력해주세요!!")
+                                .setMessage("")
+                                .setPositiveButton("확인", null)
+                                .show();
+
+                    }else if (semail.length() == 0){
+
+                        new AlertDialog.Builder(FindActivity.this)
+                                .setTitle("이메일을 입력해주세요!!")
+                                .setMessage("")
+                                .setPositiveButton("확인", null)
+                                .show();
+
+                    }else {
+
+
+                        Intent intent2 = getIntent();
+                        urlAddr2 = "http://" + macIP + ":8080/test/findPw.jsp?";
+                        urlAddr2 = urlAddr2 + "id=" + sid + "&name=" + snamepw + "&email=" + semail;
+
+                        //jsp를 실행해서 Json code를 String으로 받음
+                        String Pw = connectFindPWdata();
+
+                        if (Pw == null) {
+
+                            new AlertDialog.Builder(FindActivity.this)
+                                    .setTitle(snamepw + "님의 패스워드를 찾을 수 없습니다.")
+                                    .setMessage("입력값을 다시 확인해주세요.")
+                                    .setPositiveButton("확인", null)
+                                    .show();
+
+
+                        } else {
+
+                            new AlertDialog.Builder(FindActivity.this)
+                                    .setTitle(snamepw + "님의 패스워드는 [" + Pw + "] 입니다.")
+                                    .setMessage("")
+                                    .setPositiveButton("확인", null)
+                                    .show();
+
+                        }
                     }
                         break;
         }
@@ -240,5 +311,22 @@ public class FindActivity extends AppCompatActivity {
     }
 
 
+    //editText 외의 화면 클릭시 키보드 숨기기
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        View focusView = getCurrentFocus();
+        if (focusView != null) {
+            Rect rect = new Rect();
+            focusView.getGlobalVisibleRect(rect);
+            int x = (int) ev.getX(), y = (int) ev.getY();
+            if (!rect.contains(x, y)) {
+                InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+                if (imm != null)
+                    imm.hideSoftInputFromWindow(focusView.getWindowToken(), 0);
+                focusView.clearFocus();
+            }
+        }
+        return super.dispatchTouchEvent(ev);
+    }
 
 }//---

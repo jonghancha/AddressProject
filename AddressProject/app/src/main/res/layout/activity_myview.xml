@@ -8,16 +8,6 @@
     android:layout_height="match_parent"
     tools:context=".Activity.MyViewActivity">
 
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="0px"
-        android:text="나의 연락처 상세보기"
-        android:gravity="center"
-        android:textSize="30dp"
-        android:textStyle="bold"
-        android:layout_weight="3"
-        />
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -36,8 +26,7 @@
             android:id="@+id/myv_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="20dp"
-            android:layout_weight="1"
+            android:textSize="30dp"
             />
 
 
@@ -47,14 +36,13 @@
             android:text="연락처"
             android:textStyle="bold"
             android:textColor="@color/black"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="20dp"
             />
     <TextView
         android:id="@+id/myv_phone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="20dp"
-        android:layout_weight="1"
+        android:textSize="30dp"
         />
 
 
@@ -64,14 +52,13 @@
             android:text="이메일"
             android:textStyle="bold"
             android:textColor="@color/black"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="20dp"
             />
     <TextView
         android:id="@+id/myv_email"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="20dp"
-        android:layout_weight="1"
+        android:textSize="30dp"
         />
     </LinearLayout>
     <LinearLayout
