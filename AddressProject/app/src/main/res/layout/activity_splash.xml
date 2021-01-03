@@ -9,6 +9,15 @@
     tools:context=".Activity.SplashActivity">
 
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="40dp"
+        android:text="INMAC"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:textColor="@color/black"
+        />
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

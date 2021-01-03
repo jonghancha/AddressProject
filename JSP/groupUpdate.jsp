@@ -18,7 +18,7 @@
 	    Connection conn_mysql = DriverManager.getConnection(url_mysql,id_mysql,pw_mysql);
 	    Statement stmt_mysql = conn_mysql.createStatement();
 	
-	String A = "update address set addressGroup =?";
+	String A = "update address set addressGroup =" + "'캐릭터'";
         String B = " where addressGroup = ? AND user_userId = ?";
 	
 	    ps = conn_mysql.prepareStatement(A+B);
