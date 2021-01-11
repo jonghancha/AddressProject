@@ -9,6 +9,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -62,8 +65,21 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.MyViewHo
         urlAddr = "http://" + ShareVar.macIP + ":8080/test/";
         urlAddr = urlAddr + data.get(position).getAddressImage();
         Log.v("AddressAdapter", "urlAddr = " + urlAddr);
-        ViewImageNetworkTask networkTask = new ViewImageNetworkTask(mContext, urlAddr, holder.img);
-        networkTask.execute(100); // 10초. 이것만 쓰면 pre post do back 등 알아서 실행
+
+            String URL = urlAddr;
+            String html = "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n" +
+                    "\n<html><body><img src=\"" + URL + "\"/></body></html>";
+//            String style = "<style>img{display: inline;height: auto;max-width: 100%;}</style>";
+//            String html = "<html><body><img src=\"" + URL + "\"/></body></html>";
+
+//            String html = "<html><body><img src=\"" + URL + "\"width=\"100%\"height=\"100%\"/></body></html>";
+//            holder.webView.loadData(html, "text/html", null);
+            holder.webView.loadDataWithBaseURL(null, html, "text/html", "UTF-8", null );
+
+//        ViewImageNetworkTask networkTask = new ViewImageNetworkTask(mContext, urlAddr, holder.img);
+//        networkTask.execute(100); // 10초. 이것만 쓰면 pre post do back 등 알아서 실행
+
+//            holder.webView.loadUrl(urlAddr);
         }
 
 
@@ -128,14 +144,40 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.MyViewHo
         TextView name;
         TextView phone_num;
         ImageView img;
+        WebView webView;
 
         public MyViewHolder(View itemView) {
             super(itemView);
 
 
-            img = itemView.findViewById(R.id.img_view);
+//            img = itemView.findViewById(R.id.img_view);
             name = itemView.findViewById(R.id.name_contact);
             phone_num = itemView.findViewById(R.id.ph_number);
+            webView = itemView.findViewById(R.id.web_view);
+
+//             Initial webview
+//            webView.setWebViewClient(new WebViewClient());
+//
+//            // Enable JavaScript
+//            webView.getSettings().setJavaScriptEnabled(true);
+//            webView.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
+//
+//            // WebView 세팅
+            WebSettings webSettings = webView.getSettings();
+            webSettings.setUseWideViewPort(true);       // wide viewport를 사용하도록 설정
+            webSettings.setLoadWithOverviewMode(true);  // 컨텐츠가 웹뷰보다 클 경우 스크린 크기에 맞게 조정
+            //iv_viewPeople.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
+
+//            webView.setBackgroundColor(0); //배경색
+//            webView.setHorizontalScrollBarEnabled(false); //가로 스크롤
+//            webView.setVerticalScrollBarEnabled(false);   //세로 스크롤
+//            webView.setScrollBarStyle(WebView.SCROLLBARS_OUTSIDE_OVERLAY); // 스크롤 노출 타입
+//            webView.setScrollbarFadingEnabled(false);
+            webView.setInitialScale(1);
+
+            // 웹뷰 멀티 터치 가능하게 (줌기능)
+//            webSettings.setBuiltInZoomControls(false);   // 줌 아이콘 사용
+//            webSettings.setSupportZoom(false);
         }
     }
 

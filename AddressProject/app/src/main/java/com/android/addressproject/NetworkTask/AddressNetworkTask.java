@@ -38,11 +38,11 @@ public class AddressNetworkTask extends AsyncTask<Integer, String, Object> {
     @Override
     protected void onPreExecute() {
         Log.v(TAG, "onPreExecute()");
-        progressDialog = new ProgressDialog(context);
-        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-        progressDialog.setTitle("Data Fetch");
-        progressDialog.setMessage("Get ....");
-        progressDialog.show();
+//        progressDialog = new ProgressDialog(context);
+//        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+//        progressDialog.setTitle("Data Fetch");
+//        progressDialog.setMessage("Get ....");
+//        progressDialog.show();
     }
 
 
@@ -102,7 +102,7 @@ public class AddressNetworkTask extends AsyncTask<Integer, String, Object> {
     protected void onPostExecute(Object o) {
         Log.v(TAG, "onPostExecute()");
         super.onPostExecute(o);
-        progressDialog.dismiss();
+//        progressDialog.dismiss();
     }
 
     @Override
